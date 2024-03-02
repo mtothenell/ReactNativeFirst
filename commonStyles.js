@@ -45,13 +45,11 @@ const commonStyles = StyleSheet.create({
         color: "orange",
         textAlign: "center",
         fontFamily: "notoserif",
+        padding: 20,
     },
     underLines: {
         fontSize: 14,
         fontFamily: "notoserif",
-    },
-    tableRow: {
-        color: 'white',
     },
     dropDown: {
         width: 200,
@@ -68,7 +66,30 @@ const commonStyles = StyleSheet.create({
         width: 150,
         borderRadius: 5,
         backgroundColor: "white"
-    }
+    },
+    heading: {
+        fontSize: 20,
+        fontWeight: "bold",
+        marginBottom: 10,
+    },
+    table: {
+        width: "100%",
+    },
+    tableRow: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        borderBottomWidth: 1,
+        borderBottomColor: "#ccc",
+        paddingVertical: 10,
+        backgroundColor: 'white',
+    },
+    headerRow: {
+        backgroundColor: "#f0f0f0",
+    },
+    cell: {
+        flex: 1,
+        textAlign: "center",
+    },
 });
 
 export default commonStyles;

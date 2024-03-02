@@ -30,7 +30,7 @@ const Index = () => {
             source={bg}
             resizeMode="cover" style={commonStyles.backgroundImage}>
             {showContent && (<View style={commonStyles.container}>
-                    {/*<Text style={[commonStyles.headlines]}>Smash of a mango!</Text>*/}
+                    <Text style={[commonStyles.headlines]}>Smash of a mango!</Text>
                     <View style={commonStyles.rowContainer}>
                         <Text style={commonStyles.label}>Name </Text>
                         <TextInput placeholder="Tournament" placeholderTextColor="black"

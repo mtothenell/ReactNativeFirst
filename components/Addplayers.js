@@ -10,18 +10,16 @@ const Addplayers = ({tournamentData}) => {
     const [playerNames, setPlayerNames] = useState(Array.from({ length: parseInt(players) }, () => ({ name: 'player', score: 0 })));
 
     useEffect(() => {
-        console.log("Updated playerNames:", playerNames);
     }, [playerNames]); // This effect runs when playerNames changes
 
     const handleNext = () => {
-        console.log(playerNames[0])
-        navigation.navigate('Topboard', { playerInputs: playerNames });
+        navigation.navigate('Tournament', { playerInputs: playerNames });
 
     }
 
     const handlePlayerNameChange = (index, playerName) => {
         const updatedPlayerNames = [...playerNames];
-        updatedPlayerNames[index] = playerName;
+        updatedPlayerNames[index] = {...updatedPlayerNames[index], name: playerName}
         setPlayerNames(updatedPlayerNames);
     };
 
@@ -33,7 +31,7 @@ const Addplayers = ({tournamentData}) => {
                         placeholder={`Player ${index + 1}..`}
                         placeholderTextColor="black"
                         style={commonStyles.textField}
-                        value={playerName}
+                        value={playerName.name}
                         onChangeText={(text) => handlePlayerNameChange(index, text)}
                     />
                 </View>
@@ -41,7 +39,7 @@ const Addplayers = ({tournamentData}) => {
 
             <View style={commonStyles.rowContainer}>
                 <TouchableOpacity style={commonStyles.button} onPress={handleNext}>
-                    <Text style={commonStyles.label}>Next</Text>
+                    <Text style={commonStyles.label}>Smash</Text>
                 </TouchableOpacity>
             </View>
         </View>
