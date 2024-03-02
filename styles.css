@@ -1,0 +1,5 @@
+/*:root , pseduo-class. represents the highest document hierarchy (html). global.*/
+/* --red , name of the CSS variable being defined. CSS variables start with two hyphens (--) and a name */
+
+:root {
+}
