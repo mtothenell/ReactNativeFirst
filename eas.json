@@ -1,29 +1,52 @@
 {
   "cli": {
-    "version": ">= 7.2.0",
-    "requireCommit": true
+    "version": ">= 7.2.0"
   },
   "build": {
-    "preview": {
+    "base": {
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      },
       "android": {
-        "buildType": "apk"
-      }
-    },
-    "preview2": {
-      "android": {
-        "gradleCommand": ":app:assembleRelease"
-      }
-    },
-    "preview3": {
-      "developmentClient": true
-    },
-    "preview4": {
-      "distribution": "internal"
+        "buildType": "apk",
+        "withoutCredentials": true
+      },
+      "channel": "base"
     },
     "production": {
       "android": {
         "buildType": "apk"
       }
+    },
+    "development": {
+      "extends": "base",
+      "android": {
+        "gradleCommand": ":app:assembleDebug"
+      },
+      "ios": {
+        "buildConfiguration": "Debug"
+      },
+      "channel": "development"
+    },
+    "development_tv": {
+      "extends": "development",
+      "env": {
+        "EXPO_TV": "1"
+      },
+      "channel": "development"
+    },
+    "preview": {
+      "extends": "base",
+      "channel": "preview"
+    },
+    "preview_tv": {
+      "extends": "preview",
+      "env": {
+        "EXPO_TV": "1"
+      },
+      "channel": "preview"
     }
-  }
+  },
+  "submit": {}
 }

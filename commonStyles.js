@@ -8,6 +8,7 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        paddingBottom: 30,
     },
     backgroundImage: {
         height: screenHeight,
@@ -17,7 +18,7 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 10,
+        padding: 5,
     },
     label: {
         color: 'white',
@@ -39,6 +40,7 @@ const commonStyles = StyleSheet.create({
         textAlign: 'center',
         fontFamily: "notoserif",
     },
+
     headlines: {
         fontSize: 26,
         fontWeight: "bold",
