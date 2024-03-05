@@ -11,7 +11,7 @@ const Settings = () => {
             style={commonStyles.backgroundImage}
         >
         <View style={commonStyles.container}>
-            <Text style={commonStyles.headlines}>Settings</Text>
+            {/*<Text style={commonStyles.headlines}>Settings</Text>*/}
         </View>
         </ImageBackground>
     )

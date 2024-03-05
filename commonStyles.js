@@ -61,11 +61,16 @@ const commonStyles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: "orange",
         color: "black",
-        fontFamily: "notoserif",
     },
     selectDropdown: {
         height: 25,
         width: 150,
+        borderRadius: 5,
+        backgroundColor: "white"
+    },
+    selectDropdown2: {
+        height: 25,
+        width: 60,
         borderRadius: 5,
         backgroundColor: "white"
     },

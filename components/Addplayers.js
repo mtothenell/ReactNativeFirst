@@ -2,24 +2,35 @@ import commonStyles from "../commonStyles";
 import {View, Text, TextInput, TouchableOpacity} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
+import {useTournamentData} from "./TournamentDataContext";
 
-const Addplayers = ({tournamentData}) => {
+const Addplayers = ( {onSmash}) => {
 
-    const {name, type, players, points} = tournamentData;
+    const tourContext = useTournamentData();
+    const { tournamentData, setTournamentData} = tourContext;
+
     const navigation = useNavigation();
-    const [playerNames, setPlayerNames] = useState(Array.from({ length: parseInt(players) }, () => ({ name: 'player', score: 0 })));
-
+    const [playerNames, setPlayerNames] = useState(Array.from({length: parseInt(tournamentData.players)}, () => ({
+        name: 'player',
+        score: 0
+    })));
     useEffect(() => {
-    }, [playerNames]); // This effect runs when playerNames changes
+        setTournamentData({...tournamentData, playerNames});
+    }, [playerNames, setTournamentData]); // This effect runs when playerNames changes
 
     const handleNext = () => {
-        navigation.navigate('Tournament', { playerInputs: playerNames });
-
+        navigation.navigate('Tournament');
     }
 
     const handlePlayerNameChange = (index, playerName) => {
         const updatedPlayerNames = [...playerNames];
         updatedPlayerNames[index] = {...updatedPlayerNames[index], name: playerName}
+        setPlayerNames(updatedPlayerNames);
+    };
+
+    const handleFocus = (index) => {
+        const updatedPlayerNames = [...playerNames];
+        updatedPlayerNames[index] = {...updatedPlayerNames[index], name: ''}
         setPlayerNames(updatedPlayerNames);
     };
 
@@ -33,12 +44,13 @@ const Addplayers = ({tournamentData}) => {
                         style={commonStyles.textField}
                         value={playerName.name}
                         onChangeText={(text) => handlePlayerNameChange(index, text)}
+                        onFocus={() => handleFocus(index)}
                     />
                 </View>
             ))}
 
             <View style={commonStyles.rowContainer}>
-                <TouchableOpacity style={commonStyles.button} onPress={handleNext}>
+                <TouchableOpacity style={commonStyles.button} onPress={onSmash}>
                     <Text style={commonStyles.label}>Smash</Text>
                 </TouchableOpacity>
             </View>
