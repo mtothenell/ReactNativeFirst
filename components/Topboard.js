@@ -11,10 +11,6 @@ const Topboard = () => {
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
 
-    useEffect(() => {
-        console.log(calculatePlayerScores(tournamentData));
-    })
-
     return (
         <ImageBackground
             source={bg}

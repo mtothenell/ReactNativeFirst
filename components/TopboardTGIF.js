@@ -10,15 +10,6 @@ const TopboardTGIF = () => {
 
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
-    const [positions, setPositions] = useState([]);
-
-    function onChange(number, type) {
-        console.log(number, type) // 1, + or -
-    }
-
-    useEffect(() => {
-        console.log(calculatePlayerScores(tournamentData));
-    })
 
     return (
         <ImageBackground
