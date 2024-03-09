@@ -10,10 +10,13 @@ const Addplayers = ( {onSmash}) => {
     const { tournamentData, setTournamentData} = tourContext;
 
     const navigation = useNavigation();
-    const [playerNames, setPlayerNames] = useState(Array.from({length: parseInt(tournamentData.players)}, () => ({
-        name: 'player',
-        score: 0
-    })));
+    const [playerNames, setPlayerNames] = useState(() => {
+        // Generate automatic player names like player1, player2, ...
+        return Array.from({ length: parseInt(tournamentData.players) }, (_, index) => ({
+            name: `player${index + 1}`,
+            score: 0
+        }));
+    });
     useEffect(() => {
         setTournamentData({...tournamentData, playerNames});
     }, [playerNames, setTournamentData]); // This effect runs when playerNames changes
@@ -39,7 +42,6 @@ const Addplayers = ( {onSmash}) => {
             {playerNames.map((playerName, index) => (
                 <View key={index} style={commonStyles.rowContainer}>
                     <TextInput
-                        placeholder={`Player ${index + 1}..`}
                         placeholderTextColor="black"
                         style={commonStyles.textField}
                         value={playerName.name}

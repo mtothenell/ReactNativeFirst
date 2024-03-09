@@ -8,17 +8,45 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        paddingBottom: 30,
+        //backgroundColor: "red",
+    },
+    headerContainer: {
+        flex: 0.5,
+        //backgroundColor: "blue",
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    bottomContainer: {
+        flex: 0.5,
+        //backgroundColor: "green",
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+    },
+    buttonContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'red',
     },
     backgroundImage: {
         height: screenHeight,
         width: screenWidth,
+    },
+    indexImage: {
+        padding: 20,
+        paddingBottom: 50,
     },
     rowContainer: {
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         padding: 5,
+    },
+    fullWidthContainer: {
+        width: '80%',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        padding: 10,
     },
     label: {
         color: 'white',
@@ -61,6 +89,7 @@ const commonStyles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: "orange",
         color: "black",
+
     },
     selectDropdown: {
         height: 25,
@@ -87,15 +116,22 @@ const commonStyles = StyleSheet.create({
         justifyContent: "space-between",
         borderBottomWidth: 1,
         borderBottomColor: "#ccc",
-        paddingVertical: 10,
-        backgroundColor: 'white',
+        paddingVertical: 0,
+        backgroundColor: 'whitesmoke',
+        height: 36,
     },
     headerRow: {
-        backgroundColor: "#f0f0f0",
+        backgroundColor: "orange",
     },
     cell: {
         flex: 1,
         textAlign: "center",
+    },
+    cell2: {
+        flex: 1,
+        textAlign: "center",
+    },
+    counterContainer: {
     },
 });
 

@@ -31,7 +31,30 @@ const Tournament = () => {
     }
 
     const nextRound = () => {
-            setTournamentData({...tournamentData, round: tournamentData.round + 1})
+        const currentRoundData = {
+            roundNumber: tournamentData.round,
+            selectedValue1,
+            selectedValue2,
+            playerNames: chunkedPlayers.map(chunk => ({
+                player1: chunk[0].name,
+                player2: chunk[1].name,
+                player3: chunk[2].name,
+                player4: chunk[3].name
+            }))
+        };
+
+        setTournamentData(prevData => ({
+            ...prevData,
+            round: prevData.round + 1,
+            roundData: [...prevData.roundData, currentRoundData]
+        }));
+
+        lala();
+    };
+
+    const lala = () => {
+        setSelectedValue1('0');
+        setSelectedValue2('0');
     }
 
     useEffect(() => {
@@ -65,14 +88,13 @@ const Tournament = () => {
         });
 
 
-
     }, [selectedValue1, selectedValue2])
 
-    const previousRound = () => {
-        if (tournamentData.round >= 2) {
-            setTournamentData({...tournamentData, round: tournamentData.round - 1})
-        }
-    }
+    // const previousRound = () => {
+    //     if (tournamentData.round >= 2) {
+    //         setTournamentData({...tournamentData, round: tournamentData.round - 1})
+    //     }
+    // }
 
     const pointsToPlayFor = () => {
         const pointsArray = [];
@@ -88,39 +110,40 @@ const Tournament = () => {
             resizeMode="cover"
             style={commonStyles.backgroundImage}
         >
-            <View style={commonStyles.container}>
-                {/*<Text style={commonStyles.headlines}>{tournamentData.name}</Text>*/}
-                <Text style={commonStyles.headlines}>Round {tournamentData.round}</Text>
-                {chunkedPlayers.map((chunk, index) => (
-                    <View key={index} style={commonStyles.rowContainer}>
-                        <SelectDropdown
-                            data={pointsToPlayFor()}
-                            defaultButtonText={selectedValue1}
-                            buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                            onSelect={(selectedItem, index) => handleChangeDropdown1(selectedItem, index)}
-                        />
-                        <Text style={commonStyles.label}>{chunk[0].name} {chunk[1].name}</Text>
-                        <Text style={{fontSize: 14, color: "orange"}}>VS</Text>
-                        <Text style={commonStyles.label}>{chunk[2].name} {chunk[3].name}</Text>
-                        <SelectDropdown
-                            data={pointsToPlayFor()}
-                            defaultButtonText={selectedValue2}
-                            buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                            onSelect={(selectedItem, index) => handleChangeDropdown2(selectedItem, index)}
-                        />
+            {tournamentData.type !== "TGIF" ? (
+                <View style={commonStyles.container}>
+                    {/*<Text style={commonStyles.headlines}>{tournamentData.name}</Text>*/}
+                    <Text style={commonStyles.headlines}>Round {tournamentData.round}</Text>
+                    {chunkedPlayers.map((chunk, index) => (
+                        <View key={index} style={commonStyles.rowContainer}>
+                            <SelectDropdown
+                                data={pointsToPlayFor()}
+                                defaultButtonText={selectedValue1}
+                                buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
+                                onSelect={(selectedItem, index) => handleChangeDropdown1(selectedItem, index)}
+                            />
+                            <Text style={commonStyles.label}>{chunk[0].name} {chunk[1].name}</Text>
+                            <Text style={{fontSize: 14, color: "orange"}}>VS</Text>
+                            <Text style={commonStyles.label}>{chunk[2].name} {chunk[3].name}</Text>
+                            <SelectDropdown
+                                data={pointsToPlayFor()}
+                                defaultButtonText={selectedValue2}
+                                buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
+                                onSelect={(selectedItem, index) => handleChangeDropdown2(selectedItem, index)}
+                            />
+                        </View>
+                    ))}
+                    <View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
+                        {/*<TouchableOpacity style={[{}, commonStyles.button]} onPress={previousRound}>*/}
+                        {/*    <Text style={commonStyles.label}>Previous</Text>*/}
+                        {/*</TouchableOpacity>*/}
+                        <View style={{margin: 10}}>
+                            <TouchableOpacity style={[{}, commonStyles.button]} onPress={nextRound}>
+                                <Text style={commonStyles.label}>Next</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                ))}
-                <View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
-                    <TouchableOpacity style={[{}, commonStyles.button]} onPress={previousRound}>
-                        <Text style={commonStyles.label}>Previous</Text>
-                    </TouchableOpacity>
-                    <View style={{margin: 10}}>
-                        <TouchableOpacity style={[{}, commonStyles.button]} onPress={nextRound}>
-                            <Text style={commonStyles.label}>Next</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </View>
+                </View>) : ( <View style={commonStyles.container}><Text style={commonStyles.headlines}></Text></View>)}
         </ImageBackground>
     );
 };
