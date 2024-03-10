@@ -1,4 +1,4 @@
-import {View, Text, ImageBackground, TextInput, TouchableOpacity} from "react-native";
+import {View, Text, ImageBackground, TouchableOpacity} from "react-native";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
@@ -6,35 +6,25 @@ import {useTournamentData} from "./TournamentDataContext";
 import SelectDropdown from "react-native-select-dropdown";
 
 const Tournament = () => {
-
     const tourContext = useTournamentData();
     const {tournamentData, setTournamentData, updateRoundData} = tourContext;
-    const [selectedValue1, setSelectedValue1] = useState('0');
-    const [selectedValue2, setSelectedValue2] = useState('0');
+    const [selectedValues, setSelectedValues] = useState(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({ value1: '0', value2: '0' }));
+
+
+    const handleDropdownChange1 = (index, value) => {
+        const newSelectedValues = [...selectedValues];
+        newSelectedValues[index] = { ...newSelectedValues[index], value1: value };
+        setSelectedValues(newSelectedValues);
+    }
+
+    const handleDropdownChange2 = (index, value) => {
+        const newSelectedValues = [...selectedValues];
+        newSelectedValues[index] = { ...newSelectedValues[index], value2: value };
+        setSelectedValues(newSelectedValues);
+    }
+
+
     const isFirstRender = useRef(true);
-
-    const chunkedPlayers = [];
-    for (let i = 0; i < tournamentData.playerNames.length; i += 4) {
-        chunkedPlayers.push(tournamentData.playerNames.slice(i, i + 4));
-    }
-
-    const updateSelectedValue1 = (value) => {
-        setSelectedValue1(value);
-        const diff = tournamentData.points - parseInt(value);
-        setSelectedValue2(diff.toString());
-    }
-
-    const updateSelectedValue2 = (value) => {
-        setSelectedValue2(value);
-        const diff = tournamentData.points - parseInt(value);
-        const updateValue1 = diff.toString();
-        setSelectedValue1(updateValue1);
-    }
-
-    useEffect(() => {
-        // console.log("värdet på 1: " + selectedValue1);
-        // console.log("värdet på 2: " + selectedValue2);
-    }, [selectedValue1, selectedValue2]);
 
     useEffect(() => {
         if (isFirstRender.current) {
@@ -51,17 +41,6 @@ const Tournament = () => {
         return pointsArray;
     }
 
-    const handleNextRound = () => {
-        const players = chunkedPlayers.map((chunk) => [
-            { name: chunk[0].name, selectedValue: selectedValue1 },
-            { name: chunk[1].name, selectedValue: selectedValue1 },
-            { name: chunk[2].name, selectedValue: selectedValue2 },
-            { name: chunk[3].name, selectedValue: selectedValue2 },
-        ]);
-
-        updateRoundData(players, [selectedValue1, selectedValue2]);
-    }
-
     useEffect(() => {
         // Log roundData when it changes
         console.log(tournamentData.roundData);
@@ -75,32 +54,34 @@ const Tournament = () => {
         >
             {tournamentData.type !== "TGIF" ? (
                 <View style={commonStyles.container}>
-                    {/*<Text style={commonStyles.headlines}>{tournamentData.name}</Text>*/}
                     <Text style={commonStyles.headlines}>Round {tournamentData.round}</Text>
-                    {chunkedPlayers.map((chunk, index) => (
-                        <View key={index} style={commonStyles.rowContainer}>
+                    {selectedValues.map((selectedValue, index) => (
+                        <View key={index * 4} style={commonStyles.rowContainer}>
                             <SelectDropdown
-                                defaultValue={selectedValue1}
+                                defaultValue={selectedValue.value1}
                                 data={pointsToPlayFor()}
-                                defaultButtonText={selectedValue1}
-                                buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                onSelect={(selectedItem, index) => updateSelectedValue1(selectedItem)}
+                                defaultButtonText={selectedValue.value1}
+                                buttonStyle={[commonStyles.selectDropdown, { width: 60 }]}
+                                onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
                             />
-                            <Text style={commonStyles.label}>{chunk[0].name} {chunk[1].name}</Text>
-                            <Text style={{fontSize: 14, color: "orange"}}>VS</Text>
-                            <Text style={commonStyles.label}>{chunk[2].name} {chunk[3].name}</Text>
+                            <View>
+                                <Text style={commonStyles.label}>{tournamentData.playerNames[index * 4].name} {' '} {tournamentData.playerNames[index * 4 + 1].name}</Text>
+                            </View>
                             <SelectDropdown
-                                defaultValue={selectedValue2}
+                                defaultValue={selectedValue.value2}
                                 data={pointsToPlayFor()}
-                                defaultButtonText={selectedValue2}
-                                buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                onSelect={(selectedItem, index) => updateSelectedValue2(selectedItem)}
+                                defaultButtonText={selectedValue.value2}
+                                buttonStyle={[commonStyles.selectDropdown, { width: 60 }]}
+                                onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
                             />
+                            <View>
+                                <Text style={commonStyles.label}>{tournamentData.playerNames[index * 4 + 2].name} {' '} {tournamentData.playerNames[index * 4 + 3].name}</Text>
+                            </View>
                         </View>
                     ))}
                     <View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
                         <View style={{margin: 10}}>
-                            <TouchableOpacity style={[{}, commonStyles.button]} onPress={handleNextRound}>
+                            <TouchableOpacity style={[{}, commonStyles.button]} onPress={(() => {})}>
                                 <Text style={commonStyles.label}>Next</Text>
                             </TouchableOpacity>
                         </View>
