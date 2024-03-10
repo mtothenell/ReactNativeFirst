@@ -10,19 +10,23 @@ const Tournament = () => {
     const {tournamentData, setTournamentData, updateRoundData} = tourContext;
     const [selectedValues, setSelectedValues] = useState(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({ value1: '0', value2: '0' }));
 
-
     const handleDropdownChange1 = (index, value) => {
         const newSelectedValues = [...selectedValues];
-        newSelectedValues[index] = { ...newSelectedValues[index], value1: value };
+        const totalPoints = parseInt(tournamentData.points);
+        const selectedPoints1 = parseInt(value);
+        const selectedPoints2 = totalPoints - selectedPoints1;
+        newSelectedValues[index] = { value1: value, value2: selectedPoints2.toString() };
         setSelectedValues(newSelectedValues);
     }
 
     const handleDropdownChange2 = (index, value) => {
         const newSelectedValues = [...selectedValues];
-        newSelectedValues[index] = { ...newSelectedValues[index], value2: value };
+        const totalPoints = parseInt(tournamentData.points);
+        const selectedPoints2 = parseInt(value);
+        const selectedPoints1 = totalPoints - selectedPoints2;
+        newSelectedValues[index] = { value1: selectedPoints1.toString(), value2: value };
         setSelectedValues(newSelectedValues);
     }
-
 
     const isFirstRender = useRef(true);
 
