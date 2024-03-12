@@ -6,6 +6,7 @@ import {useTournamentData} from "./TournamentDataContext";
 import SelectDropdown from "react-native-select-dropdown";
 
 const Tournament = () => {
+    const [valuesEntered, setValuesEntered] = useState(true);
     const tourContext = useTournamentData();
     const {tournamentData, setTournamentData, updateRoundData} = tourContext;
     const [selectedValues, setSelectedValues] = useState(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({
@@ -17,6 +18,9 @@ const Tournament = () => {
         const newSelectedValues = [...selectedValues];
         const totalPoints = parseInt(tournamentData.points);
         const selectedPoints1 = parseInt(value);
+        if (selectedPoints1 > 0) {
+            setValuesEntered(false)
+        }
         const selectedPoints2 = totalPoints - selectedPoints1;
         newSelectedValues[index] = {value1: value, value2: selectedPoints2.toString()};
         setSelectedValues(newSelectedValues);
@@ -26,6 +30,9 @@ const Tournament = () => {
         const newSelectedValues = [...selectedValues];
         const totalPoints = parseInt(tournamentData.points);
         const selectedPoints2 = parseInt(value);
+        if (selectedPoints2 > 0) {
+            setValuesEntered(false)
+        }
         const selectedPoints1 = totalPoints - selectedPoints2;
         newSelectedValues[index] = {value1: selectedPoints1.toString(), value2: value};
         setSelectedValues(newSelectedValues);
@@ -36,7 +43,6 @@ const Tournament = () => {
     useEffect(() => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
-            return;
         }
     });
 
@@ -54,13 +60,20 @@ const Tournament = () => {
             ...prevState,
             round: prevState.round + 1
         }));
-        setSelectedValues(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({value1: '0', value2: '0'}));
 
+        setSelectedValues(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({value1: '0', value2: '0'}));
     };
 
     useEffect(() => {
-        //console.log(tournamentData)
-        //console.log("ROUNDS: "+JSON.stringify(tournamentData.roundData));
+        if (isFirstRender.current) {
+            isFirstRender.current = false;
+        } else {
+            setValuesEntered(true); // Reset valuesEntered to true after pushing "Next"
+        }
+    }, [tournamentData.round]);
+
+
+    useEffect(() => {
     }, [tournamentData.roundData, updateRoundData, selectedValues]);
 
     return (
@@ -100,7 +113,10 @@ const Tournament = () => {
                     ))}
                     <View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
                         <View style={{margin: 10}}>
-                            <TouchableOpacity style={[{}, commonStyles.button]} onPress={handleNext}>
+                            <TouchableOpacity
+                                style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
+                                onPress={handleNext} disabled={valuesEntered}
+                            >
                                 <Text style={commonStyles.label}>Next</Text>
                             </TouchableOpacity>
                         </View>

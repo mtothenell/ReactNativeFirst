@@ -16,7 +16,7 @@ const Index = () => {
 
     const points = ["11", "15", "17", "21", "25"]
     const players = ["4", "8", "12", "16"]
-    const type = ["TGIF", "Mangoricano"]
+    const type = ["TGIF", "Mexicano"]
 
     useEffect(() => {
 

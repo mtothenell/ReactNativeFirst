@@ -9,6 +9,14 @@ const Addplayers = ( {onSmash}) => {
     const tourContext = useTournamentData();
     const { tournamentData, setTournamentData} = tourContext;
 
+    const shuffleArray = (array) => {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    };
+
     const navigation = useNavigation();
     const [playerNames, setPlayerNames] = useState(() => {
         // Generate automatic player names like player1, player2, ...
@@ -36,6 +44,13 @@ const Addplayers = ( {onSmash}) => {
         setPlayerNames(updatedPlayerNames);
     };
 
+    const handleSmash = () => {
+        const shuffledPlayerNames = shuffleArray([...playerNames]);
+        setPlayerNames(shuffledPlayerNames);
+        handleNext()
+    };
+
+
     return (
         <View style={commonStyles.container}>
             {playerNames.map((playerName, index) => (
@@ -51,7 +66,7 @@ const Addplayers = ( {onSmash}) => {
             ))}
 
             <View style={commonStyles.rowContainer}>
-                <TouchableOpacity style={commonStyles.button} onPress={onSmash}>
+                <TouchableOpacity style={commonStyles.button} onPress={handleSmash}>
                     <Text style={commonStyles.label}>Smash</Text>
                 </TouchableOpacity>
             </View>

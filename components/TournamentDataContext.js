@@ -8,7 +8,7 @@ export const TournamentDataProvider = ({children}) => {
 
     const initialTournamentData = {
         name: 'Tournament',
-        type: 'Mangoricano',
+        type: 'Mexicano',
         players: 4,
         points: 21,
         playerNames: [],
