@@ -3,6 +3,8 @@ import {StyleSheet, Dimensions} from "react-native";
 const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
+const isLandscape = screenWidth > screenHeight;
+
 const commonStyles = StyleSheet.create({
     container: {
         flex: 1,

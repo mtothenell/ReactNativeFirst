@@ -8,8 +8,14 @@ import TopboardTGIF from "./TopboardTGIF";
 
 const Topboard = () => {
 
+    const [playerScores, setPlayerScores] = useState({});
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
+
+    useEffect(() => {
+        const scores = calculatePlayerScores(tournamentData);
+        setPlayerScores(scores);
+    }, [tournamentData]);
 
     return (
         <ImageBackground
@@ -29,7 +35,7 @@ const Topboard = () => {
                             renderItem={({item}) => (
                                 <View style={commonStyles.tableRow}>
                                     <Text style={commonStyles.cell}>{item.name}</Text>
-                                    <Text style={commonStyles.cell}>{item.score}</Text>
+                                    <Text style={commonStyles.cell}>{playerScores[item.name] || 0}</Text>
                                 </View>
                             )}
                             keyExtractor={(item, index) => index.toString()}

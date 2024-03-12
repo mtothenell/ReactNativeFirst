@@ -3,7 +3,6 @@ import React, {useEffect, useState} from "react";
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
 import {useTournamentData} from "./TournamentDataContext";
-import {calculatePlayerScores} from "./CalculatePlayerScores";
 import Counter from "react-native-counters";
 
 const TopboardTGIF = () => {

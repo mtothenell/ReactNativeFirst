@@ -1,6 +1,6 @@
 import "./styles.css";
 import Index from "./components";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
 import Topboard from "./components/Topboard";
@@ -9,6 +9,7 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from '@expo/vector-icons';
 import Tournament from "./components/Tournament";
 import {TournamentDataProvider, useTournamentData} from "./components/TournamentDataContext";
+import {Dimensions} from "react-native";
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();

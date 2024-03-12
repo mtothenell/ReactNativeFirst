@@ -31,14 +31,19 @@ const Index = () => {
         setShowPlayers(true);
     }
 
+    const reset = () => {
+        tourContext.resetTournamentData();
+    }
+
     const navigation = useNavigation();
 
     const handleNext = () => {
 
         const updatedTourData = {
-            ...tournamentData, settingsClickable: true
+            ...tournamentData,
+            settingsClickable: true,
+            gameOn: true
         };
-        console.log("Updated tournament data:", updatedTourData);
         setTournamentData(updatedTourData);
 
         if (tournamentData.type === "TGIF") {
@@ -59,7 +64,7 @@ const Index = () => {
             source={bg}
             resizeMode="cover" style={commonStyles.backgroundImage}
         >
-            {showContent && (<View style={commonStyles.container}>
+            {!tournamentData.gameOn && showContent && (<View style={commonStyles.container}>
                     <View style={commonStyles.headerContainer}>
                         <View style={commonStyles.indexImage}>
                             <Image style={{width: 200, height: 200, resizeMode: 'contain'}} source={mangopadel}></Image>
@@ -140,7 +145,12 @@ const Index = () => {
                     </View>
                 </View>
             )}
-            {showPlayers && <Addplayers onSmash={handleNext}/>}
+            {!tournamentData.gameOn && showPlayers && <Addplayers onSmash={handleNext}/>}
+            {tournamentData.gameOn && (<View style={commonStyles.headerContainer}>
+                <TouchableOpacity style={commonStyles.button} onPress={reset}>
+                    <Text style={[commonStyles.label, {width: 200}]}>Start new tournament</Text>
+                </TouchableOpacity>
+            </View>)}
         </ImageBackground>
     );
 }

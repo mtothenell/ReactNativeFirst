@@ -6,7 +6,7 @@ export const useTournamentData = () => useContext(TournamentDataContext);
 
 export const TournamentDataProvider = ({children}) => {
 
-    const [tournamentData, setTournamentData] = useState({
+    const initialTournamentData = {
         name: 'Tournament',
         type: 'Mangoricano',
         players: 4,
@@ -17,20 +17,48 @@ export const TournamentDataProvider = ({children}) => {
         settingsClickable: true,
         tournamentClickable: true,
         topboardClickable: true,
-    });
+        gameOn: false
+    };
 
-    const updateRoundData = (players, selectedValues) => {
-        const { round, roundData } = tournamentData;
-        const updatedRoundData = [...roundData, { round, players, selectedValues }];
-        setTournamentData((prevData) => ({
-            ...prevData,
-            roundData: updatedRoundData,
-            round: prevData.round + 1, // Increment the round number for the next round
+    const [tournamentData, setTournamentData] = useState(initialTournamentData);
+
+
+
+    // const [tournamentData, setTournamentData] = useState({
+    //     name: 'Tournament',
+    //     type: 'Mangoricano',
+    //     players: 4,
+    //     points: 21,
+    //     playerNames: [],
+    //     round: 1,
+    //     roundData: [],
+    //     settingsClickable: true,
+    //     tournamentClickable: true,
+    //     topboardClickable: true,
+    //     gameOn: false
+    // });
+
+    const resetTournamentData = () => {
+        setTournamentData(initialTournamentData);
+    };
+
+    const updateRoundData = (round, selectedValues) => {
+        setTournamentData(prevState => ({
+            ...prevState,
+            roundData: [
+                ...prevState.roundData,
+                {
+                    round,
+                    playerNames: prevState.playerNames,
+                    selectedValues
+                }
+            ]
         }));
     };
 
+
     return (
-        <TournamentDataContext.Provider value={{tournamentData, setTournamentData, updateRoundData}}>
+        <TournamentDataContext.Provider value={{tournamentData, setTournamentData, updateRoundData, resetTournamentData }}>
             {children}
         </TournamentDataContext.Provider>
     );
