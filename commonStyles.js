@@ -58,6 +58,15 @@ const commonStyles = StyleSheet.create({
         fontSize: 14,
         fontFamily: "notoserif",
     },
+    courtLabel: {
+        color: 'orange',
+        padding: 5,
+        width: 70,
+        textAlign: 'center',
+        fontSize: 14,
+        fontFamily: "notoserif",
+        fontWeight: 'bold',
+    },
     textField: {
         backgroundColor: "white",
         fontSize: 18,

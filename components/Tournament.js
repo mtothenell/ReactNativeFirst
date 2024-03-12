@@ -87,6 +87,10 @@ const Tournament = () => {
                     <Text style={commonStyles.headlines}>Round {tournamentData.round}</Text>
                     {selectedValues.map((selectedValue, index) => (
                         <View key={index * 4} style={commonStyles.rowContainer}>
+                            <View>
+                                <Text
+                                    style={commonStyles.courtLabel}>BANA</Text>
+                            </View>
                             <SelectDropdown
                                 defaultValue={selectedValue.value1}
                                 data={pointsToPlayFor()}
