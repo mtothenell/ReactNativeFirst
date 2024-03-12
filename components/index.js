@@ -15,8 +15,7 @@ const Index = () => {
     const {tournamentData, setTournamentData} = tourContext;
 
     const points = ["11", "15", "17", "21", "25"]
-    const players = ["4", "8", "12", "16", "20", "24"]
-    //const type = ["Mangoricano", "Mexicano", "Americano", "TGIF"]
+    const players = ["4", "8", "12", "16"]
     const type = ["TGIF", "Mangoricano"]
 
     useEffect(() => {
