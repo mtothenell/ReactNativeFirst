@@ -82,14 +82,16 @@ const Tournament = () => {
             resizeMode="cover"
             style={commonStyles.backgroundImage}
         >
-            {tournamentData.type !== "TGIF" ? (
+            {tournamentData.gameOn && tournamentData.type !== "TGIF" ? (
                 <View style={commonStyles.container}>
+                    <View style={commonStyles.rowContainer}>
                     <Text style={commonStyles.headlines}>Round {tournamentData.round}</Text>
+                </View>
                     {selectedValues.map((selectedValue, index) => (
                         <View key={index * 4} style={commonStyles.rowContainer}>
                             <View>
                                 <Text
-                                    style={commonStyles.courtLabel}>BANA</Text>
+                                    style={commonStyles.courtLabel}>{index+1}</Text>
                             </View>
                             <SelectDropdown
                                 defaultValue={selectedValue.value1}
@@ -125,7 +127,7 @@ const Tournament = () => {
                             </TouchableOpacity>
                         </View>
                     </View>
-                </View>) : (<View style={commonStyles.container}><Text style={commonStyles.headlines}></Text></View>)}
+                </View>) : null}
         </ImageBackground>
     );
 };

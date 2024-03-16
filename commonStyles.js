@@ -63,7 +63,7 @@ const commonStyles = StyleSheet.create({
         padding: 5,
         width: 70,
         textAlign: 'center',
-        fontSize: 14,
+        fontSize: 18,
         fontFamily: "notoserif",
         fontWeight: 'bold',
     },
@@ -137,6 +137,11 @@ const commonStyles = StyleSheet.create({
     cell: {
         flex: 1,
         textAlign: "center",
+    },
+    cellHeader: {
+        flex: 1,
+        textAlign: "center",
+        fontWeight: 'bold',
     },
     cell2: {
         flex: 1,

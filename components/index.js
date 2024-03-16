@@ -34,29 +34,35 @@ const Index = () => {
         tourContext.resetTournamentData();
     }
 
+    const resetIndex = () => {
+        setShowContent(true);
+        setShowPlayers(false);
+    };
+
     const navigation = useNavigation();
 
-    const handleNext = () => {
+    // const handleNext = () => {
+        //
+        // const updatedTourData = {
+        //     ...tournamentData,
+        //     settingsClickable: true,
+        //     gameOn: true
+        // };
+        // setTournamentData(updatedTourData);
+        // console.log("lala");
 
-        const updatedTourData = {
-            ...tournamentData,
-            settingsClickable: true,
-            gameOn: true
-        };
-        setTournamentData(updatedTourData);
-
-        if (tournamentData.type === "TGIF") {
-            navigation.reset({
-                index: 0,
-                routes: [{name: 'Topboard'}] // Go back to the initial screen
-            });
-        } else {
-            navigation.reset({
-                index: 0,
-                routes: [{name: 'Tournament'}] // Go back to the initial screen
-            });
-        }
-    };
+        // if (tournamentData.type === "TGIF") {
+        //     navigation.reset({
+        //         index: 0,
+        //         routes: [{name: 'Topboard'}]
+        //     });
+        // } else {
+        //     navigation.reset({
+        //         index: 0,
+        //         routes: [{name: 'Tournament'}]
+        //     });
+        // }
+    // };
 
     return (
         <ImageBackground
@@ -144,10 +150,11 @@ const Index = () => {
                     </View>
                 </View>
             )}
-            {!tournamentData.gameOn && showPlayers && <Addplayers onSmash={handleNext}/>}
-            {tournamentData.gameOn && (<View style={commonStyles.headerContainer}>
+            {!tournamentData.gameOn && showPlayers && <Addplayers resetIndex={resetIndex}/>}
+            {tournamentData.gameOn && (<View style={commonStyles.container}>
+                <Text style={commonStyles.headlines}>Tournament ongoing..</Text>
                 <TouchableOpacity style={commonStyles.button} onPress={reset}>
-                    <Text style={[commonStyles.label, {width: 200}]}>Start new tournament</Text>
+                    <Text style={[commonStyles.label, {}]}>RESTART</Text>
                 </TouchableOpacity>
             </View>)}
         </ImageBackground>

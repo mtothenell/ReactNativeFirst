@@ -9,12 +9,18 @@ import TopboardTGIF from "./TopboardTGIF";
 const Topboard = () => {
 
     const [playerScores, setPlayerScores] = useState({});
+    const [sortedPlayers, setSortedPlayers] = useState([]);
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
 
     useEffect(() => {
         const scores = calculatePlayerScores(tournamentData);
+        console.log("Player Scores:", scores); // Log playerScores
         setPlayerScores(scores);
+
+        const sortedPlayers = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+        console.log("Sorted Players:", sortedPlayers); // Log sortedPlayers
+        setSortedPlayers(sortedPlayers);
     }, [tournamentData]);
 
     return (
@@ -22,26 +28,29 @@ const Topboard = () => {
             source={bg}
             resizeMode="cover"
             style={commonStyles.backgroundImage}>
-            {tournamentData.type !== "TGIF" ? (
+            {tournamentData.roundData.length !== 0 && tournamentData.type !== "TGIF" ? (
                 <View style={commonStyles.container}>
                     <Text style={commonStyles.headlines}></Text>
                     <View style={commonStyles.table}>
                         <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
-                            <Text style={commonStyles.cell}>Name</Text>
-                            <Text style={commonStyles.cell}>Score</Text>
+                            <Text style={commonStyles.cellHeader}>Name</Text>
+                            <Text style={commonStyles.cellHeader}>Score</Text>
                         </View>
                         <FlatList
-                            data={tournamentData.playerNames}
+                            data={sortedPlayers}
                             renderItem={({item}) => (
                                 <View style={commonStyles.tableRow}>
-                                    <Text style={commonStyles.cell}>{item.name}</Text>
-                                    <Text style={commonStyles.cell}>{playerScores[item.name] || 0}</Text>
+                                    <Text style={commonStyles.cell}>{item}</Text>
+                                    <Text style={commonStyles.cell}>{playerScores[item] || 0}</Text>
                                 </View>
                             )}
                             keyExtractor={(item, index) => index.toString()}
                         />
                     </View>
-                </View>) : (<TopboardTGIF/>)}
+                </View>
+            ) : (
+                tournamentData.type === "TGIF" && <TopboardTGIF/>
+            )}
         </ImageBackground>
     );
 };

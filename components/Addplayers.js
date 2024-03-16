@@ -4,7 +4,7 @@ import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {useTournamentData} from "./TournamentDataContext";
 
-const Addplayers = ( {onSmash}) => {
+const Addplayers = ( {resetIndex}) => {
 
     const tourContext = useTournamentData();
     const { tournamentData, setTournamentData} = tourContext;
@@ -28,8 +28,26 @@ const Addplayers = ( {onSmash}) => {
         setTournamentData({...tournamentData, playerNames});
     }, [playerNames, setTournamentData]); // This effect runs when playerNames changes
 
-    const handleNext = () => {
-        navigation.navigate('Tournament');
+    const handleNext = (shuffledPlayerNames) => {
+        const updatedTourData = {
+            ...tournamentData,
+            settingsClickable: true,
+            gameOn: true,
+            playerNames: shuffledPlayerNames
+        };
+        setTournamentData(updatedTourData);
+
+        if (tournamentData.type === "TGIF") {
+            navigation.reset({
+                index: 0,
+                routes: [{name: 'Topboard'}]
+            });
+        } else {
+            navigation.reset({
+                index: 0,
+                routes: [{name: 'Tournament'}]
+            });
+        }
     }
 
     const handlePlayerNameChange = (index, playerName) => {
@@ -47,9 +65,10 @@ const Addplayers = ( {onSmash}) => {
     const handleSmash = () => {
         const shuffledPlayerNames = shuffleArray([...playerNames]);
         setPlayerNames(shuffledPlayerNames);
-        handleNext()
-    };
 
+        handleNext(shuffledPlayerNames)
+        resetIndex();
+    };
 
     return (
         <View style={commonStyles.container}>
