@@ -1,9 +1,7 @@
 import React from 'react';
 import { View, Image } from 'react-native';
 
-import mangopadel from "../assets/mangpadel2.png"
-import commonStyles from "../commonStyles";
-
+import mangopadel from "../assets/mangopadel7.png"
 const HeaderComponent = () => {
     return (
             <View style={{paddingTop: 20}}>

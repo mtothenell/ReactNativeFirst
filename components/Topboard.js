@@ -15,11 +15,9 @@ const Topboard = () => {
 
     useEffect(() => {
         const scores = calculatePlayerScores(tournamentData);
-        console.log("Player Scores:", scores); // Log playerScores
         setPlayerScores(scores);
 
         const sortedPlayers = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-        console.log("Sorted Players:", sortedPlayers); // Log sortedPlayers
         setSortedPlayers(sortedPlayers);
     }, [tournamentData]);
 

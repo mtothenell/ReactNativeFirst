@@ -7,7 +7,7 @@ import Addplayers from "./Addplayers";
 import {useTournamentData} from "./TournamentDataContext";
 import {useNavigation} from "@react-navigation/native";
 import HeaderComponent from "./HeaderComponent";
-import mangopadel from "../assets/mangpadel2.png"
+import mangopadel from "../assets/mangopadel7.png"
 
 const Index = () => {
 
