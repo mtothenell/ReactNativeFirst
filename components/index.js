@@ -6,13 +6,12 @@ import bg from '../assets/img.png'
 import Addplayers from "./Addplayers";
 import {useTournamentData} from "./TournamentDataContext";
 import {useNavigation} from "@react-navigation/native";
-import HeaderComponent from "./HeaderComponent";
-import mangopadel from "../assets/mangopadel7.png"
+import mangopadel from "../assets/mangopadel10.png"
 
 const Index = () => {
 
     const tourContext = useTournamentData();
-    const {tournamentData, setTournamentData} = tourContext;
+    const {tournamentData} = tourContext;
 
     const points = ["11", "15", "17", "21", "25"]
     const players = ["4", "8", "12", "16"]
