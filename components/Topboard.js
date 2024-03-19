@@ -9,17 +9,13 @@ import TopboardTGIF from "./TopboardTGIF";
 const Topboard = () => {
 
     //const [playerScores, setPlayerScores] = useState({});
-    const [sortedPlayers, setSortedPlayers] = useState([]);
+    // const [sortedPlayers, setSortedPlayers] = useState([]);
     const tourContext = useTournamentData();
-    const {tournamentData} = tourContext;
+    const {tournamentData, sortPlayers} = tourContext;
 
     useEffect(() => {
-        setSortedPlayers(calculatePlayerScores(tournamentData));
-        //setPlayerScores(scores);
-
-        //const sortedPlayers = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-        //setSortedPlayers(sortedPlayers);
-    }, [tournamentData]);
+        sortPlayers();
+    }, [tournamentData.roundData]);
 
     return (
         <ImageBackground
@@ -35,7 +31,7 @@ const Topboard = () => {
                             <Text style={commonStyles.cellHeader}>Score</Text>
                         </View>
                         <FlatList
-                            data={sortedPlayers}
+                            data={tournamentData.sortedPlayerScores}
                             renderItem={({item}) => (
                                 <View style={commonStyles.tableRow}>
                                     <Text style={commonStyles.cell}>{item.name}</Text>

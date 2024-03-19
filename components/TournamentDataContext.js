@@ -1,4 +1,5 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import {calculatePlayerScores} from "./CalculatePlayerScores";
 
 const TournamentDataContext = createContext(null);
 
@@ -12,6 +13,7 @@ export const TournamentDataProvider = ({children}) => {
         players: 4,
         points: 21,
         playerNames: [],
+        sortedPlayerScores: [],
         round: 1,
         roundData: [],
         settingsClickable: true,
@@ -22,21 +24,14 @@ export const TournamentDataProvider = ({children}) => {
 
     const [tournamentData, setTournamentData] = useState(initialTournamentData);
 
+    const sortPlayers = () => {
+        setTournamentData(prevState => ({
+            ...prevState,
+            sortedPlayerScores: calculatePlayerScores(prevState)
+        }));
+    };
 
 
-    // const [tournamentData, setTournamentData] = useState({
-    //     name: 'Tournament',
-    //     type: 'Mangoricano',
-    //     players: 4,
-    //     points: 21,
-    //     playerNames: [],
-    //     round: 1,
-    //     roundData: [],
-    //     settingsClickable: true,
-    //     tournamentClickable: true,
-    //     topboardClickable: true,
-    //     gameOn: false
-    // });
 
     const resetTournamentData = () => {
         setTournamentData(initialTournamentData);
@@ -58,7 +53,7 @@ export const TournamentDataProvider = ({children}) => {
 
 
     return (
-        <TournamentDataContext.Provider value={{tournamentData, setTournamentData, updateRoundData, resetTournamentData }}>
+        <TournamentDataContext.Provider value={{tournamentData, setTournamentData, updateRoundData, resetTournamentData, sortPlayers}}>
             {children}
         </TournamentDataContext.Provider>
     );

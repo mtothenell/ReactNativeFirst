@@ -8,13 +8,11 @@ import SelectDropdown from "react-native-select-dropdown";
 const Tournament = () => {
     const [valuesEntered, setValuesEntered] = useState(true);
     const tourContext = useTournamentData();
-    const {tournamentData, setTournamentData, updateRoundData} = tourContext;
+    const {tournamentData, setTournamentData, updateRoundData, sortPlayers} = tourContext;
     const [selectedValues, setSelectedValues] = useState(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({
         value1: '0',
         value2: '0'
     }));
-
-    console.log("+_+_" +JSON.stringify(tournamentData.playerNames))
 
     const handleDropdownChange1 = (index, value) => {
         const newSelectedValues = [...selectedValues];
@@ -58,6 +56,8 @@ const Tournament = () => {
 
     const handleNext = () => {
 
+        sortPlayers();
+
         updateRoundData(tournamentData.round, selectedValues);
         setTournamentData(prevState => ({
             ...prevState,
@@ -65,6 +65,7 @@ const Tournament = () => {
         }));
 
         setSelectedValues(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({value1: '0', value2: '0'}));
+
     };
 
     useEffect(() => {
@@ -77,8 +78,9 @@ const Tournament = () => {
     }, [tournamentData.round]);
 
 
-    useEffect(() => {
-    }, [tournamentData.roundData, updateRoundData, selectedValues]);
+    // useEffect(() => {
+    //
+    // }, [tournamentData.roundData, updateRoundData, selectedValues]);
 
     return (
         <ImageBackground
