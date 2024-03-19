@@ -43,5 +43,11 @@ export const calculatePlayerScores = (tournamentData) => {
         });
     });
 
-    return playerScores;
+    // Convert player scores to an array of objects with names and scores
+    const sortedPlayerScores = Object.keys(playerScores).map(playerName => ({ name: playerName, score: playerScores[playerName] }));
+
+    // Sort player scores based on scores
+    sortedPlayerScores.sort((a, b) => b.score - a.score);
+
+    return sortedPlayerScores;
 };

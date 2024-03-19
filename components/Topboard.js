@@ -8,17 +8,17 @@ import TopboardTGIF from "./TopboardTGIF";
 
 const Topboard = () => {
 
-    const [playerScores, setPlayerScores] = useState({});
+    //const [playerScores, setPlayerScores] = useState({});
     const [sortedPlayers, setSortedPlayers] = useState([]);
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
 
     useEffect(() => {
-        const scores = calculatePlayerScores(tournamentData);
-        setPlayerScores(scores);
+        setSortedPlayers(calculatePlayerScores(tournamentData));
+        //setPlayerScores(scores);
 
-        const sortedPlayers = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
-        setSortedPlayers(sortedPlayers);
+        //const sortedPlayers = Object.keys(scores).sort((a, b) => scores[b] - scores[a]);
+        //setSortedPlayers(sortedPlayers);
     }, [tournamentData]);
 
     return (
@@ -38,8 +38,8 @@ const Topboard = () => {
                             data={sortedPlayers}
                             renderItem={({item}) => (
                                 <View style={commonStyles.tableRow}>
-                                    <Text style={commonStyles.cell}>{item}</Text>
-                                    <Text style={commonStyles.cell}>{playerScores[item] || 0}</Text>
+                                    <Text style={commonStyles.cell}>{item.name}</Text>
+                                    <Text style={commonStyles.cell}>{item.score || 0}</Text>
                                 </View>
                             )}
                             keyExtractor={(item, index) => index.toString()}

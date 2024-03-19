@@ -14,6 +14,8 @@ const Tournament = () => {
         value2: '0'
     }));
 
+    console.log("+_+_" +JSON.stringify(tournamentData.playerNames))
+
     const handleDropdownChange1 = (index, value) => {
         const newSelectedValues = [...selectedValues];
         const totalPoints = parseInt(tournamentData.points);
@@ -55,6 +57,7 @@ const Tournament = () => {
     }
 
     const handleNext = () => {
+
         updateRoundData(tournamentData.round, selectedValues);
         setTournamentData(prevState => ({
             ...prevState,
@@ -65,6 +68,7 @@ const Tournament = () => {
     };
 
     useEffect(() => {
+
         if (isFirstRender.current) {
             isFirstRender.current = false;
         } else {
