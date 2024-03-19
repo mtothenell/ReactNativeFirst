@@ -48,7 +48,6 @@ const Index = () => {
         //     gameOn: true
         // };
         // setTournamentData(updatedTourData);
-        // console.log("lala");
 
         // if (tournamentData.type === "TGIF") {
         //     navigation.reset({

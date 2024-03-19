@@ -1,6 +1,5 @@
 export const calculatePlayerScores = (tournamentData) => {
     const roundData = tournamentData.roundData;
-    console.log(JSON.stringify(roundData));
 
     const playerScores = {};
 

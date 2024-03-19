@@ -8,8 +8,6 @@ import TopboardTGIF from "./TopboardTGIF";
 
 const Topboard = () => {
 
-    //const [playerScores, setPlayerScores] = useState({});
-    // const [sortedPlayers, setSortedPlayers] = useState([]);
     const tourContext = useTournamentData();
     const {tournamentData, sortPlayers} = tourContext;
 
