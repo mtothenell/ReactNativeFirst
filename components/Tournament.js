@@ -56,7 +56,7 @@ const Tournament = () => {
 
     const handleNext = () => {
 
-        sortPlayers();
+        //sortPlayers();
 
         updateRoundData(tournamentData.round, selectedValues);
         setTournamentData(prevState => ({
@@ -69,18 +69,20 @@ const Tournament = () => {
     };
 
     useEffect(() => {
+        sortPlayers();
+    }, [tournamentData.roundData]);
+
+
+    useEffect(() => {
 
         if (isFirstRender.current) {
             isFirstRender.current = false;
         } else {
+            //sortPlayers();
+            console.log(tournamentData.sortedPlayerScores)
             setValuesEntered(true); // Reset valuesEntered to true after pushing "Next"
         }
     }, [tournamentData.round]);
-
-
-    // useEffect(() => {
-    //
-    // }, [tournamentData.roundData, updateRoundData, selectedValues]);
 
     return (
         <ImageBackground
@@ -107,6 +109,7 @@ const Tournament = () => {
                                 onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
                             />
                             <View>
+                                <Text style={commonStyles.headlines}>{tournamentData.sortedPlayerScores.length !== 0 && tournamentData.sortedPlayerScores[0].name}</Text>
                                 <Text
                                     style={commonStyles.label}>{tournamentData.playerNames[index * 4].name} {' '} {tournamentData.playerNames[index * 4 + 1].name}</Text>
                             </View>

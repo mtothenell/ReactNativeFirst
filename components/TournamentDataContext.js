@@ -31,8 +31,6 @@ export const TournamentDataProvider = ({children}) => {
         }));
     };
 
-
-
     const resetTournamentData = () => {
         setTournamentData(initialTournamentData);
     };

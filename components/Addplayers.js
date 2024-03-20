@@ -33,7 +33,7 @@ const Addplayers = ( {resetIndex}) => {
             ...tournamentData,
             settingsClickable: true,
             gameOn: true,
-            playerNames: shuffledPlayerNames
+            playerNames: shuffledPlayerNames,
         };
         setTournamentData(updatedTourData);
 
