@@ -12,7 +12,7 @@ const Topboard = () => {
     const {tournamentData, sortPlayers} = tourContext;
 
     useEffect(() => {
-        sortPlayers();
+        //sortPlayers();
 
     }, [tournamentData.roundData]);
 

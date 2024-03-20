@@ -40,11 +40,11 @@ const Tournament = () => {
 
     const isFirstRender = useRef(true);
 
-    useEffect(() => {
-        if (isFirstRender.current) {
-            isFirstRender.current = false;
-        }
-    });
+    // useEffect(() => {
+    //     if (isFirstRender.current) {
+    //         isFirstRender.current = false;
+    //     }
+    // });
 
     const pointsToPlayFor = () => {
         const pointsArray = [];
@@ -64,14 +64,8 @@ const Tournament = () => {
 
         setSelectedValues(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({value1: '0', value2: '0'}));
 
-        console.log(tournamentData.playerNames)
         sortPlayers();
-        console.log(tournamentData.playerNames)
     };
-
-    useEffect(() => {
-    }, [tournamentData.roundData]);
-
 
     useEffect(() => {
 
