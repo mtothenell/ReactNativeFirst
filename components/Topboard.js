@@ -13,6 +13,9 @@ const Topboard = () => {
 
     useEffect(() => {
         sortPlayers();
+
+        console.log(tournamentData.playerNames)
+        console.log(tournamentData.sortedPlayerScores)
     }, [tournamentData.roundData]);
 
     return (

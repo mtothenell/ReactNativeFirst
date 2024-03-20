@@ -79,8 +79,7 @@ const Tournament = () => {
             isFirstRender.current = false;
         } else {
             //sortPlayers();
-            console.log(tournamentData.sortedPlayerScores)
-            setValuesEntered(true); // Reset valuesEntered to true after pushing "Next"
+            setValuesEntered(true);
         }
     }, [tournamentData.round]);
 
@@ -93,13 +92,13 @@ const Tournament = () => {
             {tournamentData.gameOn && tournamentData.type !== "TGIF" ? (
                 <View style={commonStyles.container}>
                     <View style={commonStyles.rowContainer}>
-                    <Text style={commonStyles.headlines}>Round {tournamentData.round}</Text>
-                </View>
+                        <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>
+                    </View>
                     {selectedValues.map((selectedValue, index) => (
                         <View key={index * 4} style={commonStyles.rowContainer}>
                             <View>
                                 <Text
-                                    style={commonStyles.courtLabel}>{index+1}</Text>
+                                    style={commonStyles.courtLabel}>{index + 1}</Text>
                             </View>
                             <SelectDropdown
                                 defaultValue={selectedValue.value1}
@@ -108,10 +107,19 @@ const Tournament = () => {
                                 buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
                                 onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
                             />
-                            <View>
-                                <Text style={commonStyles.headlines}>{tournamentData.sortedPlayerScores.length !== 0 && tournamentData.sortedPlayerScores[0].name}</Text>
-                                <Text
-                                    style={commonStyles.label}>{tournamentData.playerNames[index * 4].name} {' '} {tournamentData.playerNames[index * 4 + 1].name}</Text>
+                            <View><Text style={commonStyles.label}>
+                                {
+                                    tournamentData.sortedPlayerScores.length === 0 ?
+                                        (
+                                            tournamentData.playerNames[index * 4].name + ' ' + tournamentData.playerNames[index * 4 + 1].name
+                                        )
+                                        :
+                                        (
+                                            tournamentData.sortedPlayerScores.length !== 0 && tournamentData.sortedPlayerScores[index * 2].name + ' ' +
+                                            tournamentData.sortedPlayerScores[index * 2 + 1].name
+                                        )
+                                }
+                            </Text>
                             </View>
                             <SelectDropdown
                                 defaultValue={selectedValue.value2}
@@ -120,9 +128,19 @@ const Tournament = () => {
                                 buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
                                 onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
                             />
-                            <View>
-                                <Text
-                                    style={commonStyles.label}>{tournamentData.playerNames[index * 4 + 2].name} {' '} {tournamentData.playerNames[index * 4 + 3].name}</Text>
+                            <View><Text style={commonStyles.label}>
+                                {
+                                    tournamentData.sortedPlayerScores.length === 0 ?
+                                        (
+                                            tournamentData.playerNames[index * 4+2].name + ' ' + tournamentData.playerNames[index * 4 + 3].name
+                                        )
+                                        :
+                                        (
+                                            tournamentData.sortedPlayerScores.length !== 0 && tournamentData.sortedPlayerScores[index * 2 + 2].name + ' ' +
+                                            tournamentData.sortedPlayerScores[index * 2 + 3].name
+                                        )
+                                }
+                            </Text>
                             </View>
                         </View>
                     ))}

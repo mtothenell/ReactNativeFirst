@@ -26,7 +26,7 @@ const Addplayers = ( {resetIndex}) => {
     });
     useEffect(() => {
         setTournamentData({...tournamentData, playerNames});
-    }, [playerNames/*, setTournamentData*/]); // This effect runs when playerNames changes
+    }, [playerNames/*, setTournamentData*/]);
 
     const handleNext = (shuffledPlayerNames) => {
         const updatedTourData = {
