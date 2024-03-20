@@ -53,7 +53,7 @@ const commonStyles = StyleSheet.create({
     label: {
         color: 'white',
         padding: 5,
-        width: 70,
+        width: 100,
         textAlign: 'center',
         fontSize: 14,
         fontFamily: "notoserif",
@@ -61,7 +61,7 @@ const commonStyles = StyleSheet.create({
     courtLabel: {
         color: 'orange',
         padding: 5,
-        width: 70,
+        width: 50,
         textAlign: 'center',
         fontSize: 18,
         fontFamily: "notoserif",

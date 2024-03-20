@@ -27,10 +27,17 @@ export const calculatePlayerScores = (tournamentData) => {
             const value2 = parseInt(selectedValues.value2);
 
             //let score;
-            if (index === 0 || index === 1 || index === 4 || index === 5 || index === 8 || index === 9 || index === 12 || index === 13) {
+            // if (index === 0 || index === 1 || index === 4 || index === 5 || index === 8 || index === 9 || index === 12 || index === 13) {
+            //     score = value1;
+            // }
+            // if (index === 2 || index === 3 || index === 6 || index === 7 || index === 10 || index === 11 || index === 14 || index === 15) {
+            //     score = value2;
+            // }
+
+            if (index === 0 || index === 2 || index === 4 || index === 6 || index === 8 || index === 10 || index === 12 || index === 14) {
                 score = value1;
             }
-            if (index === 2 || index === 3 || index === 6 || index === 7 || index === 10 || index === 11 || index === 14 || index === 15) {
+            if (index === 1 || index === 3 || index === 5 || index === 7 || index === 9 || index === 11 || index === 13 || index === 15) {
                 score = value2;
             }
 
