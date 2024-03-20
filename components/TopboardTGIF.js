@@ -10,6 +10,10 @@ const TopboardTGIF = () => {
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
 
+    useEffect( () => {
+        console.log(tournamentData.playerNames)
+    },[]);
+
     return (
         <ImageBackground
             source={bg}

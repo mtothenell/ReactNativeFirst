@@ -94,6 +94,7 @@ const Tournament = () => {
                         <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>
                     </View>
                     {selectedValues.map((selectedValue, index) => (
+
                         <View key={index * 4} style={commonStyles.rowContainer}>
                             <View>
                                 <Text

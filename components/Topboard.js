@@ -31,8 +31,8 @@ const Topboard = () => {
                         </View>
                         <FlatList
                             data={tournamentData.playerNames}
-                            renderItem={({item}) => (
-                                <View style={commonStyles.tableRow}>
+                            renderItem={({item, index}) => (
+                                <View style={[commonStyles.tableRow, index < 3 ? commonStyles.evenRow : commonStyles.oddRow]}>
                                     <Text style={commonStyles.cell}>{item.name}</Text>
                                     <Text style={commonStyles.cell}>{item.score || 0}</Text>
                                 </View>

@@ -149,6 +149,12 @@ const commonStyles = StyleSheet.create({
     },
     counterContainer: {
     },
+    oddRow: {
+        backgroundColor: '#FFFFFF',
+    },
+    evenRow: {
+        backgroundColor: '#e8e8a8',
+    },
 });
 
 export default commonStyles;
