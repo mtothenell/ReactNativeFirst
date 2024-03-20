@@ -14,8 +14,6 @@ const Topboard = () => {
     useEffect(() => {
         sortPlayers();
 
-        console.log(tournamentData.playerNames)
-        console.log(tournamentData.sortedPlayerScores)
     }, [tournamentData.roundData]);
 
     return (
@@ -32,7 +30,7 @@ const Topboard = () => {
                             <Text style={commonStyles.cellHeader}>Score</Text>
                         </View>
                         <FlatList
-                            data={tournamentData.sortedPlayerScores}
+                            data={tournamentData.playerNames}
                             renderItem={({item}) => (
                                 <View style={commonStyles.tableRow}>
                                     <Text style={commonStyles.cell}>{item.name}</Text>

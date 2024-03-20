@@ -1,11 +1,11 @@
 export const calculatePlayerScores = (tournamentData) => {
     const roundData = tournamentData.roundData;
-
     const playerScores = {};
 
     roundData.forEach((round) => {
         round.playerNames.forEach((player, index) => {
             const playerName = player.name;
+            let score = player.score || 0;
             const amountOfSelectedValues = round.selectedValues.length-1;
             let selectedValues;
             if (index === 0 || index === 1 || index === 2 || index === 3) {
@@ -26,7 +26,7 @@ export const calculatePlayerScores = (tournamentData) => {
             const value1 = parseInt(selectedValues.value1);
             const value2 = parseInt(selectedValues.value2);
 
-            let score;
+            //let score;
             if (index === 0 || index === 1 || index === 4 || index === 5 || index === 8 || index === 9 || index === 12 || index === 13) {
                 score = value1;
             }

@@ -21,7 +21,8 @@ const Addplayers = ( {resetIndex}) => {
     const [playerNames, setPlayerNames] = useState(() => {
         // Generate automatic player names like player1, player2, ...
         return Array.from({ length: parseInt(tournamentData.players) }, (_, index) => ({
-            name: `player${index + 1}`
+            name: `player${index + 1}`,
+            score: 0
         }));
     });
     useEffect(() => {
@@ -65,7 +66,6 @@ const Addplayers = ( {resetIndex}) => {
     const handleSmash = () => {
         const shuffledPlayerNames = shuffleArray([...playerNames]);
         setPlayerNames(shuffledPlayerNames);
-
         handleNext(shuffledPlayerNames)
         resetIndex();
     };

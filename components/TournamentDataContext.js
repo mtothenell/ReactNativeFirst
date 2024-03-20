@@ -13,7 +13,6 @@ export const TournamentDataProvider = ({children}) => {
         players: 4,
         points: 21,
         playerNames: [],
-        sortedPlayerScores: [],
         round: 1,
         roundData: [],
         settingsClickable: true,
@@ -27,7 +26,7 @@ export const TournamentDataProvider = ({children}) => {
     const sortPlayers = () => {
         setTournamentData(prevState => ({
             ...prevState,
-            sortedPlayerScores: calculatePlayerScores(prevState)
+            playerNames: calculatePlayerScores(prevState)
         }));
     };
 
@@ -48,7 +47,6 @@ export const TournamentDataProvider = ({children}) => {
             ]
         }));
     };
-
 
     return (
         <TournamentDataContext.Provider value={{tournamentData, setTournamentData, updateRoundData, resetTournamentData, sortPlayers}}>

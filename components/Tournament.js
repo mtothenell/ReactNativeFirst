@@ -56,8 +56,6 @@ const Tournament = () => {
 
     const handleNext = () => {
 
-        //sortPlayers();
-
         updateRoundData(tournamentData.round, selectedValues);
         setTournamentData(prevState => ({
             ...prevState,
@@ -66,10 +64,12 @@ const Tournament = () => {
 
         setSelectedValues(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({value1: '0', value2: '0'}));
 
+        console.log(tournamentData.playerNames)
+        sortPlayers();
+        console.log(tournamentData.playerNames)
     };
 
     useEffect(() => {
-        sortPlayers();
     }, [tournamentData.roundData]);
 
 
@@ -78,7 +78,6 @@ const Tournament = () => {
         if (isFirstRender.current) {
             isFirstRender.current = false;
         } else {
-            //sortPlayers();
             setValuesEntered(true);
         }
     }, [tournamentData.round]);
@@ -108,17 +107,7 @@ const Tournament = () => {
                                 onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
                             />
                             <View><Text style={commonStyles.label}>
-                                {
-                                    tournamentData.sortedPlayerScores.length === 0 ?
-                                        (
-                                            tournamentData.playerNames[index * 4].name + ' ' + tournamentData.playerNames[index * 4 + 1].name
-                                        )
-                                        :
-                                        (
-                                            tournamentData.sortedPlayerScores.length !== 0 && tournamentData.sortedPlayerScores[index * 2].name + ' ' +
-                                            tournamentData.sortedPlayerScores[index * 2 + 1].name
-                                        )
-                                }
+                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + ' ' + tournamentData.playerNames[index * 4 + 1].name)}
                             </Text>
                             </View>
                             <SelectDropdown
@@ -129,17 +118,7 @@ const Tournament = () => {
                                 onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
                             />
                             <View><Text style={commonStyles.label}>
-                                {
-                                    tournamentData.sortedPlayerScores.length === 0 ?
-                                        (
-                                            tournamentData.playerNames[index * 4+2].name + ' ' + tournamentData.playerNames[index * 4 + 3].name
-                                        )
-                                        :
-                                        (
-                                            tournamentData.sortedPlayerScores.length !== 0 && tournamentData.sortedPlayerScores[index * 2 + 2].name + ' ' +
-                                            tournamentData.sortedPlayerScores[index * 2 + 3].name
-                                        )
-                                }
+                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4+2].name + ' ' + tournamentData.playerNames[index * 4 + 3].name)}
                             </Text>
                             </View>
                         </View>
