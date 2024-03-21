@@ -8,9 +8,15 @@ import {useTournamentData} from "./TournamentDataContext";
 import {useNavigation} from "@react-navigation/native";
 import mangopadel from "../assets/mangopadel10.png"
 
-const Index = ({route}) => {
+const Index = () => {
 
-    const {isLandscape} = route.params;
+    const [isLandscape, setIsLandscape] = useState(false);
+
+    useEffect(() => {
+        const {width, height} = Dimensions.get('window');
+        setIsLandscape(width > height);
+    }, []);
+
 
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
@@ -47,7 +53,7 @@ const Index = ({route}) => {
             source={bg}
             resizeMode="cover" style={commonStyles.backgroundImage}
         >
-            {!tournamentData.gameOn && showContent && (<View style={!isLandscape ? commonStyles.containerLandscape : commonStyles.container}>
+            {!tournamentData.gameOn && showContent && (<View style={isLandscape ? commonStyles.containerLandscape : commonStyles.container}>
                     <View style={commonStyles.headerContainer}>
                         <View style={commonStyles.indexImage}>
                             <Image style={{width: 200, height: 200, resizeMode: 'contain'}}
@@ -122,6 +128,7 @@ const Index = ({route}) => {
                             />
                         </View>}
                         <View style={commonStyles.fullWidthContainer}>
+                            <Text>                     </Text>
                             <TouchableOpacity style={commonStyles.button} onPress={addPlayers}>
                                 <Text style={commonStyles.label}>Continue</Text>
                             </TouchableOpacity>

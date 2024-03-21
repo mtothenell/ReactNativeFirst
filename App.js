@@ -34,30 +34,14 @@ const MainStack = () => (
 
 export default function App() {
 
-    const [isLandscape, setIsLandscape] = useState(false);
-
-    useEffect(() => {
-        const updateOrientation = () => {
-            const { width, height } = Dimensions.get('window');
-            setIsLandscape(width > height);
-        };
-
-        updateOrientation();
-
-        Dimensions.addEventListener('change', updateOrientation);
-
-        return () => Dimensions.removeEventListener('change', updateOrientation);
-    }, []);
-
-
     return (
         <TournamentDataProvider>
-            <AppContent isLandscape={isLandscape}/>
+            <AppContent/>
         </TournamentDataProvider>
     );
 }
 
-function AppContent( {isLandscape}) {
+function AppContent() {
 
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
@@ -65,17 +49,21 @@ function AppContent( {isLandscape}) {
     return (
         <TournamentDataProvider>
             <NavigationContainer>
-                <Tab.Navigator screenOptions={{tabBarLabelStyle: {fontSize: 14, fontFamily: "notoserif"}}}>
+                <Tab.Navigator
+                    screenOptions={{
+                        tabBarLabelStyle: {fontSize: 14, fontFamily: "notoserif", color: "black"},
+                        tabBarStyle: {}
+                    }}
+                >
                     <Tab.Screen
                         name="Home"
-                        initialParams={ {isLandscape}}
                         component={Index}
                         options={{
                             headerShown: false,
                             tabBarStyle: {backgroundColor: "#f3eddf"},
                             tabBarLabel: 'Home',
                             tabBarIcon: ({color, size}) => (
-                                <Ionicons name="home" size={size} color={color}/>
+                                <Ionicons name="home" size={size} color="green"/>
                             ),
                         }}
                     />
@@ -87,7 +75,7 @@ function AppContent( {isLandscape}) {
                                 headerShown: false,
                                 tabBarLabel: 'Tournament',
                                 tabBarIcon: ({color, size}) => (
-                                    <Ionicons name="tennisball" size={size} color={color}/>
+                                    <Ionicons name="tennisball" size={size} color="green"/>
                                 ),
                             }}
                         />
@@ -100,24 +88,11 @@ function AppContent( {isLandscape}) {
                                 headerShown: false,
                                 tabBarLabel: 'Topboard',
                                 tabBarIcon: ({color, size}) => (
-                                    <Ionicons name="stats-chart" size={size} color={color}/>
+                                    <Ionicons name="stats-chart" size={size} color="green"/>
                                 ),
                             }}
                         />
                     }
-                    {/*{tournamentData.settingsClickable &&*/}
-                    {/*    <Tab.Screen*/}
-                    {/*        name="Settings"*/}
-                    {/*        component={Settings}*/}
-                    {/*        options={{*/}
-                    {/*            headerShown: false,*/}
-                    {/*            tabBarLabel: 'Settings',*/}
-                    {/*            tabBarIcon: ({color, size}) => (*/}
-                    {/*                <Ionicons name="hammer" size={size} color={color}/>*/}
-                    {/*            ),*/}
-                    {/*        }}*/}
-                    {/*    />*/}
-                    {/*}*/}
                 </Tab.Navigator>
             </NavigationContainer>
         </TournamentDataProvider>

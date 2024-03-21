@@ -108,6 +108,7 @@ const commonStyles = StyleSheet.create({
         backgroundColor: "orange",
         color: "black",
 
+
     },
     selectDropdown: {
         height: 25,
