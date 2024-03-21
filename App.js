@@ -52,7 +52,8 @@ function AppContent() {
                 <Tab.Navigator
                     screenOptions={{
                         tabBarLabelStyle: {fontSize: 14, fontFamily: "notoserif", color: "black"},
-                        tabBarStyle: {}
+                        tabBarStyle: {},
+                        //tabBarActiveBackgroundColor:
                     }}
                 >
                     <Tab.Screen
@@ -60,10 +61,9 @@ function AppContent() {
                         component={Index}
                         options={{
                             headerShown: false,
-                            tabBarStyle: {backgroundColor: "#f3eddf"},
                             tabBarLabel: 'Home',
-                            tabBarIcon: ({color, size}) => (
-                                <Ionicons name="home" size={size} color="green"/>
+                            tabBarIcon: ({color, size, focused}) => (
+                                <Ionicons name="home" size={size} color={focused ? 'orange' : 'green'}/>
                             ),
                         }}
                     />
@@ -74,8 +74,8 @@ function AppContent() {
                             options={{
                                 headerShown: false,
                                 tabBarLabel: 'Tournament',
-                                tabBarIcon: ({color, size}) => (
-                                    <Ionicons name="tennisball" size={size} color="green"/>
+                                tabBarIcon: ({color, size, focused}) => (
+                                    <Ionicons name="home" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
                             }}
                         />
@@ -87,8 +87,8 @@ function AppContent() {
                             options={{
                                 headerShown: false,
                                 tabBarLabel: 'Topboard',
-                                tabBarIcon: ({color, size}) => (
-                                    <Ionicons name="stats-chart" size={size} color="green"/>
+                                tabBarIcon: ({color, size, focused}) => (
+                                    <Ionicons name="home" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
                             }}
                         />

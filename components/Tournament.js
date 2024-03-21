@@ -96,7 +96,7 @@ const Tournament = () => {
                                 onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
                             />
                             <View><Text style={commonStyles.label}>
-                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + ' & ' + tournamentData.playerNames[index * 4 + 2].name)}
+                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
                             </Text>
                             </View>
                             <SelectDropdown
@@ -107,7 +107,7 @@ const Tournament = () => {
                                 onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
                             />
                             <View><Text style={commonStyles.label}>
-                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + ' & ' + tournamentData.playerNames[index * 4 + 3].name)}
+                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
                             </Text>
                             </View>
                         </View>

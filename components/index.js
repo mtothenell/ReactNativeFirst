@@ -136,11 +136,11 @@ const Index = () => {
                     </View>
                 </View>
             )}
-            {!tournamentData.gameOn && showPlayers && <Addplayers resetIndex={resetIndex}/>}
+            {!tournamentData.gameOn && showPlayers && <Addplayers resetIndex={resetIndex} isLandscape={isLandscape}/>}
             {tournamentData.gameOn && (<View style={commonStyles.container}>
                 <Text style={commonStyles.headlines}>Tournament ongoing..</Text>
                 <TouchableOpacity style={commonStyles.button} onPress={reset}>
-                    <Text style={[commonStyles.label, {}]}>RESTART</Text>
+                    <Text style={[commonStyles.label, {}]}>Restart</Text>
                 </TouchableOpacity>
             </View>)}
         </ImageBackground>

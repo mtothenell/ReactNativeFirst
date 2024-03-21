@@ -24,8 +24,8 @@ const TopboardTGIF = () => {
                 <Text style={commonStyles.headlines}></Text>
                 <View style={commonStyles.table}>
                     <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
-                        <Text style={commonStyles.cell}>Name</Text>
-                        <Text style={commonStyles.cell}>Wins</Text>
+                        <Text style={commonStyles.cellHeader}>Name</Text>
+                        <Text style={commonStyles.cellHeader}>Wins</Text>
                     </View>
                     <FlatList
                         data={tournamentData.playerNames}

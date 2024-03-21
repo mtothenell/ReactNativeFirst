@@ -134,9 +134,9 @@ const commonStyles = StyleSheet.create({
         flexDirection: "row",
         justifyContent: "space-between",
         borderBottomWidth: 1,
-        borderBottomColor: "#ccc",
+        borderBottomColor: "#000000",
         paddingVertical: 0,
-        backgroundColor: 'whitesmoke',
+        backgroundColor: '#b8ce9b',
         height: 36,
     },
     headerRow: {
@@ -157,11 +157,11 @@ const commonStyles = StyleSheet.create({
     },
     counterContainer: {
     },
-    oddRow: {
-        backgroundColor: '#FFFFFF',
+    notFirst: {
+        backgroundColor: '#b8ce9b',
     },
-    evenRow: {
-        backgroundColor: '#e8e8a8',
+    first: {
+        backgroundColor: '#efdd76',
     },
 });
 

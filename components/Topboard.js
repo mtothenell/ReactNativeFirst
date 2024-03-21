@@ -32,7 +32,7 @@ const Topboard = () => {
                         <FlatList
                             data={tournamentData.playerNames}
                             renderItem={({item, index}) => (
-                                <View style={[commonStyles.tableRow, index < 3 ? commonStyles.evenRow : commonStyles.oddRow]}>
+                                <View style={[commonStyles.tableRow, index == 0 ? commonStyles.first : commonStyles.notFirst]}>
                                     <Text style={commonStyles.cell}>{item.name}</Text>
                                     <Text style={commonStyles.cell}>{item.score || 0}</Text>
                                 </View>
