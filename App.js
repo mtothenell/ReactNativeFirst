@@ -27,21 +27,37 @@ const MainStack = () => (
     }}>
         <Stack.Screen name="Home" component={Index} options={{headerShown: false}}/>
         <Stack.Screen name="Tournament" component={Tournament} options={{headerShown: false}}/>
-        <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>
+        {/*<Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>*/}
         <Stack.Screen name="Topboard" component={Topboard} options={{headerShown: false}}/>
     </Stack.Navigator>
 );
 
 export default function App() {
 
+    const [isLandscape, setIsLandscape] = useState(false);
+
+    useEffect(() => {
+        const updateOrientation = () => {
+            const { width, height } = Dimensions.get('window');
+            setIsLandscape(width > height);
+        };
+
+        updateOrientation();
+
+        Dimensions.addEventListener('change', updateOrientation);
+
+        return () => Dimensions.removeEventListener('change', updateOrientation);
+    }, []);
+
+
     return (
         <TournamentDataProvider>
-            <AppContent/>
+            <AppContent isLandscape={isLandscape}/>
         </TournamentDataProvider>
     );
 }
 
-function AppContent() {
+function AppContent( {isLandscape}) {
 
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
@@ -52,6 +68,7 @@ function AppContent() {
                 <Tab.Navigator screenOptions={{tabBarLabelStyle: {fontSize: 14, fontFamily: "notoserif"}}}>
                     <Tab.Screen
                         name="Home"
+                        initialParams={ {isLandscape}}
                         component={Index}
                         options={{
                             headerShown: false,
@@ -88,19 +105,19 @@ function AppContent() {
                             }}
                         />
                     }
-                    {tournamentData.settingsClickable &&
-                        <Tab.Screen
-                            name="Settings"
-                            component={Settings}
-                            options={{
-                                headerShown: false,
-                                tabBarLabel: 'Settings',
-                                tabBarIcon: ({color, size}) => (
-                                    <Ionicons name="hammer" size={size} color={color}/>
-                                ),
-                            }}
-                        />
-                    }
+                    {/*{tournamentData.settingsClickable &&*/}
+                    {/*    <Tab.Screen*/}
+                    {/*        name="Settings"*/}
+                    {/*        component={Settings}*/}
+                    {/*        options={{*/}
+                    {/*            headerShown: false,*/}
+                    {/*            tabBarLabel: 'Settings',*/}
+                    {/*            tabBarIcon: ({color, size}) => (*/}
+                    {/*                <Ionicons name="hammer" size={size} color={color}/>*/}
+                    {/*            ),*/}
+                    {/*        }}*/}
+                    {/*    />*/}
+                    {/*}*/}
                 </Tab.Navigator>
             </NavigationContainer>
         </TournamentDataProvider>

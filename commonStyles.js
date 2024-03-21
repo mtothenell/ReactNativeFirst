@@ -12,6 +12,13 @@ const commonStyles = StyleSheet.create({
         justifyContent: 'center',
         //backgroundColor: "red",
     },
+    containerLandscape: {
+        flex: 1,
+        flexDirection: "row",
+        alignItems: 'center',
+        justifyContent: 'center',
+        //backgroundColor: "red",
+    },
     headerContainer: {
         flex: 0.5,
         //backgroundColor: "blue",

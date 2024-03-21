@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, ImageBackground, Image} from 'react-native';
+import {View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Dimensions} from 'react-native';
 import commonStyles from "../commonStyles";
 import SelectDropdown from 'react-native-select-dropdown'
 import bg from '../assets/img.png'
@@ -8,7 +8,9 @@ import {useTournamentData} from "./TournamentDataContext";
 import {useNavigation} from "@react-navigation/native";
 import mangopadel from "../assets/mangopadel10.png"
 
-const Index = () => {
+const Index = ({route}) => {
+
+    const {isLandscape} = route.params;
 
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
@@ -40,37 +42,16 @@ const Index = () => {
 
     const navigation = useNavigation();
 
-    // const handleNext = () => {
-        //
-        // const updatedTourData = {
-        //     ...tournamentData,
-        //     settingsClickable: true,
-        //     gameOn: true
-        // };
-        // setTournamentData(updatedTourData);
-
-        // if (tournamentData.type === "TGIF") {
-        //     navigation.reset({
-        //         index: 0,
-        //         routes: [{name: 'Topboard'}]
-        //     });
-        // } else {
-        //     navigation.reset({
-        //         index: 0,
-        //         routes: [{name: 'Tournament'}]
-        //     });
-        // }
-    // };
-
     return (
         <ImageBackground
             source={bg}
             resizeMode="cover" style={commonStyles.backgroundImage}
         >
-            {!tournamentData.gameOn && showContent && (<View style={commonStyles.container}>
+            {!tournamentData.gameOn && showContent && (<View style={!isLandscape ? commonStyles.containerLandscape : commonStyles.container}>
                     <View style={commonStyles.headerContainer}>
                         <View style={commonStyles.indexImage}>
-                            <Image style={{width: 200, height: 200, resizeMode: 'contain'}} source={mangopadel}></Image>
+                            <Image style={{width: 200, height: 200, resizeMode: 'contain'}}
+                                   source={mangopadel}></Image>
                         </View>
                     </View>
                     <View style={commonStyles.bottomContainer}>
