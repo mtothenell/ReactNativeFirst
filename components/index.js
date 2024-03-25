@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Dimensions} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {View, Text, TextInput, TouchableOpacity, ImageBackground, Image, Dimensions, Modal} from 'react-native';
 import commonStyles from "../commonStyles";
 import SelectDropdown from 'react-native-select-dropdown'
 import bg from '../assets/img.png'
@@ -9,18 +9,21 @@ import {useNavigation} from "@react-navigation/native";
 import mangopadel from "../assets/mangopadel10.png"
 import {useFonts} from "expo-font";
 import * as Font from "expo-font";
+import MyModal from "./MyModal";
 
 const Index = () => {
 
+    const [isModalVisible, setIsModalVisible] = useState(false);
     const [isFontLoaded, setIsFontLoaded] = useState(false);
     const [isLandscape, setIsLandscape] = useState(false);
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
-    const points = ["11", "15", "17", "21", "25"]
+    const [point, setPoint] = useState(21);
     const players = ["4", "8", "12", "16"]
     const type = ["TGIF", "Mexicano"]
     const [showContent, setShowContent] = useState(true);
     const [showPlayers, setShowPlayers] = useState(false);
+    const textInputRef = useRef(null);
 
     // Load fonts
     useFonts({
@@ -35,11 +38,17 @@ const Index = () => {
     }, []);
 
     useEffect(() => {
-        const { width, height } = Dimensions.get('window');
+        const {width, height} = Dimensions.get('window');
         setIsLandscape(width > height);
     }, []);
 
     const addPlayers = () => {
+
+        tourContext.setTournamentData({
+            ...tourContext.tournamentData,
+            points: point
+        })
+
         setShowContent(false);
         setShowPlayers(true);
     }
@@ -53,6 +62,21 @@ const Index = () => {
         setShowPlayers(false);
     };
 
+    const handleTextInputFocus = () => {
+        setIsModalVisible(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalVisible(false);
+    };
+
+    const handleNumberSelection = (number) => {
+        console.log(number)
+        setPoint(number);
+        setIsModalVisible(false);
+        textInputRef.current.blur();
+    };
+
     const navigation = useNavigation();
 
     if (!isFontLoaded) {
@@ -64,7 +88,8 @@ const Index = () => {
             source={bg}
             resizeMode="cover" style={commonStyles.backgroundImage}
         >
-            {!tournamentData.gameOn && showContent && (<View style={isLandscape ? commonStyles.containerLandscape : commonStyles.container}>
+            {!tournamentData.gameOn && showContent && (
+                <View style={isLandscape ? commonStyles.containerLandscape : commonStyles.container}>
                     <View style={commonStyles.headerContainer}>
                         <View style={commonStyles.indexImage}>
                             <Image style={{width: 200, height: 200, resizeMode: 'contain'}}
@@ -124,28 +149,45 @@ const Index = () => {
                         </View>
                         {tournamentData.type !== "TGIF" && <View style={commonStyles.rowContainer}>
                             <Text style={commonStyles.label}>Points</Text>
-                            <SelectDropdown
-                                rowTextStyle={commonStyles.selectDropDownText}
-                                buttonTextStyle={commonStyles.selectDropDownText}
-                                data={points}
-                                defaultButtonText='21'
-                                buttonStyle={commonStyles.selectDropdown}
-                                onSelect={(selectedItem, index) => tourContext.setTournamentData({
-                                    ...tourContext.tournamentData,
-                                    points: selectedItem
-                                })}
+                            <Text
+                                ref={textInputRef}
+                                style={commonStyles.textField}
+                                value={point.toString()}
+                                onPress={handleTextInputFocus}
+                            >
+                                {point ? point.toString() : 'Placeholder Text'}
+                            </Text>
+                            <Modal
+                                visible={isModalVisible}
+                                transparent={true}
+                                onRequestClose={handleCloseModal}
+                                animationType="fade"
+                            >
+                                <MyModal visible={handleTextInputFocus} onClose={handleCloseModal}
+                                         onSelectNumber={handleNumberSelection}></MyModal>
+                            </Modal>
+                            {/*<SelectDropdown*/}
+                            {/*    rowTextStyle={commonStyles.selectDropDownText}*/}
+                            {/*    buttonTextStyle={commonStyles.selectDropDownText}*/}
+                            {/*    data={points}*/}
+                            {/*    defaultButtonText='21'*/}
+                            {/*    buttonStyle={commonStyles.selectDropdown}*/}
+                            {/*    onSelect={(selectedItem, index) => tourContext.setTournamentData({*/}
+                            {/*        ...tourContext.tournamentData,*/}
+                            {/*        points: selectedItem*/}
+                            {/*    })}*/}
 
-                                buttonTextAfterSelection={(selectedItem, index) => {
-                                    return selectedItem
-                                }}
-                                rowTextForSelection={(item, index) => {
+                            {/*    buttonTextAfterSelection={(selectedItem, index) => {*/}
+                            {/*        return selectedItem*/}
+                            {/*    }}*/}
+                            {/*    rowTextForSelection={(item, index) => {*/}
 
-                                    return item
-                                }}
-                            />
+                            {/*        return item*/}
+                            {/*    }}*/}
+                            {/*/>*/}
                         </View>}
                         <View style={commonStyles.fullWidthContainer}>
-                            <Text>                     </Text>
+                            <Text> </Text>
                             <TouchableOpacity style={commonStyles.button} onPress={addPlayers}>
                                 <Text style={commonStyles.label}>Continue</Text>
                             </TouchableOpacity>
@@ -155,7 +197,8 @@ const Index = () => {
             )}
             {!tournamentData.gameOn && showPlayers && <Addplayers resetIndex={resetIndex} isLandscape={isLandscape}/>}
             {tournamentData.gameOn && (<View style={commonStyles.container}>
-                <Text style={[commonStyles.headlines]}>Tournament <Text style={{color: "#a9ec50"}}>ongoing..</Text></Text>
+                <Text style={[commonStyles.headlines]}>Tournament <Text
+                    style={{color: "#a9ec50"}}>ongoing..</Text></Text>
                 <TouchableOpacity style={commonStyles.button} onPress={reset}>
                     <Text style={[commonStyles.label, {}]}>Restart</Text>
                 </TouchableOpacity>

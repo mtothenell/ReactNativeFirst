@@ -26,13 +26,15 @@ const Topboard = () => {
                     <Text style={commonStyles.headlines}>{tournamentData.name}</Text>
                     <View style={commonStyles.table}>
                         <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
+                            <Text style={commonStyles.cellHeader}>Position</Text>
                             <Text style={commonStyles.cellHeader}>Name</Text>
                             <Text style={commonStyles.cellHeader}>Score</Text>
                         </View>
                         <FlatList
                             data={tournamentData.playerNames}
                             renderItem={({item, index}) => (
-                                <View style={[commonStyles.tableRow, index == 0 ? commonStyles.first : commonStyles.notFirst]}>
+                                <View style={[commonStyles.tableRow, index === 0 ? commonStyles.first : commonStyles.notFirst]}>
+                                    <Text style={commonStyles.cell}>{index+1}</Text>
                                     <Text style={commonStyles.cell}>{item.name}</Text>
                                     <Text style={commonStyles.cell}>{item.score || 0}</Text>
                                 </View>
