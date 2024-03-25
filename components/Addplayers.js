@@ -21,7 +21,7 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     const [playerNames, setPlayerNames] = useState(() => {
         // Generate automatic player names like player1, player2, ...
         return Array.from({length: parseInt(tournamentData.players)}, (_, index) => ({
-            name: `terminator${index + 1}`,
+            name: `badguys${index + 1}`,
             score: 0
         }));
     });

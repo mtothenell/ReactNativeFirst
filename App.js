@@ -4,13 +4,12 @@ import React, {useEffect, useState} from "react";
 import {createStackNavigator} from "@react-navigation/stack";
 import {NavigationContainer} from "@react-navigation/native";
 import Topboard from "./components/Topboard";
-import Settings from "./components/Settings";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from '@expo/vector-icons';
 import Tournament from "./components/Tournament";
 import {TournamentDataProvider, useTournamentData} from "./components/TournamentDataContext";
-import {Dimensions} from "react-native";
-
+import {useFonts} from "expo-font";
+import * as Font from 'expo-font';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -19,7 +18,7 @@ const MainStack = () => (
     <Stack.Navigator screenOptions={{
         headerTitleStyle: {
             alignSelf: 'flex-end',
-            fontFamily: "notoserif",
+            fontFamily: "Bauhaus_93",
         },
         headerStyle: {
             backgroundColor: "orange",
@@ -33,6 +32,23 @@ const MainStack = () => (
 );
 
 export default function App() {
+
+    const [isFontLoaded, setIsFontLoaded] = useState(false);
+
+    useEffect(() => {
+        async function loadFonts() {
+            await Font.loadAsync({
+                Bauhaus_93: require('./assets/fonts/bauhaus_93.ttf'),
+            });
+            setIsFontLoaded(true);
+        }
+        loadFonts().then(r => () => {});
+    }, []);
+
+    // Wait for fonts to load before rendering the app
+    if (!isFontLoaded) {
+        return null; // You can return a loading indicator here
+    }
 
     return (
         <TournamentDataProvider>
@@ -51,9 +67,8 @@ function AppContent() {
             <NavigationContainer>
                 <Tab.Navigator
                     screenOptions={{
-                        tabBarLabelStyle: {fontSize: 14, fontFamily: "notoserif", color: "black"},
+                        tabBarLabelStyle: {fontSize: 14, fontFamily: "Bauhaus_93", color: "black"},
                         tabBarStyle: {},
-                        //tabBarActiveBackgroundColor:
                     }}
                 >
                     <Tab.Screen

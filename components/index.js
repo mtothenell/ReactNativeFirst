@@ -7,30 +7,37 @@ import Addplayers from "./Addplayers";
 import {useTournamentData} from "./TournamentDataContext";
 import {useNavigation} from "@react-navigation/native";
 import mangopadel from "../assets/mangopadel10.png"
+import {useFonts} from "expo-font";
+import * as Font from "expo-font";
 
 const Index = () => {
 
+    const [isFontLoaded, setIsFontLoaded] = useState(false);
     const [isLandscape, setIsLandscape] = useState(false);
-
-    useEffect(() => {
-        const {width, height} = Dimensions.get('window');
-        setIsLandscape(width > height);
-    }, []);
-
-
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
-
     const points = ["11", "15", "17", "21", "25"]
     const players = ["4", "8", "12", "16"]
     const type = ["TGIF", "Mexicano"]
-
-    useEffect(() => {
-
-    }, [type])
-
     const [showContent, setShowContent] = useState(true);
     const [showPlayers, setShowPlayers] = useState(false);
+
+    // Load fonts
+    useFonts({
+        Bauhaus_93: require('../assets/fonts/bauhaus_93.ttf'),
+    });
+
+    // Wait for fonts to load before setting isFontLoaded
+    useEffect(() => {
+        if (Font) {
+            setIsFontLoaded(true);
+        }
+    }, []);
+
+    useEffect(() => {
+        const { width, height } = Dimensions.get('window');
+        setIsLandscape(width > height);
+    }, []);
 
     const addPlayers = () => {
         setShowContent(false);
@@ -47,6 +54,10 @@ const Index = () => {
     };
 
     const navigation = useNavigation();
+
+    if (!isFontLoaded) {
+        return null; // Return a loading indicator or placeholder
+    }
 
     return (
         <ImageBackground
@@ -74,6 +85,8 @@ const Index = () => {
                             <Text style={commonStyles.label}>Type</Text>
                             <SelectDropdown
                                 data={type}
+                                rowTextStyle={commonStyles.selectDropDownText}
+                                buttonTextStyle={commonStyles.selectDropDownText}
                                 buttonStyle={commonStyles.selectDropdown}
                                 defaultButtonText={tournamentData.type}
                                 onSelect={(selectedItem, index) => tourContext.setTournamentData({
@@ -92,6 +105,8 @@ const Index = () => {
                         <View style={commonStyles.rowContainer}>
                             <Text style={commonStyles.label}>Players</Text>
                             <SelectDropdown
+                                rowTextStyle={commonStyles.selectDropDownText}
+                                buttonTextStyle={commonStyles.selectDropDownText}
                                 data={players}
                                 defaultButtonText="4"
                                 buttonStyle={commonStyles.selectDropdown}
@@ -110,6 +125,8 @@ const Index = () => {
                         {tournamentData.type !== "TGIF" && <View style={commonStyles.rowContainer}>
                             <Text style={commonStyles.label}>Points</Text>
                             <SelectDropdown
+                                rowTextStyle={commonStyles.selectDropDownText}
+                                buttonTextStyle={commonStyles.selectDropDownText}
                                 data={points}
                                 defaultButtonText='21'
                                 buttonStyle={commonStyles.selectDropdown}
@@ -138,7 +155,7 @@ const Index = () => {
             )}
             {!tournamentData.gameOn && showPlayers && <Addplayers resetIndex={resetIndex} isLandscape={isLandscape}/>}
             {tournamentData.gameOn && (<View style={commonStyles.container}>
-                <Text style={commonStyles.headlines}>Tournament ongoing..</Text>
+                <Text style={[commonStyles.headlines]}>Tournament <Text style={{color: "#a9ec50"}}>ongoing..</Text></Text>
                 <TouchableOpacity style={commonStyles.button} onPress={reset}>
                     <Text style={[commonStyles.label, {}]}>Restart</Text>
                 </TouchableOpacity>

@@ -1,4 +1,4 @@
-import {View, Text, ImageBackground, TouchableOpacity} from "react-native";
+import {View, Text, ImageBackground, TouchableOpacity, Dimensions} from "react-native";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
@@ -6,6 +6,8 @@ import {useTournamentData} from "./TournamentDataContext";
 import SelectDropdown from "react-native-select-dropdown";
 
 const Tournament = () => {
+
+    const [isLandscape, setIsLandscape] = useState(false);
     const [valuesEntered, setValuesEntered] = useState(true);
     const tourContext = useTournamentData();
     const {tournamentData, setTournamentData, updateRoundData, sortPlayers} = tourContext;
@@ -13,6 +15,11 @@ const Tournament = () => {
         value1: '0',
         value2: '0'
     }));
+
+    useEffect(() => {
+        const {width, height} = Dimensions.get('window');
+        setIsLandscape(width > height);
+    }, []);
 
     const handleDropdownChange1 = (index, value) => {
         const newSelectedValues = [...selectedValues];
@@ -99,6 +106,7 @@ const Tournament = () => {
                                 {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
                             </Text>
                             </View>
+                            {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
                             <SelectDropdown
                                 defaultValue={selectedValue.value2}
                                 data={pointsToPlayFor()}
@@ -112,16 +120,15 @@ const Tournament = () => {
                             </View>
                         </View>
                     ))}
-                    <View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
+                    {!isLandscape && (<View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
                         <View style={{margin: 10}}>
                             <TouchableOpacity
                                 style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
-                                onPress={handleNext} disabled={valuesEntered}
-                            >
+                                onPress={handleNext} disabled={valuesEntered}>
                                 <Text style={commonStyles.label}>Next</Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View>)}
                 </View>) : null}
         </ImageBackground>
     );

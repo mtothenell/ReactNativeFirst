@@ -5,7 +5,13 @@ const screenWidth = Dimensions.get('window').width;
 
 const isLandscape = screenWidth > screenHeight;
 
+// grön:   #668939
+// orange: #fc7d1e
+
 const commonStyles = StyleSheet.create({
+    selectDropDownText: {
+        fontFamily: 'Bauhaus_93'
+    },
     container: {
         flex: 1,
         alignItems: 'center',
@@ -62,8 +68,15 @@ const commonStyles = StyleSheet.create({
         padding: 5,
         width: 100,
         textAlign: 'center',
-        fontSize: 14,
-        fontFamily: "notoserif",
+        fontSize: 16,
+        fontFamily: 'Bauhaus_93'
+    },
+    labelVS: {
+        color: 'orange',
+        width: 50,
+        textAlign: 'center',
+        fontSize: 16,
+        fontFamily: 'Bauhaus_93'
     },
     courtLabel: {
         color: 'orange',
@@ -71,8 +84,6 @@ const commonStyles = StyleSheet.create({
         width: 50,
         textAlign: 'center',
         fontSize: 18,
-        fontFamily: "notoserif",
-        fontWeight: 'bold',
     },
     textField: {
         backgroundColor: "white",
@@ -84,20 +95,17 @@ const commonStyles = StyleSheet.create({
         color: 'black',
         borderRadius: 5,
         textAlign: 'center',
-        fontFamily: "notoserif",
+        fontFamily: 'Bauhaus_93',
     },
-
     headlines: {
+        fontFamily: 'Bauhaus_93',
         fontSize: 26,
-        fontWeight: "bold",
         color: "orange",
         textAlign: "center",
-        fontFamily: "notoserif",
         padding: 20,
     },
     underLines: {
         fontSize: 14,
-        fontFamily: "notoserif",
     },
     dropDown: {
         width: 200,
@@ -107,14 +115,13 @@ const commonStyles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: "orange",
         color: "black",
-
-
     },
     selectDropdown: {
         height: 25,
         width: 150,
         borderRadius: 5,
-        backgroundColor: "white"
+        backgroundColor: "white",
+        //fontFamily: 'Bauhaus_93',
     },
     selectDropdown2: {
         height: 25,
@@ -124,7 +131,6 @@ const commonStyles = StyleSheet.create({
     },
     heading: {
         fontSize: 20,
-        fontWeight: "bold",
         marginBottom: 10,
     },
     table: {
@@ -145,15 +151,18 @@ const commonStyles = StyleSheet.create({
     cell: {
         flex: 1,
         textAlign: "center",
+        fontFamily: 'Bauhaus_93'
     },
     cellHeader: {
         flex: 1,
         textAlign: "center",
-        fontWeight: 'bold',
+        fontFamily: 'Bauhaus_93',
+        fontSize: 20
     },
     cell2: {
         flex: 1,
         textAlign: "center",
+        fontFamily: 'Bauhaus_93'
     },
     counterContainer: {
     },
