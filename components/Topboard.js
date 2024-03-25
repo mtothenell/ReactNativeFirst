@@ -23,7 +23,7 @@ const Topboard = () => {
             style={commonStyles.backgroundImage}>
             {tournamentData.roundData.length !== 0 && tournamentData.type !== "TGIF" ? (
                 <View style={commonStyles.container}>
-                    <Text style={commonStyles.headlines}></Text>
+                    <Text style={commonStyles.headlines}>{tournamentData.name}</Text>
                     <View style={commonStyles.table}>
                         <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
                             <Text style={commonStyles.cellHeader}>Name</Text>

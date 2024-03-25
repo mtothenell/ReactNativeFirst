@@ -84,52 +84,67 @@ const Tournament = () => {
             style={commonStyles.backgroundImage}
         >
             {tournamentData.gameOn && tournamentData.type !== "TGIF" ? (
-                <View style={commonStyles.container}>
-                    <View style={commonStyles.rowContainer}>
-                        <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>
+                <View style={commonStyles.contentContainer}>
+                    <View style={commonStyles.container}>
+                        <View style={isLandscape ? commonStyles.rowContainerTournamentLandscape : commonStyles.rowContainer}>
+                            <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>
+                            {isLandscape && (<View style={[{}]}>
+                                    <View style={{}}>
+                                        <TouchableOpacity
+                                            style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
+                                            onPress={handleNext} disabled={valuesEntered}>
+                                            <Text style={commonStyles.label}>Next</Text>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            )}
+                        </View>
+                        {selectedValues.map((selectedValue, index) => {
+                            const isLastRow = index === selectedValues.length - 1;
+                            return (
+                            <View key={index * 4} style={commonStyles.rowContainer}>
+                                <View>
+                                    <Text
+                                        style={commonStyles.courtLabel}>{index + 1}</Text>
+                                </View>
+                                <SelectDropdown
+                                    defaultValue={selectedValue.value1}
+                                    data={pointsToPlayFor()}
+                                    defaultButtonText={selectedValue.value1}
+                                    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
+                                    onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
+                                />
+                                <View><Text style={commonStyles.label}>
+                                    {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
+                                </Text>
+                                </View>
+                                {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
+                                <SelectDropdown
+                                    defaultValue={selectedValue.value2}
+                                    data={pointsToPlayFor()}
+                                    defaultButtonText={selectedValue.value2}
+                                    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
+                                    onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
+                                />
+                                <View><Text style={commonStyles.label}>
+                                    {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
+                                </Text>
+                                </View>
+                            </View>)
+                        })}
+                        {!isLandscape && (<View style={[commonStyles.rowContainer, {paddingTop: 20 }]}>
+                                <View style={{margin: 10}}>
+                                    <TouchableOpacity
+                                        style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
+                                        onPress={handleNext} disabled={valuesEntered}>
+                                        <Text style={commonStyles.label}>Next</Text>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        )}
                     </View>
-                    {selectedValues.map((selectedValue, index) => (
-
-                        <View key={index * 4} style={commonStyles.rowContainer}>
-                            <View>
-                                <Text
-                                    style={commonStyles.courtLabel}>{index + 1}</Text>
-                            </View>
-                            <SelectDropdown
-                                defaultValue={selectedValue.value1}
-                                data={pointsToPlayFor()}
-                                defaultButtonText={selectedValue.value1}
-                                buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
-                            />
-                            <View><Text style={commonStyles.label}>
-                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
-                            </Text>
-                            </View>
-                            {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
-                            <SelectDropdown
-                                defaultValue={selectedValue.value2}
-                                data={pointsToPlayFor()}
-                                defaultButtonText={selectedValue.value2}
-                                buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
-                            />
-                            <View><Text style={commonStyles.label}>
-                                {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
-                            </Text>
-                            </View>
-                        </View>
-                    ))}
-                    {!isLandscape && (<View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
-                        <View style={{margin: 10}}>
-                            <TouchableOpacity
-                                style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
-                                onPress={handleNext} disabled={valuesEntered}>
-                                <Text style={commonStyles.label}>Next</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>)}
-                </View>) : null}
+                </View>
+            ) : null}
         </ImageBackground>
     );
 };

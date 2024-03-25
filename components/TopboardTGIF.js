@@ -18,10 +18,9 @@ const TopboardTGIF = () => {
         <ImageBackground
             source={bg}
             resizeMode="cover"
-            style={commonStyles.backgroundImage}
-        >
+            style={commonStyles.backgroundImage}        >
             < View style={commonStyles.container}>
-                <Text style={commonStyles.headlines}></Text>
+                <Text style={commonStyles.headlines}>{tournamentData.name}</Text>
                 <View style={commonStyles.table}>
                     <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
                         <Text style={commonStyles.cellHeader}>NAME</Text>

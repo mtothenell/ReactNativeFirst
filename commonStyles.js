@@ -18,22 +18,25 @@ const commonStyles = StyleSheet.create({
         justifyContent: 'center',
         //backgroundColor: "red",
     },
+    contentContainer: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     containerLandscape: {
         flex: 1,
         flexDirection: "row",
         alignItems: 'center',
         justifyContent: 'center',
-        //backgroundColor: "red",
     },
     headerContainer: {
         flex: 0.5,
-        //backgroundColor: "blue",
         alignItems: 'center',
         justifyContent: 'center',
     },
     bottomContainer: {
         flex: 0.5,
-        //backgroundColor: "green",
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
     },
@@ -56,6 +59,13 @@ const commonStyles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         padding: 5,
+    },
+    rowContainerTournamentLandscape: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 5,
+        marginTop: -60,
     },
     fullWidthContainer: {
         width: '80%',
