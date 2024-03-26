@@ -17,7 +17,11 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-
+    },
+    containerLand: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
     },
     contentContainer: {
         flexDirection: 'row',
@@ -119,6 +123,14 @@ const commonStyles = StyleSheet.create({
         textAlign: "center",
         padding: 20,
     },
+    headlinesLandscape: {
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
+        fontSize: 18,
+        color: "orange",
+        textAlign: "center",
+        padding: 8,
+    },
     underLines: {
         fontSize: 14,
     },
@@ -157,10 +169,11 @@ const commonStyles = StyleSheet.create({
         borderBottomColor: "#000000",
         paddingVertical: 0,
         backgroundColor: '#b8ce9b',
-        height: 36,
+        height: 30,
     },
     headerRow: {
         backgroundColor: "orange",
+        height: 30,
     },
     cell: {
         flex: 1,
@@ -173,7 +186,7 @@ const commonStyles = StyleSheet.create({
         textAlign: "center",
         fontFamily: 'JosefinSans',
         fontWeight: 'bold',
-        fontSize: 18
+        fontSize: 16
     },
     cell2: {
         flex: 1,
@@ -187,7 +200,7 @@ const commonStyles = StyleSheet.create({
         backgroundColor: '#b8ce9b',
     },
     first: {
-        backgroundColor: '#efdd76',
+        backgroundColor: '#FFD700',
     },
 });
 

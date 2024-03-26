@@ -31,7 +31,6 @@ const Index = () => {
         JosefinSans: require('../assets/fonts/JosefinSans.ttf'),
     });
 
-    // Wait for fonts to load before setting isFontLoaded
     useEffect(() => {
         if (Font) {
             setIsFontLoaded(true);

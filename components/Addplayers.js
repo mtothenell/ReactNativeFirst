@@ -71,12 +71,12 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     };
 
     return (
-        <View style={commonStyles.container}>
-
+        <View
+            style={[commonStyles.container, isLandscape && tournamentData.playerNames.length >= 16 && commonStyles.containerLand]}>
             {!isLandscape ? (
                 <View>
                     {playerNames.map((playerName, index) => (
-                        <View key={index} style={commonStyles.rowContainer}>
+                        <View key={index} style={[commonStyles.rowContainer, {}]}>
                             <TextInput
                                 placeholderTextColor="black"
                                 style={commonStyles.textField}
