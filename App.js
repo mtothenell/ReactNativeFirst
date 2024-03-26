@@ -8,7 +8,6 @@ import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Ionicons} from '@expo/vector-icons';
 import Tournament from "./components/Tournament";
 import {TournamentDataProvider, useTournamentData} from "./components/TournamentDataContext";
-import {useFonts} from "expo-font";
 import * as Font from 'expo-font';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -18,7 +17,8 @@ const MainStack = () => (
     <Stack.Navigator screenOptions={{
         headerTitleStyle: {
             alignSelf: 'flex-end',
-            fontFamily: "Bauhaus_93",
+            fontFamily: 'Josefinsans',
+            fontWeight: 'bold',
         },
         headerStyle: {
             backgroundColor: "orange",
@@ -39,6 +39,7 @@ export default function App() {
         async function loadFonts() {
             await Font.loadAsync({
                 Bauhaus_93: require('./assets/fonts/bauhaus_93.ttf'),
+                JosefinSans: require('./assets/fonts/JosefinSans.ttf'),
             });
             setIsFontLoaded(true);
         }
@@ -67,7 +68,7 @@ function AppContent() {
             <NavigationContainer>
                 <Tab.Navigator
                     screenOptions={{
-                        tabBarLabelStyle: {fontSize: 14, fontFamily: "Bauhaus_93", color: "black"},
+                        tabBarLabelStyle: {fontSize: 14, fontFamily: "JosefinSans", color: "black", fontWeight: 'bold'},
                         tabBarStyle: {},
                     }}
                 >

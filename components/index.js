@@ -28,6 +28,7 @@ const Index = () => {
     // Load fonts
     useFonts({
         Bauhaus_93: require('../assets/fonts/bauhaus_93.ttf'),
+        JosefinSans: require('../assets/fonts/JosefinSans.ttf'),
     });
 
     // Wait for fonts to load before setting isFontLoaded

@@ -21,13 +21,26 @@ const Tournament = () => {
         setIsLandscape(width > height);
     }, []);
 
+    useEffect(() => {
+        for (const item of selectedValues) {
+            const sum = parseInt(item.value1) + parseInt(item.value2);
+            if (sum === tournamentData.points) {
+                setValuesEntered(false)
+            }
+            else {
+                setValuesEntered(true)
+            }
+        }
+    }, [selectedValues]);
+
+
     const handleDropdownChange1 = (index, value) => {
         const newSelectedValues = [...selectedValues];
         const totalPoints = parseInt(tournamentData.points);
         const selectedPoints1 = parseInt(value);
-        if (selectedPoints1 > 0) {
-            setValuesEntered(false)
-        }
+        // if (selectedPoints1 > 0) {
+        //     setValuesEntered(false)
+        // }
         const selectedPoints2 = totalPoints - selectedPoints1;
         newSelectedValues[index] = {value1: value, value2: selectedPoints2.toString()};
         setSelectedValues(newSelectedValues);
@@ -37,9 +50,9 @@ const Tournament = () => {
         const newSelectedValues = [...selectedValues];
         const totalPoints = parseInt(tournamentData.points);
         const selectedPoints2 = parseInt(value);
-        if (selectedPoints2 > 0) {
-            setValuesEntered(false)
-        }
+        // if (selectedPoints2 > 0) {
+        //     setValuesEntered(false)
+        // }
         const selectedPoints1 = totalPoints - selectedPoints2;
         newSelectedValues[index] = {value1: selectedPoints1.toString(), value2: value};
         setSelectedValues(newSelectedValues);
@@ -86,7 +99,8 @@ const Tournament = () => {
             {tournamentData.gameOn && tournamentData.type !== "TGIF" ? (
                 <View style={commonStyles.contentContainer}>
                     <View style={commonStyles.container}>
-                        <View style={isLandscape ? commonStyles.rowContainerTournamentLandscape : commonStyles.rowContainer}>
+                        <View
+                            style={isLandscape ? commonStyles.rowContainerTournamentLandscape : commonStyles.rowContainer}>
                             <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>
                             {isLandscape && (<View style={[{}]}>
                                     <View style={{}}>
@@ -102,37 +116,37 @@ const Tournament = () => {
                         {selectedValues.map((selectedValue, index) => {
                             const isLastRow = index === selectedValues.length - 1;
                             return (
-                            <View key={index * 4} style={commonStyles.rowContainer}>
-                                <View>
-                                    <Text
-                                        style={commonStyles.courtLabel}>{index + 1}</Text>
-                                </View>
-                                <SelectDropdown
-                                    defaultValue={selectedValue.value1}
-                                    data={pointsToPlayFor()}
-                                    defaultButtonText={selectedValue.value1}
-                                    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                    onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
-                                />
-                                <View><Text style={commonStyles.label}>
-                                    {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
-                                </Text>
-                                </View>
-                                {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
-                                <SelectDropdown
-                                    defaultValue={selectedValue.value2}
-                                    data={pointsToPlayFor()}
-                                    defaultButtonText={selectedValue.value2}
-                                    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                    onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
-                                />
-                                <View><Text style={commonStyles.label}>
-                                    {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
-                                </Text>
-                                </View>
-                            </View>)
+                                <View key={index * 4} style={commonStyles.rowContainer}>
+                                    <View>
+                                        <Text
+                                            style={commonStyles.courtLabel}>{index + 1}</Text>
+                                    </View>
+                                    <SelectDropdown
+                                        defaultValue={selectedValue.value1}
+                                        data={pointsToPlayFor()}
+                                        defaultButtonText={selectedValue.value1}
+                                        buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
+                                        onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
+                                    />
+                                    <View><Text style={commonStyles.label}>
+                                        {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
+                                    </Text>
+                                    </View>
+                                    {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
+                                    <SelectDropdown
+                                        defaultValue={selectedValue.value2}
+                                        data={pointsToPlayFor()}
+                                        defaultButtonText={selectedValue.value2}
+                                        buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
+                                        onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
+                                    />
+                                    <View><Text style={commonStyles.label}>
+                                        {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
+                                    </Text>
+                                    </View>
+                                </View>)
                         })}
-                        {!isLandscape && (<View style={[commonStyles.rowContainer, {paddingTop: 20 }]}>
+                        {!isLandscape && (<View style={[commonStyles.rowContainer, {paddingTop: 20}]}>
                                 <View style={{margin: 10}}>
                                     <TouchableOpacity
                                         style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}

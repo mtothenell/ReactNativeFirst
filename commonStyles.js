@@ -10,12 +10,14 @@ const isLandscape = screenWidth > screenHeight;
 
 const commonStyles = StyleSheet.create({
     selectDropDownText: {
-        fontFamily: 'Bauhaus_93'
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
     },
     container: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+
     },
     contentContainer: {
         flexDirection: 'row',
@@ -78,14 +80,16 @@ const commonStyles = StyleSheet.create({
         width: 100,
         textAlign: 'center',
         fontSize: 16,
-        fontFamily: 'Bauhaus_93'
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
     },
     labelVS: {
         color: 'orange',
         width: 50,
         textAlign: 'center',
         fontSize: 16,
-        fontFamily: 'Bauhaus_93'
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
     },
     courtLabel: {
         color: 'orange',
@@ -104,10 +108,12 @@ const commonStyles = StyleSheet.create({
         color: 'black',
         borderRadius: 5,
         textAlign: 'center',
-        fontFamily: 'Bauhaus_93',
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
     },
     headlines: {
-        fontFamily: 'Bauhaus_93',
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
         fontSize: 26,
         color: "orange",
         textAlign: "center",
@@ -130,7 +136,6 @@ const commonStyles = StyleSheet.create({
         width: 150,
         borderRadius: 5,
         backgroundColor: "white",
-        //fontFamily: 'Bauhaus_93',
     },
     selectDropdown2: {
         height: 25,
@@ -160,18 +165,21 @@ const commonStyles = StyleSheet.create({
     cell: {
         flex: 1,
         textAlign: "center",
-        fontFamily: 'Bauhaus_93'
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
     },
     cellHeader: {
         flex: 1,
         textAlign: "center",
-        fontFamily: 'Bauhaus_93',
-        fontSize: 20
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
+        fontSize: 18
     },
     cell2: {
         flex: 1,
         textAlign: "center",
-        fontFamily: 'Bauhaus_93'
+        fontFamily: 'JosefinSans',
+        fontWeight: 'bold',
     },
     counterContainer: {
     },

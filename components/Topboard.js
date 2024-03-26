@@ -26,7 +26,7 @@ const Topboard = () => {
                     <Text style={commonStyles.headlines}>{tournamentData.name}</Text>
                     <View style={commonStyles.table}>
                         <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
-                            <Text style={commonStyles.cellHeader}>Position</Text>
+                            <Text style={commonStyles.cellHeader}>Rank</Text>
                             <Text style={commonStyles.cellHeader}>Name</Text>
                             <Text style={commonStyles.cellHeader}>Score</Text>
                         </View>
