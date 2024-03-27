@@ -10,6 +10,7 @@ import mangopadel from "../assets/mangopadel10.png"
 import {useFonts} from "expo-font";
 import * as Font from "expo-font";
 import MyModal from "./MyModal";
+import TournamentPointModal from "./TournamentPointModal";
 
 const Index = () => {
 
@@ -163,8 +164,8 @@ const Index = () => {
                                 onRequestClose={handleCloseModal}
                                 animationType="fade"
                             >
-                                <MyModal visible={handleTextInputFocus} onClose={handleCloseModal}
-                                         onSelectNumber={handleNumberSelection}></MyModal>
+                                <TournamentPointModal visible={handleTextInputFocus} onClose={handleCloseModal}
+                                         onSelectNumber={handleNumberSelection}></TournamentPointModal>
                             </Modal>
                             {/*<SelectDropdown*/}
                             {/*    rowTextStyle={commonStyles.selectDropDownText}*/}

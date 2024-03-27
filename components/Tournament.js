@@ -1,12 +1,15 @@
-import {View, Text, ImageBackground, TouchableOpacity, Dimensions} from "react-native";
+import {View, Text, ImageBackground, TouchableOpacity, Dimensions, Modal} from "react-native";
 import React, {useContext, useEffect, useRef, useState} from "react";
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
 import {useTournamentData} from "./TournamentDataContext";
 import SelectDropdown from "react-native-select-dropdown";
+import MyModal from "./MyModal";
+import TournamentPointModal from "./TournamentPointModal";
 
 const Tournament = () => {
 
+    const [selectedTextboxIndex, setSelectedTextboxIndex] = useState(null); // Add this line
     const [isLandscape, setIsLandscape] = useState(false);
     const [valuesEntered, setValuesEntered] = useState(true);
     const tourContext = useTournamentData();
@@ -15,6 +18,12 @@ const Tournament = () => {
         value1: '0',
         value2: '0'
     }));
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const textInputRef1 = useRef(null);
+    const textInputRef2 = useRef(null);
+
+    const [point, setPoint] = useState(21); // ****FOR TEST PURP ONLY!
 
     useEffect(() => {
         const {width, height} = Dimensions.get('window');
@@ -81,6 +90,43 @@ const Tournament = () => {
         sortPlayers();
     };
 
+    const handleTextInputFocus = (textboxIndex) => {
+        setIsModalVisible(true);
+        setSelectedTextboxIndex(textboxIndex);
+    };
+
+
+    const handleCloseModal = () => {
+        setIsModalVisible(false);
+    };
+
+    // MAKES THIS TWO ONCES TO A SINGLE.
+    // const handleNumberSelection = (number) => {
+    //     setPoint(number);
+    //     setIsModalVisible(false);
+    //     textInputRef.current.blur();
+    //     handleDropdownChange1(0, number)
+    // };
+    // const handleNumberSelection2 = (number) => {
+    //     setPoint(number);
+    //     setIsModalVisible(false);
+    //     textInputRef.current.blur();
+    //     handleDropdownChange2(0, number)
+    // };
+
+
+    const handleNumberSelection = (number) => {
+        setPoint(number);
+        setIsModalVisible(false);
+        if (selectedTextboxIndex === 0) {
+            textInputRef1.current.blur();
+            handleDropdownChange1(0, number);
+        } else if (selectedTextboxIndex === 1) {
+            textInputRef2.current.blur();
+            handleDropdownChange2(0, number);
+        }
+    };
+
     useEffect(() => {
 
         if (isFirstRender.current) {
@@ -121,25 +167,59 @@ const Tournament = () => {
                                         <Text
                                             style={commonStyles.courtLabel}>{index + 1}</Text>
                                     </View>
-                                    <SelectDropdown
-                                        defaultValue={selectedValue.value1}
-                                        data={pointsToPlayFor()}
-                                        defaultButtonText={selectedValue.value1}
-                                        buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                        onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}
-                                    />
+                                    <Text
+                                        ref={textInputRef1}
+                                        style={commonStyles.textFieldForTournament}
+                                        value={selectedValue.value1}
+                                        onPress={() => handleTextInputFocus(0)}
+                                    >
+                                        {selectedValue.value1}
+                                    </Text>
+                                    <Modal
+                                        visible={isModalVisible}
+                                        transparent={true}
+                                        onRequestClose={handleCloseModal}
+                                        animationType="fade"
+                                    >
+                                        <TournamentPointModal visible={() => handleTextInputFocus(0)} onClose={handleCloseModal}
+                                                              onSelectNumber={(number) => handleNumberSelection(number, 0)} pointsPlaying={tournamentData.points}></TournamentPointModal>
+                                    </Modal>
+                                    {/*<SelectDropdown*/}
+                                    {/*    defaultValue={selectedValue.value1}*/}
+                                    {/*    data={pointsToPlayFor()}*/}
+                                    {/*    defaultButtonText={selectedValue.value1}*/}
+                                    {/*    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}*/}
+                                    {/*    onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}*/}
+                                    {/*/>*/}
                                     <View><Text style={commonStyles.label}>
                                         {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
                                     </Text>
                                     </View>
                                     {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
-                                    <SelectDropdown
-                                        defaultValue={selectedValue.value2}
-                                        data={pointsToPlayFor()}
-                                        defaultButtonText={selectedValue.value2}
-                                        buttonStyle={[commonStyles.selectDropdown, {width: 60}]}
-                                        onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}
-                                    />
+                                    <Text
+                                        ref={textInputRef2}
+                                        style={commonStyles.textFieldForTournament}
+                                        value={selectedValue.value2}
+                                        onPress={() => handleTextInputFocus(1)}
+                                    >
+                                        {selectedValue.value2}
+                                    </Text>
+                                    <Modal
+                                        visible={isModalVisible}
+                                        transparent={true}
+                                        onRequestClose={handleCloseModal}
+                                        animationType="fade"
+                                    >
+                                        <TournamentPointModal visible={() => handleTextInputFocus(1)} onClose={handleCloseModal}
+                                                              onSelectNumber={(number) => handleNumberSelection(number, 1)} pointsPlaying={tournamentData.points}></TournamentPointModal>
+                                    </Modal>
+                                    {/*<SelectDropdown*/}
+                                    {/*    defaultValue={selectedValue.value2}*/}
+                                    {/*    data={pointsToPlayFor()}*/}
+                                    {/*    defaultButtonText={selectedValue.value2}*/}
+                                    {/*    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}*/}
+                                    {/*    onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}*/}
+                                    {/*/>*/}
                                     <View><Text style={commonStyles.label}>
                                         {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
                                     </Text>
