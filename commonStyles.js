@@ -192,11 +192,11 @@ const commonStyles = StyleSheet.create({
         borderBottomColor: "#000000",
         paddingVertical: 0,
         backgroundColor: '#b8ce9b',
-        height: 30,
+        height: 27,
     },
     headerRow: {
         backgroundColor: "orange",
-        height: 30,
+        height: 25,
     },
     cell: {
         flex: 1,

@@ -30,58 +30,38 @@ const Topboard = () => {
             style={commonStyles.backgroundImage}
         >
             {tournamentData.roundData.length !== 0 && tournamentData.type !== "TGIF" ? (
-                <View style={[
-                    commonStyles.container,
-                    isLandscape && tournamentData.playerNames.length > 12 && commonStyles.containerLandscape,
-                    isLandscape && tournamentData.playerNames.length <= 12 && {flexDirection: 'row'}
-                ]}>
-
-                    {!isLandscape && <Text style={commonStyles.headlines}>{tournamentData.name}</Text>}
-                    <View style={[{
-                        width: '100%',
-                        borderColor: 'black',
-                        marginLeft: 0,
-                    }, isLandscape && tournamentData.playerNames.length < 12 && {width: '100%'},
-                        , isLandscape && tournamentData.playerNames.length >= 12 && {width: '50%'}]}>
-                        <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
-                            <Text style={[commonStyles.cellHeader]}></Text>
-                            <Text style={commonStyles.cellHeader}>Name</Text>
-                            <Text style={commonStyles.cellHeader}>Score</Text>
-                        </View>
-                        <FlatList
-                            data={(!isLandscape || isLandscape && tournamentData.playerNames.length < 12 ) ? tournamentData.playerNames : tournamentData.playerNames.slice(0, tournamentData.playerNames.length / 2)}
-                            renderItem={({item, index}) => (
-                                <View
-                                    style={[
-                                        commonStyles.tableRow,
-                                        (index === 99 && { backgroundColor: '#FFD700' }),
-                                        (index === 99 && { backgroundColor: '#C0c0c0' }),
-                                        (index === 99 && { backgroundColor: '#Cd7f32' }),
-                                        (index > 2 && { backgroundColor: '#b8ce9b' })
-                                    ]}
-                                >
-
-                                <Text style={commonStyles.cell}>{index + 1}</Text>
-                                    <Text style={commonStyles.cell}>{item.name}</Text>
-                                    <Text style={commonStyles.cell}>{item.score || 0}</Text>
-                                </View>
-                            )}
-                            keyExtractor={(item, index) => index.toString()}
-                        />
-                    </View>
-                    {isLandscape && tournamentData.playerNames.length >= 12 && (
-                        <View style={[{width: "50%", borderWidth: 0, borderColor: 'black', marginLeft: 0}]}>
+                <View style={{flex: 1, flexDirection: 'column'}}>
+                    {<Text style={commonStyles.headlines}>{tournamentData.name}</Text>}
+                    <View style={[
+                        commonStyles.container,
+                        isLandscape && tournamentData.playerNames.length > 12 && commonStyles.containerLandscape,
+                        //isLandscape && tournamentData.playerNames.length <= 12 && {flexDirection: 'row'}
+                    ]}>
+                        <View style={[{
+                            width: '100%',
+                            borderColor: 'black',
+                            marginLeft: 0,
+                        }, isLandscape && tournamentData.playerNames.length < 12 && {width: '100%'},
+                            , isLandscape && tournamentData.playerNames.length >= 12 && {width: '50%'}]}>
                             <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
-                                <Text style={commonStyles.cellHeader}></Text>
+                                <Text style={[commonStyles.cellHeader]}>Rank</Text>
                                 <Text style={commonStyles.cellHeader}>Name</Text>
                                 <Text style={commonStyles.cellHeader}>Score</Text>
                             </View>
                             <FlatList
-                                data={tournamentData.playerNames.slice(Math.ceil(tournamentData.playerNames.length / 2))}
+                                data={(!isLandscape || isLandscape && tournamentData.playerNames.length < 12) ? tournamentData.playerNames : tournamentData.playerNames.slice(0, tournamentData.playerNames.length / 2)}
                                 renderItem={({item, index}) => (
-                                    <View style={[commonStyles.tableRow, commonStyles.notFirst]}>
-                                        <Text
-                                            style={commonStyles.cell}>{index + Math.ceil(tournamentData.playerNames.length / 2) + 1}</Text>
+                                    <View
+                                        style={[
+                                            commonStyles.tableRow,
+                                            (index === 99 && {backgroundColor: '#FFD700'}),
+                                            (index === 99 && {backgroundColor: '#C0c0c0'}),
+                                            (index === 99 && {backgroundColor: '#Cd7f32'}),
+                                            (index > 2 && {backgroundColor: '#b8ce9b'})
+                                        ]}
+                                    >
+
+                                        <Text style={commonStyles.cell}>{index + 1}</Text>
                                         <Text style={commonStyles.cell}>{item.name}</Text>
                                         <Text style={commonStyles.cell}>{item.score || 0}</Text>
                                     </View>
@@ -89,7 +69,28 @@ const Topboard = () => {
                                 keyExtractor={(item, index) => index.toString()}
                             />
                         </View>
-                    )}
+                        {isLandscape && tournamentData.playerNames.length >= 12 && (
+                            <View style={[{width: "50%", borderWidth: 0, borderLeftWidth: 1,borderColor: 'black', marginLeft: 0}]}>
+                                <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
+                                    <Text style={commonStyles.cellHeader}>Rank</Text>
+                                    <Text style={commonStyles.cellHeader}>Name</Text>
+                                    <Text style={commonStyles.cellHeader}>Score</Text>
+                                </View>
+                                <FlatList
+                                    data={tournamentData.playerNames.slice(Math.ceil(tournamentData.playerNames.length / 2))}
+                                    renderItem={({item, index}) => (
+                                        <View style={[commonStyles.tableRow, commonStyles.notFirst]}>
+                                            <Text
+                                                style={commonStyles.cell}>{index + Math.ceil(tournamentData.playerNames.length / 2) + 1}</Text>
+                                            <Text style={commonStyles.cell}>{item.name}</Text>
+                                            <Text style={commonStyles.cell}>{item.score || 0}</Text>
+                                        </View>
+                                    )}
+                                    keyExtractor={(item, index) => index.toString()}
+                                />
+                            </View>
+                        )}
+                    </View>
                 </View>
             ) : (
                 tournamentData.type === "TGIF" && <TopboardTGIF isLandscape={isLandscape}/>

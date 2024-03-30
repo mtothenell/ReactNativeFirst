@@ -98,17 +98,17 @@ const Index = () => {
                         </View>
                     </View>
                     <View style={commonStyles.bottomContainer}>
-                        <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}>Name </Text>
+                        <View style={[commonStyles.rowContainer, {}]}>
+                            <Text style={[commonStyles.label, {}]}>       Name</Text>
                             <TextInput placeholder="Tournament" placeholderTextColor="black"
-                                       style={commonStyles.textField}
+                                       style={[commonStyles.textField, {}]}
                                        onChangeText={(text) => tourContext.setTournamentData({
                                            ...tourContext.tournamentData,
                                            name: text
                                        })}/>
                         </View>
                         <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}>Type</Text>
+                            <Text style={commonStyles.label}>       Type</Text>
                             <SelectDropdown
                                 data={type}
                                 rowTextStyle={commonStyles.selectDropDownText}
@@ -129,7 +129,7 @@ const Index = () => {
                             />
                         </View>
                         <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}>Players</Text>
+                            <Text style={commonStyles.label}>       Players</Text>
                             <SelectDropdown
                                 rowTextStyle={commonStyles.selectDropDownText}
                                 buttonTextStyle={commonStyles.selectDropDownText}
@@ -149,7 +149,7 @@ const Index = () => {
                             />
                         </View>
                         {tournamentData.type !== "TGIF" && <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}>Points</Text>
+                            <Text style={commonStyles.label}>       Points</Text>
                             <Text
                                 ref={textInputRef}
                                 style={commonStyles.textField}
