@@ -218,6 +218,7 @@ const commonStyles = StyleSheet.create({
         fontWeight: 'bold',
     },
     counterContainer: {
+
     },
     notFirst: {
         backgroundColor: '#b8ce9b',

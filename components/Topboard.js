@@ -30,13 +30,17 @@ const Topboard = () => {
             style={commonStyles.backgroundImage}
         >
             {tournamentData.roundData.length !== 0 && tournamentData.type !== "TGIF" ? (
-                <View style={[commonStyles.container, isLandscape && tournamentData.playerNames.length > 12 && {},
-                    isLandscape && tournamentData.playerNames.length <= 12 && {flexDirection: 'row'}]}>
+                <View style={[
+                    commonStyles.container,
+                    isLandscape && tournamentData.playerNames.length > 12 && commonStyles.containerLandscape,
+                    isLandscape && tournamentData.playerNames.length <= 12 && {flexDirection: 'row'}
+                ]}>
+
                     {!isLandscape && <Text style={commonStyles.headlines}>{tournamentData.name}</Text>}
                     <View style={[{
                         width: '100%',
                         borderColor: 'black',
-                        marginLeft: 0
+                        marginLeft: 0,
                     }, isLandscape && tournamentData.playerNames.length < 12 && {width: '100%'},
                         , isLandscape && tournamentData.playerNames.length >= 12 && {width: '50%'}]}>
                         <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
@@ -66,7 +70,7 @@ const Topboard = () => {
                         />
                     </View>
                     {isLandscape && tournamentData.playerNames.length >= 12 && (
-                        <View style={[{width: "50%", borderWidth: 1, borderColor: 'black', marginLeft: 0}]}>
+                        <View style={[{width: "50%", borderWidth: 0, borderColor: 'black', marginLeft: 0}]}>
                             <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
                                 <Text style={commonStyles.cellHeader}></Text>
                                 <Text style={commonStyles.cellHeader}>Name</Text>
@@ -88,7 +92,7 @@ const Topboard = () => {
                     )}
                 </View>
             ) : (
-                tournamentData.type === "TGIF" && <TopboardTGIF/>
+                tournamentData.type === "TGIF" && <TopboardTGIF isLandscape={isLandscape}/>
             )}
         </ImageBackground>
     );

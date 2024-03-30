@@ -21,8 +21,8 @@ const MyModal = ({onClose, onSelectNumber, pointsPlaying, isLandscape}) => {
             transparent={true}
             animationType="fade"
         >
-            <View style={!isLandscape ? styles.container : styles.containerLandscape}>
-                <View style={styles.modalContent}>
+            <View style={[styles.container]}>
+                <View style={[styles.modalContent, {width: contentWidth, height: contentHeight}]}>
                 <FlatList
                     data={numbers}
                     renderItem={({item}) => (
@@ -49,13 +49,13 @@ const styles = StyleSheet.create({
         //paddingVertical: 180,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
     },
     containerLandscape: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
     },
     modalContent: {
         backgroundColor: '#668939',

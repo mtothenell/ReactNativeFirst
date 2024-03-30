@@ -5,7 +5,7 @@ import commonStyles from "../commonStyles";
 import {useTournamentData} from "./TournamentDataContext";
 import Counter from "react-native-counters";
 
-const TopboardTGIF = () => {
+const TopboardTGIF = ({isLandscape}) => {
 
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
@@ -14,18 +14,22 @@ const TopboardTGIF = () => {
         <ImageBackground
             source={bg}
             resizeMode="cover"
-            style={commonStyles.backgroundImage}        >
+            style={commonStyles.backgroundImage}>
             < View style={commonStyles.container}>
-                <Text style={commonStyles.headlines}>{tournamentData.name}</Text>
+                {tournamentData.playerNames.length < 12 &&
+                    <Text style={commonStyles.headlines}>{tournamentData.name}</Text>}
                 <View style={commonStyles.table}>
-                    <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
-                        <Text style={commonStyles.cellHeader}>NAME</Text>
-                        <Text style={commonStyles.cellHeader}>WINS</Text>
-                    </View>
+                    {!isLandscape &&
+                        <View
+                            style={[commonStyles.tableRow, commonStyles.headerRow, tournamentData.playerNames.length >= 12 && {height: 20}]}>
+                            <Text style={commonStyles.cellHeader}>NAME</Text>
+                            <Text style={commonStyles.cellHeader}>WINS</Text>
+                        </View>}
                     <FlatList
                         data={tournamentData.playerNames}
                         renderItem={({item}) => (
-                            <View style={commonStyles.tableRow}>
+                            <View
+                                style={[commonStyles.tableRow, isLandscape && tournamentData.playerNames.length >= 12 && {height: 22}]}>
                                 <Text style={commonStyles.cell}>{item.name}</Text>
                                 <Text style={commonStyles.cell}>
                                     <View style={commonStyles.counterContainer}>
