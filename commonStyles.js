@@ -18,15 +18,26 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    containerLand: {
+    containerLandscapes: {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-start',
+    },
+    containerLand: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     contentContainer: {
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
+    },
+    contentContainerLandscape: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'flex-start',
         justifyContent: 'center',
     },
     containerLandscape: {
@@ -67,10 +78,9 @@ const commonStyles = StyleSheet.create({
     },
     rowContainerTournamentLandscape: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        //justifyContent: 'flex-start',
         alignItems: 'center',
-        padding: 5,
-        marginTop: -60,
+        //marginTop: -60,
     },
     fullWidthContainer: {
         width: '80%',

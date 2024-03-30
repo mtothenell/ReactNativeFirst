@@ -2,10 +2,18 @@ import React from 'react';
 import {Modal, View, Text, TouchableOpacity, StyleSheet, FlatList, ImageBackground} from 'react-native';
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
-const MyModal = ({ visible, onClose, onSelectNumber, pointsPlaying}) => {
-    console.log("pointsplay: " +pointsPlaying)
 
-    const numbers = Array.from({ length: pointsPlaying }, (_, i) => i + 1);
+const MyModal = ({onClose, onSelectNumber, pointsPlaying, isLandscape}) => {
+    console.log("pointsplay: " + pointsPlaying)
+
+    const numbers = Array.from({length: pointsPlaying}, (_, i) => i + 1);
+
+    const itemHeight = 34; // Height of each item
+    const itemWidth = 35;  // Width of each item
+    const numColumns = 4;   // Number of columns
+
+    let contentHeight = Math.ceil(numbers.length / numColumns) * itemHeight * 1.5; // Adjusted to add extra space
+    let contentWidth = numColumns * itemWidth * 1.5; // Adjusted to add extra space
 
     return (
         <Modal
@@ -13,34 +21,41 @@ const MyModal = ({ visible, onClose, onSelectNumber, pointsPlaying}) => {
             transparent={true}
             animationType="fade"
         >
-            <View style={styles.container}>
+            <View style={!isLandscape ? styles.container : styles.containerLandscape}>
                 <View style={styles.modalContent}>
-                    <FlatList
-                        data={numbers}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                style={styles.numberButton}
+                <FlatList
+                    data={numbers}
+                    renderItem={({item}) => (
+                        <TouchableOpacity
+                            style={styles.numberButton}
                             onPress={() => onSelectNumber(item)}>
-                                <Text style={styles.numberText}>{item}</Text>
-                            </TouchableOpacity>
-                        )}
-                        keyExtractor={(item) => item.toString()}
-                        numColumns={4}
-                    />
-                </View>
+                            <Text style={styles.numberText}>{item}</Text>
+                        </TouchableOpacity>
+                    )}
+                    keyExtractor={(item) => item.toString()}
+                    numColumns={4}
+                />
             </View>
-        </Modal>
-    );
+        </View>
+</Modal>
+)
+    ;
 };
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        paddingHorizontal: 65,
-        paddingVertical: 180,
+        //paddingHorizontal: 65,
+        //paddingVertical: 180,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    containerLandscape: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalContent: {
         backgroundColor: '#668939',

@@ -164,28 +164,10 @@ const Index = () => {
                                 onRequestClose={handleCloseModal}
                                 animationType="fade"
                             >
-                                <TournamentPointModal visible={handleTextInputFocus} onClose={handleCloseModal}
-                                         onSelectNumber={handleNumberSelection}></TournamentPointModal>
+                                <TournamentPointModal onClose={handleCloseModal}
+                                         onSelectNumber={handleNumberSelection} pointsPlaying={tournamentData.points}
+                                isLandscape={isLandscape}></TournamentPointModal>
                             </Modal>
-                            {/*<SelectDropdown*/}
-                            {/*    rowTextStyle={commonStyles.selectDropDownText}*/}
-                            {/*    buttonTextStyle={commonStyles.selectDropDownText}*/}
-                            {/*    data={points}*/}
-                            {/*    defaultButtonText='21'*/}
-                            {/*    buttonStyle={commonStyles.selectDropdown}*/}
-                            {/*    onSelect={(selectedItem, index) => tourContext.setTournamentData({*/}
-                            {/*        ...tourContext.tournamentData,*/}
-                            {/*        points: selectedItem*/}
-                            {/*    })}*/}
-
-                            {/*    buttonTextAfterSelection={(selectedItem, index) => {*/}
-                            {/*        return selectedItem*/}
-                            {/*    }}*/}
-                            {/*    rowTextForSelection={(item, index) => {*/}
-
-                            {/*        return item*/}
-                            {/*    }}*/}
-                            {/*/>*/}
                         </View>}
                         <View style={commonStyles.fullWidthContainer}>
                             <Text> </Text>

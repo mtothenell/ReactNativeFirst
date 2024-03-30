@@ -9,6 +9,7 @@ import TournamentPointModal from "./TournamentPointModal";
 
 const Tournament = () => {
 
+    const [indexOfSelectedValues, setIndexOfSelectedValues] = useState(null);
     const [selectedTextboxIndex, setSelectedTextboxIndex] = useState(null); // Add this line
     const [isLandscape, setIsLandscape] = useState(false);
     const [valuesEntered, setValuesEntered] = useState(true);
@@ -23,8 +24,6 @@ const Tournament = () => {
     const textInputRef1 = useRef(null);
     const textInputRef2 = useRef(null);
 
-    const [point, setPoint] = useState(21); // ****FOR TEST PURP ONLY!
-
     useEffect(() => {
         const {width, height} = Dimensions.get('window');
         setIsLandscape(width > height);
@@ -35,8 +34,7 @@ const Tournament = () => {
             const sum = parseInt(item.value1) + parseInt(item.value2);
             if (sum === tournamentData.points) {
                 setValuesEntered(false)
-            }
-            else {
+            } else {
                 setValuesEntered(true)
             }
         }
@@ -47,9 +45,6 @@ const Tournament = () => {
         const newSelectedValues = [...selectedValues];
         const totalPoints = parseInt(tournamentData.points);
         const selectedPoints1 = parseInt(value);
-        // if (selectedPoints1 > 0) {
-        //     setValuesEntered(false)
-        // }
         const selectedPoints2 = totalPoints - selectedPoints1;
         newSelectedValues[index] = {value1: value, value2: selectedPoints2.toString()};
         setSelectedValues(newSelectedValues);
@@ -59,9 +54,6 @@ const Tournament = () => {
         const newSelectedValues = [...selectedValues];
         const totalPoints = parseInt(tournamentData.points);
         const selectedPoints2 = parseInt(value);
-        // if (selectedPoints2 > 0) {
-        //     setValuesEntered(false)
-        // }
         const selectedPoints1 = totalPoints - selectedPoints2;
         newSelectedValues[index] = {value1: selectedPoints1.toString(), value2: value};
         setSelectedValues(newSelectedValues);
@@ -69,13 +61,13 @@ const Tournament = () => {
 
     const isFirstRender = useRef(true);
 
-    const pointsToPlayFor = () => {
-        const pointsArray = [];
-        for (let i = 0; i <= tournamentData.points; i++) {
-            pointsArray.push(i.toString());
-        }
-        return pointsArray;
-    }
+    // const pointsToPlayFor = () => {
+    //     const pointsArray = [];
+    //     for (let i = 0; i <= tournamentData.points; i++) {
+    //         pointsArray.push(i.toString());
+    //     }
+    //     return pointsArray;
+    // }
 
     const handleNext = () => {
 
@@ -86,11 +78,11 @@ const Tournament = () => {
         }));
 
         setSelectedValues(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({value1: '0', value2: '0'}));
-
         sortPlayers();
     };
 
-    const handleTextInputFocus = (textboxIndex) => {
+    const handleTextInputFocus = (textboxIndex, index) => {
+        console.log("INDEX: " + index)
         setIsModalVisible(true);
         setSelectedTextboxIndex(textboxIndex);
     };
@@ -100,32 +92,16 @@ const Tournament = () => {
         setIsModalVisible(false);
     };
 
-    // MAKES THIS TWO ONCES TO A SINGLE.
-    // const handleNumberSelection = (number) => {
-    //     setPoint(number);
-    //     setIsModalVisible(false);
-    //     textInputRef.current.blur();
-    //     handleDropdownChange1(0, number)
-    // };
-    // const handleNumberSelection2 = (number) => {
-    //     setPoint(number);
-    //     setIsModalVisible(false);
-    //     textInputRef.current.blur();
-    //     handleDropdownChange2(0, number)
-    // };
-
-
-    const handleNumberSelection = (number) => {
-        setPoint(number);
+    const handleNumberSelection = (number, index) => {
         setIsModalVisible(false);
+        console.log("handlenumberIndex: " +index)
         if (selectedTextboxIndex === 0) {
-            textInputRef1.current.blur();
-            handleDropdownChange1(0, number);
+            handleDropdownChange1(index, number);
         } else if (selectedTextboxIndex === 1) {
-            textInputRef2.current.blur();
-            handleDropdownChange2(0, number);
+            handleDropdownChange2(index, number);
         }
     };
+
 
     useEffect(() => {
 
@@ -143,7 +119,7 @@ const Tournament = () => {
             style={commonStyles.backgroundImage}
         >
             {tournamentData.gameOn && tournamentData.type !== "TGIF" ? (
-                <View style={commonStyles.contentContainer}>
+                <View style={isLandscape ? commonStyles.contentContainerLandscape : commonStyles.contentContainer}>
                     <View style={commonStyles.container}>
                         <View
                             style={isLandscape ? commonStyles.rowContainerTournamentLandscape : commonStyles.rowContainer}>
@@ -160,7 +136,6 @@ const Tournament = () => {
                             )}
                         </View>
                         {selectedValues.map((selectedValue, index) => {
-                            const isLastRow = index === selectedValues.length - 1;
                             return (
                                 <View key={index * 4} style={commonStyles.rowContainer}>
                                     <View>
@@ -168,10 +143,12 @@ const Tournament = () => {
                                             style={commonStyles.courtLabel}>{index + 1}</Text>
                                     </View>
                                     <Text
-                                        ref={textInputRef1}
+                                        //ref={textInputRef1}
                                         style={commonStyles.textFieldForTournament}
                                         value={selectedValue.value1}
-                                        onPress={() => handleTextInputFocus(0)}
+                                        onPress={() => {
+                                            setIndexOfSelectedValues(index)
+                                            handleTextInputFocus(0, indexOfSelectedValues)}}
                                     >
                                         {selectedValue.value1}
                                     </Text>
@@ -181,26 +158,25 @@ const Tournament = () => {
                                         onRequestClose={handleCloseModal}
                                         animationType="fade"
                                     >
-                                        <TournamentPointModal visible={() => handleTextInputFocus(0)} onClose={handleCloseModal}
-                                                              onSelectNumber={(number) => handleNumberSelection(number, 0)} pointsPlaying={tournamentData.points}></TournamentPointModal>
+                                        <TournamentPointModal
+                                            onClose={handleCloseModal}
+                                            onSelectNumber={(number) => {
+                                                handleNumberSelection(number, indexOfSelectedValues)
+                                            }}
+                                            pointsPlaying={tournamentData.points} isLandscape={isLandscape}></TournamentPointModal>
                                     </Modal>
-                                    {/*<SelectDropdown*/}
-                                    {/*    defaultValue={selectedValue.value1}*/}
-                                    {/*    data={pointsToPlayFor()}*/}
-                                    {/*    defaultButtonText={selectedValue.value1}*/}
-                                    {/*    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}*/}
-                                    {/*    onSelect={(selectedItem, selectedIndex) => handleDropdownChange1(index, selectedItem)}*/}
-                                    {/*/>*/}
                                     <View><Text style={commonStyles.label}>
                                         {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
                                     </Text>
                                     </View>
                                     {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
                                     <Text
-                                        ref={textInputRef2}
+                                        // ref={textInputRef2}
                                         style={commonStyles.textFieldForTournament}
                                         value={selectedValue.value2}
-                                        onPress={() => handleTextInputFocus(1)}
+                                        onPress={() => {
+                                            setIndexOfSelectedValues(index)
+                                            handleTextInputFocus(1, indexOfSelectedValues)}}
                                     >
                                         {selectedValue.value2}
                                     </Text>
@@ -210,16 +186,10 @@ const Tournament = () => {
                                         onRequestClose={handleCloseModal}
                                         animationType="fade"
                                     >
-                                        <TournamentPointModal visible={() => handleTextInputFocus(1)} onClose={handleCloseModal}
-                                                              onSelectNumber={(number) => handleNumberSelection(number, 1)} pointsPlaying={tournamentData.points}></TournamentPointModal>
+                                        <TournamentPointModal onClose={handleCloseModal}
+                                                              onSelectNumber={(number) => handleNumberSelection(number, indexOfSelectedValues)}
+                                                              pointsPlaying={tournamentData.points} isLandscape={isLandscape}></TournamentPointModal>
                                     </Modal>
-                                    {/*<SelectDropdown*/}
-                                    {/*    defaultValue={selectedValue.value2}*/}
-                                    {/*    data={pointsToPlayFor()}*/}
-                                    {/*    defaultButtonText={selectedValue.value2}*/}
-                                    {/*    buttonStyle={[commonStyles.selectDropdown, {width: 60}]}*/}
-                                    {/*    onSelect={(selectedItem, selectedIndex) => handleDropdownChange2(index, selectedItem)}*/}
-                                    {/*/>*/}
                                     <View><Text style={commonStyles.label}>
                                         {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
                                     </Text>
