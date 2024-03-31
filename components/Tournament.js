@@ -120,20 +120,12 @@ const Tournament = () => {
         >
             {tournamentData.gameOn && tournamentData.type !== "TGIF" ? (
                 <View style={isLandscape ? commonStyles.contentContainerLandscape : commonStyles.contentContainer}>
+                    {isLandscape && <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>}
                     <View style={commonStyles.container}>
                         <View
                             style={isLandscape ? commonStyles.rowContainerTournamentLandscape : commonStyles.rowContainer}>
-                            <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>
-                            {isLandscape && (<View style={[{}]}>
-                                    <View style={{}}>
-                                        <TouchableOpacity
-                                            style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
-                                            onPress={handleNext} disabled={valuesEntered}>
-                                            <Text style={commonStyles.label}>Next</Text>
-                                        </TouchableOpacity>
-                                    </View>
-                                </View>
-                            )}
+                            {!isLandscape && <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>}
+
                         </View>
                         {selectedValues.map((selectedValue, index) => {
                             return (
@@ -207,6 +199,16 @@ const Tournament = () => {
                             </View>
                         )}
                     </View>
+                    {isLandscape && (<View style={[{}]}>
+                            <View style={{}}>
+                                <TouchableOpacity
+                                    style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
+                                    onPress={handleNext} disabled={valuesEntered}>
+                                    <Text style={commonStyles.label}>Next</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    )}
                 </View>
             ) : null}
         </ImageBackground>

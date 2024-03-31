@@ -37,7 +37,7 @@ const commonStyles = StyleSheet.create({
     contentContainerLandscape: {
         flexDirection: 'row',
         flex: 1,
-        alignItems: 'flex-start',
+        alignItems: 'center',
         justifyContent: 'center',
     },
     containerLandscape: {
@@ -104,6 +104,7 @@ const commonStyles = StyleSheet.create({
         fontSize: 16,
         fontFamily: 'JosefinSans',
         fontWeight: 'bold',
+        marginRight: 25,
     },
     courtLabel: {
         color: 'orange',
