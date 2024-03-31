@@ -74,7 +74,7 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        padding: 5,
+        padding: 3,
     },
     rowContainerTournamentLandscape: {
         flexDirection: 'row',

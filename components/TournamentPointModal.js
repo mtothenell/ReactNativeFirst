@@ -1,10 +1,9 @@
 import React from 'react';
-import {Modal, View, Text, TouchableOpacity, StyleSheet, FlatList, ImageBackground} from 'react-native';
+import {Modal, View, Text, TouchableOpacity, StyleSheet, FlatList, ImageBackground, Dimensions} from 'react-native';
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
 
 const MyModal = ({onClose, onSelectNumber, pointsPlaying, isLandscape}) => {
-    console.log("pointsplay: " + pointsPlaying)
 
     const numbers = Array.from({length: pointsPlaying}, (_, i) => i + 1);
 
@@ -12,9 +11,11 @@ const MyModal = ({onClose, onSelectNumber, pointsPlaying, isLandscape}) => {
     const itemWidth = 35;  // Width of each item
     const numColumns = 4;   // Number of columns
 
-    let contentHeight = Math.ceil(numbers.length / numColumns) * itemHeight * 1.5; // Adjusted to add extra space
-    let contentWidth = numColumns * itemWidth * 1.5; // Adjusted to add extra space
-
+    // Calculate content width and height based on screen dimensions
+    const screenWidth = Dimensions.get('window').width;
+    const screenHeight = Dimensions.get('window').height;
+    const contentWidth = Math.min(screenWidth * 0.8, numColumns * itemWidth * 1.5);
+    const contentHeight = Math.min(screenHeight * 0.8, Math.ceil(numbers.length / numColumns) * itemHeight * 1.5);
     return (
         <Modal
             onRequestClose={onClose}

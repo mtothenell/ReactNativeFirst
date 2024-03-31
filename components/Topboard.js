@@ -30,8 +30,8 @@ const Topboard = () => {
             style={commonStyles.backgroundImage}
         >
             {tournamentData.roundData.length !== 0 && tournamentData.type !== "TGIF" ? (
-                <View style={{flex: 1, flexDirection: 'column'}}>
-                    {<Text style={commonStyles.headlines}>{tournamentData.name}</Text>}
+                <View style={{flex: 1}}>
+                    {!isLandscape && <Text style={commonStyles.headlines}>{tournamentData.name}</Text>}
                     <View style={[
                         commonStyles.container,
                         isLandscape && tournamentData.playerNames.length > 12 && commonStyles.containerLandscape,
@@ -43,6 +43,7 @@ const Topboard = () => {
                             marginLeft: 0,
                         }, isLandscape && tournamentData.playerNames.length < 12 && {width: '100%'},
                             , isLandscape && tournamentData.playerNames.length >= 12 && {width: '50%'}]}>
+                            {/*{isLandscape && <Text style={commonStyles.headlines}>{tournamentData.name}</Text>}*/}
                             <View style={[commonStyles.tableRow, commonStyles.headerRow]}>
                                 <Text style={[commonStyles.cellHeader]}>Rank</Text>
                                 <Text style={commonStyles.cellHeader}>Name</Text>
