@@ -12,6 +12,7 @@ const Tournament = () => {
     const [indexOfSelectedValues, setIndexOfSelectedValues] = useState(null);
     const [selectedTextboxIndex, setSelectedTextboxIndex] = useState(null); // Add this line
     const [isLandscape, setIsLandscape] = useState(false);
+
     const [valuesEntered, setValuesEntered] = useState(true);
     const tourContext = useTournamentData();
     const {tournamentData, setTournamentData, updateRoundData, sortPlayers} = tourContext;
@@ -61,13 +62,6 @@ const Tournament = () => {
 
     const isFirstRender = useRef(true);
 
-    // const pointsToPlayFor = () => {
-    //     const pointsArray = [];
-    //     for (let i = 0; i <= tournamentData.points; i++) {
-    //         pointsArray.push(i.toString());
-    //     }
-    //     return pointsArray;
-    // }
 
     const handleNext = () => {
 
@@ -94,7 +88,7 @@ const Tournament = () => {
 
     const handleNumberSelection = (number, index) => {
         setIsModalVisible(false);
-        console.log("handlenumberIndex: " +index)
+        console.log("handlenumberIndex: " + index)
         if (selectedTextboxIndex === 0) {
             handleDropdownChange1(index, number);
         } else if (selectedTextboxIndex === 1) {
@@ -119,8 +113,26 @@ const Tournament = () => {
             style={commonStyles.backgroundImage}
         >
             {tournamentData.gameOn && tournamentData.type !== "TGIF" ? (
-                <View style={isLandscape ? commonStyles.contentContainerLandscape : commonStyles.contentContainer}>
-                    {isLandscape && <Text style={commonStyles.headlines}>ROUND {tournamentData.round}</Text>}
+                <View style={[
+                    commonStyles.contentContainer,
+                    commonStyles.contentContainer && isLandscape,
+                    isLandscape && tournamentData.playerNames.length > 12 && commonStyles.contentContainerLandscape2,
+                ]}>
+                        <View style={[{justifyContent: 'center', alignSelf: 'center'}, isLandscape && {flex: 0.3},
+                            isLandscape && tournamentData.playerNames.length > 12 && {alignSelf: 'flex-start'}]}>
+                        {isLandscape && (
+                            <>
+                                <Text style={[commonStyles.headlines]}>ROUND {tournamentData.round}</Text>
+                                    <TouchableOpacity
+                                        style={[commonStyles.button, {alignSelf: 'center'}, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
+                                        onPress={handleNext}
+                                        disabled={valuesEntered}>
+                                        <Text style={commonStyles.label}>Next</Text>
+                                    </TouchableOpacity>
+                            </>
+                        )}
+
+                    </View>
                     <View style={commonStyles.container}>
                         <View
                             style={isLandscape ? commonStyles.rowContainerTournamentLandscape : commonStyles.rowContainer}>
@@ -140,7 +152,8 @@ const Tournament = () => {
                                         value={selectedValue.value1}
                                         onPress={() => {
                                             setIndexOfSelectedValues(index)
-                                            handleTextInputFocus(0, indexOfSelectedValues)}}
+                                            handleTextInputFocus(0, indexOfSelectedValues)
+                                        }}
                                     >
                                         {selectedValue.value1}
                                     </Text>
@@ -155,7 +168,7 @@ const Tournament = () => {
                                             onSelectNumber={(number) => {
                                                 handleNumberSelection(number, indexOfSelectedValues)
                                             }}
-                                            pointsPlaying={tournamentData.points} isLandscape={isLandscape}></TournamentPointModal>
+                                            pointsPlaying={tournamentData.points}></TournamentPointModal>
                                     </Modal>
                                     <View><Text style={commonStyles.label}>
                                         {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
@@ -168,7 +181,8 @@ const Tournament = () => {
                                         value={selectedValue.value2}
                                         onPress={() => {
                                             setIndexOfSelectedValues(index)
-                                            handleTextInputFocus(1, indexOfSelectedValues)}}
+                                            handleTextInputFocus(1, indexOfSelectedValues)
+                                        }}
                                     >
                                         {selectedValue.value2}
                                     </Text>
@@ -180,7 +194,7 @@ const Tournament = () => {
                                     >
                                         <TournamentPointModal onClose={handleCloseModal}
                                                               onSelectNumber={(number) => handleNumberSelection(number, indexOfSelectedValues)}
-                                                              pointsPlaying={tournamentData.points} isLandscape={isLandscape}></TournamentPointModal>
+                                                              pointsPlaying={tournamentData.points}></TournamentPointModal>
                                     </Modal>
                                     <View><Text style={commonStyles.label}>
                                         {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
@@ -199,16 +213,6 @@ const Tournament = () => {
                             </View>
                         )}
                     </View>
-                    {isLandscape && (<View style={[{}]}>
-                            <View style={{}}>
-                                <TouchableOpacity
-                                    style={[commonStyles.button, !valuesEntered ? {backgroundColor: 'orange'} : {backgroundColor: 'grey'}]}
-                                    onPress={handleNext} disabled={valuesEntered}>
-                                    <Text style={commonStyles.label}>Next</Text>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    )}
                 </View>
             ) : null}
         </ImageBackground>

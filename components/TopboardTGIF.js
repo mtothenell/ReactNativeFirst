@@ -4,6 +4,7 @@ import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
 import {useTournamentData} from "./TournamentDataContext";
 import Counter from "react-native-counters";
+import CustomCounter from "./CustomCounter";
 
 const TopboardTGIF = ({isLandscape}) => {
 
@@ -29,22 +30,21 @@ const TopboardTGIF = ({isLandscape}) => {
                         data={tournamentData.playerNames}
                         renderItem={({item}) => (
                             <View
-                                style={[commonStyles.tableRow, isLandscape && tournamentData.playerNames.length >= 12 && {height: 22}]}>
-                                <Text style={commonStyles.cell}>{item.name}</Text>
+                                style={[commonStyles.tableRow, isLandscape && tournamentData.playerNames.length >= 12 && {height: 22},!isLandscape && {height: 30},
+                                    isLandscape & tournamentData.playerNames.length >= 16 && {height: 16}]}>
+                                <Text style={[commonStyles.cell, tournamentData.playerNames.length > 12 && {fontSize: 12}]}>{item.name}</Text>
                                 <Text style={commonStyles.cell}>
-                                    <View style={commonStyles.counterContainer}>
-                                        <Counter onChange={() => {
+                                    <CustomCounter tournamentData={tournamentData} isLandscape={isLandscape}
+                                        initialValue={0} // Initial value for each player
+                                        onIncrement={(count) => {
+                                            // Handle increment
+                                            // For example: Update the count in your data
                                         }}
-                                                 buttonStyle={{
-                                                     borderColor: '#333',
-                                                     borderWidth: 2,
-                                                 }} buttonTextStyle={{
-                                            color: '#333'
-                                        }} countTextStyle={{
-                                            color: '#333',
-                                        }} start={0}/>
-                                        <Text></Text>
-                                    </View>
+                                        onDecrement={(count) => {
+                                            // Handle decrement
+                                            // For example: Update the count in your data
+                                        }}
+                                    />
                                 </Text>
                             </View>
                         )}

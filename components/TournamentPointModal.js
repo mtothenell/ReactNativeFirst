@@ -3,15 +3,21 @@ import {Modal, View, Text, TouchableOpacity, StyleSheet, FlatList, ImageBackgrou
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
 
-const MyModal = ({onClose, onSelectNumber, pointsPlaying, isLandscape}) => {
+const MyModal = ({onClose, onSelectNumber, pointsPlaying, playerTextfield = false}) => {
 
-    const numbers = Array.from({length: pointsPlaying}, (_, i) => i + 1);
+    let numbers;
+    let itemHeight = 34; // Height of each item
+    let itemWidth = 35;  // Width of each item
+    let numColumns = 4;   // Number of columns
+    if (!playerTextfield) {
+        numbers = Array.from({length: pointsPlaying}, (_, i) => i + 1);
+    } else {
+        numbers = Array.from({length: 4}, (_, i) => (i + 1) * 4);
+        itemHeight = 60;
+        itemWidth = 20;
+        numColumns = 8;
+    }
 
-    const itemHeight = 34; // Height of each item
-    const itemWidth = 35;  // Width of each item
-    const numColumns = 4;   // Number of columns
-
-    // Calculate content width and height based on screen dimensions
     const screenWidth = Dimensions.get('window').width;
     const screenHeight = Dimensions.get('window').height;
     const contentWidth = Math.min(screenWidth * 0.8, numColumns * itemWidth * 1.5);
@@ -24,23 +30,23 @@ const MyModal = ({onClose, onSelectNumber, pointsPlaying, isLandscape}) => {
         >
             <View style={[styles.container]}>
                 <View style={[styles.modalContent, {width: contentWidth, height: contentHeight}]}>
-                <FlatList
-                    data={numbers}
-                    renderItem={({item}) => (
-                        <TouchableOpacity
-                            style={styles.numberButton}
-                            onPress={() => onSelectNumber(item)}>
-                            <Text style={styles.numberText}>{item}</Text>
-                        </TouchableOpacity>
-                    )}
-                    keyExtractor={(item) => item.toString()}
-                    numColumns={4}
-                />
+                    <FlatList
+                        data={numbers}
+                        renderItem={({item}) => (
+                            <TouchableOpacity
+                                style={styles.numberButton}
+                                onPress={() => onSelectNumber(item)}>
+                                <Text style={styles.numberText}>{item}</Text>
+                            </TouchableOpacity>
+                        )}
+                        keyExtractor={(item) => item.toString()}
+                        numColumns={4}
+                    />
+                </View>
             </View>
-        </View>
-</Modal>
-)
-    ;
+        </Modal>
+    )
+        ;
 };
 
 const styles = StyleSheet.create({

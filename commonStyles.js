@@ -28,6 +28,11 @@ const commonStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
+    containerLandBigScreen: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+    },
     contentContainer: {
         flexDirection: 'row',
         flex: 1,
@@ -38,6 +43,12 @@ const commonStyles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
+    },
+    contentContainerLandscape2: {
+        flexDirection: 'row',
+        flex: 1,
+        alignItems: 'flex-start',
         justifyContent: 'center',
     },
     containerLandscape: {
@@ -78,9 +89,7 @@ const commonStyles = StyleSheet.create({
     },
     rowContainerTournamentLandscape: {
         flexDirection: 'row',
-        //justifyContent: 'flex-start',
         alignItems: 'center',
-        //marginTop: -60,
     },
     fullWidthContainer: {
         width: '80%',
@@ -166,6 +175,7 @@ const commonStyles = StyleSheet.create({
         borderRadius: 5,
         backgroundColor: "orange",
         color: "black",
+        justifyContent: 'center',
     },
     selectDropdown: {
         height: 25,

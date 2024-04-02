@@ -91,7 +91,7 @@ function AppContent() {
                                 headerShown: false,
                                 tabBarLabel: 'Tournament',
                                 tabBarIcon: ({color, size, focused}) => (
-                                    <Ionicons name="home" size={size} color={focused ? 'orange' : 'green'}/>
+                                    <Ionicons name="tennisball" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
                             }}
                         />
@@ -104,7 +104,7 @@ function AppContent() {
                                 headerShown: false,
                                 tabBarLabel: 'Topboard',
                                 tabBarIcon: ({color, size, focused}) => (
-                                    <Ionicons name="home" size={size} color={focused ? 'orange' : 'green'}/>
+                                    <Ionicons name="stats-chart" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
                             }}
                         />

@@ -9,18 +9,20 @@ import {useNavigation} from "@react-navigation/native";
 import mangopadel from "../assets/mangopadel10.png"
 import {useFonts} from "expo-font";
 import * as Font from "expo-font";
-import MyModal from "./MyModal";
 import TournamentPointModal from "./TournamentPointModal";
 
 const Index = () => {
 
-    const [isModalVisible, setIsModalVisible] = useState(false);
+    const [isPointsModalVisible, setIsPointsModalVisible] = useState(false);
+    const [isPlayersModalVisible, setIsPlayersModalVisible] = useState(false);
+
     const [isFontLoaded, setIsFontLoaded] = useState(false);
     const [isLandscape, setIsLandscape] = useState(false);
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
     const [point, setPoint] = useState(21);
-    const players = ["4", "8", "12", "16"]
+    const [players, setPlayers] = useState(8);
+    //const players = ["4", "8", "12", "16"]
     const type = ["TGIF", "Mexicano"]
     const [showContent, setShowContent] = useState(true);
     const [showPlayers, setShowPlayers] = useState(false);
@@ -47,7 +49,8 @@ const Index = () => {
 
         tourContext.setTournamentData({
             ...tourContext.tournamentData,
-            points: point
+            points: point,
+            players: players
         })
 
         setShowContent(false);
@@ -63,25 +66,40 @@ const Index = () => {
         setShowPlayers(false);
     };
 
+    const handleTextInputFocusPlayers = () => {
+        setIsPlayersModalVisible(true);
+    };
+
+    const handleCloseModalPlayers = () => {
+        setIsPlayersModalVisible(false);
+    };
+
     const handleTextInputFocus = () => {
-        setIsModalVisible(true);
+        setIsPointsModalVisible(true);
     };
 
     const handleCloseModal = () => {
-        setIsModalVisible(false);
+        setIsPointsModalVisible(false);
     };
 
     const handleNumberSelection = (number) => {
         console.log(number)
         setPoint(number);
-        setIsModalVisible(false);
-        textInputRef.current.blur();
+        setIsPointsModalVisible(false);
+        //textInputRef.current.blur();
+    };
+
+    const handleNumberSelectionPlayers = (number) => {
+        console.log(number)
+        setPlayers(number);
+        setIsPlayersModalVisible(false);
+        //textInputRef.current.blur();
     };
 
     const navigation = useNavigation();
 
     if (!isFontLoaded) {
-        return null; // Return a loading indicator or placeholder
+        return null;
     }
 
     return (
@@ -130,23 +148,41 @@ const Index = () => {
                         </View>
                         <View style={commonStyles.rowContainer}>
                             <Text style={commonStyles.label}>       Players</Text>
-                            <SelectDropdown
-                                rowTextStyle={commonStyles.selectDropDownText}
-                                buttonTextStyle={commonStyles.selectDropDownText}
-                                data={players}
-                                defaultButtonText="4"
-                                buttonStyle={commonStyles.selectDropdown}
-                                onSelect={(selectedItem, index) => tourContext.setTournamentData({
-                                    ...tourContext.tournamentData,
-                                    players: selectedItem
-                                })}
-                                buttonTextAfterSelection={(selectedItem, index) => {
-                                    return selectedItem
-                                }}
-                                rowTextForSelection={(item, index) => {
-                                    return item
-                                }}
-                            />
+                            <Text
+                                ref={textInputRef}
+                                style={commonStyles.textField}
+                                value={players.toString()}
+                                onPress={handleTextInputFocusPlayers}
+                            >
+                                {players ? players.toString() : 'Placeholder Text'}
+                            </Text>
+                            <Modal
+                                visible={isPlayersModalVisible}
+                                transparent={true}
+                                onRequestClose={handleCloseModalPlayers}
+                                animationType="fade"
+                            >
+                                <TournamentPointModal onClose={handleCloseModalPlayers}
+                                                      onSelectNumber={handleNumberSelectionPlayers} pointsPlaying={tournamentData.points}
+                                                      isLandscape={isLandscape} playerTextfield={true}></TournamentPointModal>
+                            </Modal>
+                            {/*<SelectDropdown*/}
+                            {/*    rowTextStyle={commonStyles.selectDropDownText}*/}
+                            {/*    buttonTextStyle={commonStyles.selectDropDownText}*/}
+                            {/*    data={players}*/}
+                            {/*    defaultButtonText="4"*/}
+                            {/*    buttonStyle={commonStyles.selectDropdown}*/}
+                            {/*    onSelect={(selectedItem, index) => tourContext.setTournamentData({*/}
+                            {/*        ...tourContext.tournamentData,*/}
+                            {/*        players: selectedItem*/}
+                            {/*    })}*/}
+                            {/*    buttonTextAfterSelection={(selectedItem, index) => {*/}
+                            {/*        return selectedItem*/}
+                            {/*    }}*/}
+                            {/*    rowTextForSelection={(item, index) => {*/}
+                            {/*        return item*/}
+                            {/*    }}*/}
+                            {/*/>*/}
                         </View>
                         {tournamentData.type !== "TGIF" && <View style={commonStyles.rowContainer}>
                             <Text style={commonStyles.label}>       Points</Text>
@@ -159,7 +195,7 @@ const Index = () => {
                                 {point ? point.toString() : 'Placeholder Text'}
                             </Text>
                             <Modal
-                                visible={isModalVisible}
+                                visible={isPointsModalVisible}
                                 transparent={true}
                                 onRequestClose={handleCloseModal}
                                 animationType="fade"

@@ -1,5 +1,5 @@
 import commonStyles from "../commonStyles";
-import {View, Text, TextInput, TouchableOpacity} from "react-native";
+import {View, Text, TextInput, TouchableOpacity, Dimensions} from "react-native";
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {useTournamentData} from "./TournamentDataContext";
@@ -8,6 +8,8 @@ const Addplayers = ({resetIndex, isLandscape}) => {
 
     const tourContext = useTournamentData();
     const {tournamentData, setTournamentData} = tourContext;
+    const [width, setWidth] = useState(0);
+
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -21,13 +23,20 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     const [playerNames, setPlayerNames] = useState(() => {
         // Generate automatic player names like player1, player2, ...
         return Array.from({length: parseInt(tournamentData.players)}, (_, index) => ({
-            name: `badguys${index + 1}`,
+            name: `player${index + 1}`,
             score: 0
         }));
     });
+
     useEffect(() => {
         setTournamentData({...tournamentData, playerNames});
     }, [playerNames/*, setTournamentData*/]);
+
+    useEffect(() => {
+        const { width: screenWidth } = Dimensions.get('window');
+        setWidth(screenWidth);
+    }, []);
+
 
     const handleNext = (shuffledPlayerNames) => {
         const updatedTourData = {
@@ -72,7 +81,8 @@ const Addplayers = ({resetIndex, isLandscape}) => {
 
     return (
         <View
-            style={[commonStyles.container, isLandscape && tournamentData.playerNames.length >= 16 && commonStyles.containerLand]}>
+            style={[commonStyles.container, isLandscape && tournamentData.playerNames.length >= 16 && commonStyles.containerLand,
+                isLandscape && tournamentData.playerNames.length >= 16 && commonStyles.containerLandBigScreen]}>
             {!isLandscape ? (
                 <View>
                     {playerNames.map((playerName, index) => (
