@@ -228,9 +228,6 @@ const commonStyles = StyleSheet.create({
         fontFamily: 'JosefinSans',
         fontWeight: 'bold',
     },
-    counterContainer: {
-
-    },
     notFirst: {
         backgroundColor: '#b8ce9b',
     },

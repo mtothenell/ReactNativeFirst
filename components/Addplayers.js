@@ -3,6 +3,7 @@ import {View, Text, TextInput, TouchableOpacity, Dimensions} from "react-native"
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {useTournamentData} from "./TournamentDataContext";
+import { Audio } from 'expo-av';
 
 const Addplayers = ({resetIndex, isLandscape}) => {
 
@@ -10,6 +11,15 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     const {tournamentData, setTournamentData} = tourContext;
     const [width, setWidth] = useState(0);
 
+    const playSound = async () => {
+        const soundObject = new Audio.Sound();
+        try {
+            await soundObject.loadAsync(require('../assets/sounds/let_the_games_begin.mp3'));
+            await soundObject.playAsync();
+        } catch (error) {
+            console.error('Failed to play sound', error);
+        }
+    };
 
     const shuffleArray = (array) => {
         for (let i = array.length - 1; i > 0; i--) {
@@ -33,7 +43,7 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     }, [playerNames/*, setTournamentData*/]);
 
     useEffect(() => {
-        const { width: screenWidth } = Dimensions.get('window');
+        const {width: screenWidth} = Dimensions.get('window');
         setWidth(screenWidth);
     }, []);
 
@@ -73,6 +83,7 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     };
 
     const handleSmash = () => {
+        playSound().then(r => {})
         const shuffledPlayerNames = shuffleArray([...playerNames]);
         setPlayerNames(shuffledPlayerNames);
         handleNext(shuffledPlayerNames)

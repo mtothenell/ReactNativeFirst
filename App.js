@@ -9,6 +9,7 @@ import {Ionicons} from '@expo/vector-icons';
 import Tournament from "./components/Tournament";
 import {TournamentDataProvider, useTournamentData} from "./components/TournamentDataContext";
 import * as Font from 'expo-font';
+import Settings from "./components/Settings";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -26,7 +27,7 @@ const MainStack = () => (
     }}>
         <Stack.Screen name="Home" component={Index} options={{headerShown: false}}/>
         <Stack.Screen name="Tournament" component={Tournament} options={{headerShown: false}}/>
-        {/*<Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>*/}
+        <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>
         <Stack.Screen name="Topboard" component={Topboard} options={{headerShown: false}}/>
     </Stack.Navigator>
 );
@@ -105,6 +106,19 @@ function AppContent() {
                                 tabBarLabel: 'Topboard',
                                 tabBarIcon: ({color, size, focused}) => (
                                     <Ionicons name="stats-chart" size={size} color={focused ? 'orange' : 'green'}/>
+                                ),
+                            }}
+                        />
+                    }
+                    {tournamentData.settingsClickable &&
+                        <Tab.Screen
+                            name="Settings"
+                            component={Settings}
+                            options={{
+                                headerShown: false,
+                                tabBarLabel: 'Settings',
+                                tabBarIcon: ({color, size, focused}) => (
+                                    <Ionicons name="settings" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
                             }}
                         />
