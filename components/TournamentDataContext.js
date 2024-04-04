@@ -18,6 +18,7 @@ export const TournamentDataProvider = ({children}) => {
         settingsClickable: true,
         tournamentClickable: true,
         topboardClickable: true,
+        medalistClickable: true,
         gameOn: false
     };
 

@@ -10,6 +10,7 @@ import Tournament from "./components/Tournament";
 import {TournamentDataProvider, useTournamentData} from "./components/TournamentDataContext";
 import * as Font from 'expo-font';
 import Settings from "./components/Settings";
+import Medalist from "./components/Medalist";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -27,8 +28,9 @@ const MainStack = () => (
     }}>
         <Stack.Screen name="Home" component={Index} options={{headerShown: false}}/>
         <Stack.Screen name="Tournament" component={Tournament} options={{headerShown: false}}/>
-        <Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>
         <Stack.Screen name="Topboard" component={Topboard} options={{headerShown: false}}/>
+        <Stack.Screen name="Medalist" component={Medalist} options={{headerShown: false}}/>
+        {/*<Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>*/}
     </Stack.Navigator>
 );
 
@@ -103,26 +105,39 @@ function AppContent() {
                             component={Topboard}
                             options={{
                                 headerShown: false,
-                                tabBarLabel: 'Topboard',
+                                tabBarLabel: 'Score',
                                 tabBarIcon: ({color, size, focused}) => (
                                     <Ionicons name="stats-chart" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
                             }}
                         />
                     }
-                    {tournamentData.settingsClickable &&
+                    {tournamentData.medalistClickable &&
                         <Tab.Screen
-                            name="Settings"
-                            component={Settings}
+                            name="Medalist"
+                            component={Medalist}
                             options={{
                                 headerShown: false,
-                                tabBarLabel: 'Settings',
+                                tabBarLabel: 'Medalist',
                                 tabBarIcon: ({color, size, focused}) => (
-                                    <Ionicons name="settings" size={size} color={focused ? 'orange' : 'green'}/>
+                                    <Ionicons name="stats-chart" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
                             }}
                         />
                     }
+                    {/*{tournamentData.settingsClickable &&*/}
+                    {/*    <Tab.Screen*/}
+                    {/*        name="Settings"*/}
+                    {/*        component={Settings}*/}
+                    {/*        options={{*/}
+                    {/*            headerShown: false,*/}
+                    {/*            tabBarLabel: 'Settings',*/}
+                    {/*            tabBarIcon: ({color, size, focused}) => (*/}
+                    {/*                <Ionicons name="settings" size={size} color={focused ? 'orange' : 'green'}/>*/}
+                    {/*            ),*/}
+                    {/*        }}*/}
+                    {/*    />*/}
+                    {/*}*/}
                 </Tab.Navigator>
             </NavigationContainer>
         </TournamentDataProvider>

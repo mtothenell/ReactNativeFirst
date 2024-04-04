@@ -76,7 +76,6 @@ const Tournament = () => {
     };
 
     const handleTextInputFocus = (textboxIndex, index) => {
-        console.log("INDEX: " + index)
         setIsModalVisible(true);
         setSelectedTextboxIndex(textboxIndex);
     };
@@ -88,7 +87,6 @@ const Tournament = () => {
 
     const handleNumberSelection = (number, index) => {
         setIsModalVisible(false);
-        console.log("handlenumberIndex: " + index)
         if (selectedTextboxIndex === 0) {
             handleDropdownChange1(index, number);
         } else if (selectedTextboxIndex === 1) {

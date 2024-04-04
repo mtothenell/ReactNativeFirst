@@ -10,6 +10,8 @@ import mangopadel from "../assets/mangopadel10.png"
 import {useFonts} from "expo-font";
 import * as Font from "expo-font";
 import TournamentPointModal from "./TournamentPointModal";
+import {Audio} from "expo-av";
+import {PlaybackMixin as soundObject} from "expo-av/src/AV";
 
 const Index = () => {
 
@@ -22,11 +24,13 @@ const Index = () => {
     const {tournamentData} = tourContext;
     const [point, setPoint] = useState(21);
     const [players, setPlayers] = useState(8);
-    //const players = ["4", "8", "12", "16"]
     const type = ["TGIF", "Mexicano"]
     const [showContent, setShowContent] = useState(true);
     const [showPlayers, setShowPlayers] = useState(false);
     const textInputRef = useRef(null);
+
+    const [musicPlaying, setMusicPlaying] = useState(false);
+    const [soundObject, setSoundObject] = useState(null);
 
     // Load fonts
     useFonts({
@@ -44,6 +48,26 @@ const Index = () => {
         const {width, height} = Dimensions.get('window');
         setIsLandscape(width > height);
     }, []);
+
+    const toggleMusic = async () => {
+        if (musicPlaying) {
+            // Stop the music
+            await soundObject.stopAsync();
+            await soundObject.unloadAsync();
+            setSoundObject(null);
+        } else {
+            // Start playing the music
+            const newSoundObject = new Audio.Sound();
+            try {
+                await newSoundObject.loadAsync(require('../assets/sounds/new_life_moire.mp3'));
+                await newSoundObject.playAsync();
+                setSoundObject(newSoundObject);
+            } catch (error) {
+                console.error('Failed to play sound', error);
+            }
+        }
+        setMusicPlaying(!musicPlaying);
+    };
 
     const addPlayers = () => {
 
@@ -83,14 +107,12 @@ const Index = () => {
     };
 
     const handleNumberSelection = (number) => {
-        console.log(number)
         setPoint(number);
         setIsPointsModalVisible(false);
         //textInputRef.current.blur();
     };
 
     const handleNumberSelectionPlayers = (number) => {
-        console.log(number)
         setPlayers(number);
         setIsPlayersModalVisible(false);
         //textInputRef.current.blur();
@@ -111,13 +133,15 @@ const Index = () => {
                 <View style={isLandscape ? commonStyles.containerLandscape : commonStyles.container}>
                     <View style={commonStyles.headerContainer}>
                         <View style={commonStyles.indexImage}>
-                            <Image style={{width: 200, height: 200, resizeMode: 'contain'}}
-                                   source={mangopadel}></Image>
+                            <TouchableOpacity onPress={toggleMusic}>
+                                <Image style={{width: 200, height: 200, resizeMode: 'contain'}}
+                                       source={mangopadel}></Image>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={commonStyles.bottomContainer}>
                         <View style={[commonStyles.rowContainer, {}]}>
-                            <Text style={[commonStyles.label, {}]}>       Name</Text>
+                            <Text style={[commonStyles.label, {}]}> Name</Text>
                             <TextInput placeholder="Tournament" placeholderTextColor="black"
                                        style={[commonStyles.textField, {}]}
                                        onChangeText={(text) => tourContext.setTournamentData({
@@ -126,7 +150,7 @@ const Index = () => {
                                        })}/>
                         </View>
                         <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}>       Type</Text>
+                            <Text style={commonStyles.label}> Type</Text>
                             <SelectDropdown
                                 data={type}
                                 rowTextStyle={commonStyles.selectDropDownText}
@@ -147,7 +171,7 @@ const Index = () => {
                             />
                         </View>
                         <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}>       Players</Text>
+                            <Text style={commonStyles.label}> Players</Text>
                             <Text
                                 ref={textInputRef}
                                 style={commonStyles.textField}
@@ -163,8 +187,10 @@ const Index = () => {
                                 animationType="fade"
                             >
                                 <TournamentPointModal onClose={handleCloseModalPlayers}
-                                                      onSelectNumber={handleNumberSelectionPlayers} pointsPlaying={tournamentData.points}
-                                                      isLandscape={isLandscape} playerTextfield={true}></TournamentPointModal>
+                                                      onSelectNumber={handleNumberSelectionPlayers}
+                                                      pointsPlaying={tournamentData.points}
+                                                      isLandscape={isLandscape}
+                                                      playerTextfield={true}></TournamentPointModal>
                             </Modal>
                             {/*<SelectDropdown*/}
                             {/*    rowTextStyle={commonStyles.selectDropDownText}*/}
@@ -185,7 +211,7 @@ const Index = () => {
                             {/*/>*/}
                         </View>
                         {tournamentData.type !== "TGIF" && <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}>       Points</Text>
+                            <Text style={commonStyles.label}> Points</Text>
                             <Text
                                 ref={textInputRef}
                                 style={commonStyles.textField}
@@ -201,8 +227,9 @@ const Index = () => {
                                 animationType="fade"
                             >
                                 <TournamentPointModal onClose={handleCloseModal}
-                                         onSelectNumber={handleNumberSelection} pointsPlaying={tournamentData.points}
-                                isLandscape={isLandscape}></TournamentPointModal>
+                                                      onSelectNumber={handleNumberSelection}
+                                                      pointsPlaying={tournamentData.points}
+                                                      isLandscape={isLandscape}></TournamentPointModal>
                             </Modal>
                         </View>}
                         <View style={commonStyles.fullWidthContainer}>
