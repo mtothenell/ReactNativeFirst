@@ -32,6 +32,7 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'flex-start',
+        marginTop: 20,
     },
     contentContainer: {
         flexDirection: 'row',
@@ -50,6 +51,7 @@ const commonStyles = StyleSheet.create({
         flex: 1,
         alignItems: 'flex-start',
         justifyContent: 'center',
+        marginTop: 20,
     },
     containerLandscape: {
         flex: 1,

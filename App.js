@@ -92,7 +92,7 @@ function AppContent() {
                             component={Tournament}
                             options={{
                                 headerShown: false,
-                                tabBarLabel: 'Tournament',
+                                tabBarLabel: 'Rounds',
                                 tabBarIcon: ({color, size, focused}) => (
                                     <Ionicons name="tennisball" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),
@@ -118,7 +118,7 @@ function AppContent() {
                             component={Medalist}
                             options={{
                                 headerShown: false,
-                                tabBarLabel: 'Medalist',
+                                tabBarLabel: 'Top3',
                                 tabBarIcon: ({color, size, focused}) => (
                                     <Ionicons name="stats-chart" size={size} color={focused ? 'orange' : 'green'}/>
                                 ),

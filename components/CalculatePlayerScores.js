@@ -1,12 +1,15 @@
 export const calculatePlayerScores = (tournamentData) => {
     const roundData = tournamentData.roundData;
+    console.log(JSON.stringify(roundData));
     const playerScores = {};
 
     roundData.forEach((round) => {
         round.playerNames.forEach((player, index) => {
-            const playerName = player.name;
+
+const playerName = player.name;
             let score = player.score || 0;
-            const amountOfSelectedValues = round.selectedValues.length-1;
+            let wins = player.wins || 0;
+
             let selectedValues;
             if (index === 0 || index === 1 || index === 2 || index === 3) {
                 selectedValues = round.selectedValues[0];
@@ -26,13 +29,16 @@ export const calculatePlayerScores = (tournamentData) => {
             const value1 = parseInt(selectedValues.value1);
             const value2 = parseInt(selectedValues.value2);
 
-            //let score;
-            // if (index === 0 || index === 1 || index === 4 || index === 5 || index === 8 || index === 9 || index === 12 || index === 13) {
-            //     score = value1;
-            // }
-            // if (index === 2 || index === 3 || index === 6 || index === 7 || index === 10 || index === 11 || index === 14 || index === 15) {
-            //     score = value2;
-            // }
+            let winnerIndex;
+            if (index % 2 === 0) {
+                winnerIndex = value1 > value2 ? index : index + 1;
+            } else {
+                winnerIndex = value1 > value2 ? index - 1 : index;
+            }
+
+            if (winnerIndex === index) {
+                wins++;
+            }
 
             if (index === 0 || index === 2 || index === 4 || index === 6 || index === 8 || index === 10 || index === 12 || index === 14) {
                 score = value1;
@@ -42,15 +48,16 @@ export const calculatePlayerScores = (tournamentData) => {
             }
 
             if (playerScores[playerName]) {
-                playerScores[playerName] += score;
+                playerScores[playerName].score += score;
+                playerScores[playerName].wins = wins;
             } else {
-                playerScores[playerName] = score;
+                playerScores[playerName] = { name: playerName, score, wins };
             }
         });
     });
 
     // Convert player scores to an array of objects with names and scores
-    const sortedPlayerScores = Object.keys(playerScores).map(playerName => ({ name: playerName, score: playerScores[playerName] }));
+    const sortedPlayerScores = Object.values(playerScores);
 
     // Sort player scores based on scores
     sortedPlayerScores.sort((a, b) => b.score - a.score);

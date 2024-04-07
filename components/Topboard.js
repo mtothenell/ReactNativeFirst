@@ -43,6 +43,7 @@ const Topboard = () => {
                                 <Text style={[commonStyles.cellHeader]}>Rank</Text>
                                 <Text style={commonStyles.cellHeader}>Name</Text>
                                 <Text style={commonStyles.cellHeader}>Score</Text>
+                                <Text style={commonStyles.cellHeader}>Wins</Text>
                             </View>
                             <FlatList
                                 data={(!isLandscape || isLandscape && tournamentData.playerNames.length < 12) ? tournamentData.playerNames : tournamentData.playerNames.slice(0, tournamentData.playerNames.length / 2)}
@@ -60,6 +61,7 @@ const Topboard = () => {
                                         <Text style={commonStyles.cell}>{index + 1}</Text>
                                         <Text style={commonStyles.cell}>{item.name}</Text>
                                         <Text style={commonStyles.cell}>{item.score || 0}</Text>
+                                        <Text style={commonStyles.cell}>{item.wins}</Text>
                                     </View>
                                 )}
                                 keyExtractor={(item, index) => index.toString()}
@@ -71,6 +73,7 @@ const Topboard = () => {
                                     <Text style={commonStyles.cellHeader}>Rank</Text>
                                     <Text style={commonStyles.cellHeader}>Name</Text>
                                     <Text style={commonStyles.cellHeader}>Score</Text>
+                                    <Text style={commonStyles.cellHeader}>Wins</Text>
                                 </View>
                                 <FlatList
                                     data={tournamentData.playerNames.slice(Math.ceil(tournamentData.playerNames.length / 2))}
@@ -80,6 +83,7 @@ const Topboard = () => {
                                                 style={commonStyles.cell}>{index + Math.ceil(tournamentData.playerNames.length / 2) + 1}</Text>
                                             <Text style={commonStyles.cell}>{item.name}</Text>
                                             <Text style={commonStyles.cell}>{item.score || 0}</Text>
+                                            <Text style={commonStyles.cell}>{item.wins}</Text>
                                         </View>
                                     )}
                                     keyExtractor={(item, index) => index.toString()}

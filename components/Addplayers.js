@@ -83,7 +83,7 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     };
 
     const handleSmash = () => {
-        playSound().then(r => {})
+        //playSound().then(r => {})
         const shuffledPlayerNames = shuffleArray([...playerNames]);
         setPlayerNames(shuffledPlayerNames);
         handleNext(shuffledPlayerNames)
@@ -124,17 +124,20 @@ const Addplayers = ({resetIndex, isLandscape}) => {
                         ))}
                     </View>
                     <View>
-                        {playerNames.slice(playerNames.length / 2, playerNames.length).map((playerName, index) => (
-                            <View key={index} style={commonStyles.rowContainer}>
-                                <TextInput
-                                    placeholderTextColor="black"
-                                    style={[commonStyles.textField, {height: 23}]}
-                                    value={playerName.name}
-                                    onChangeText={(text) => handlePlayerNameChange(index, text)}
-                                    onFocus={() => handleFocus(index)}
-                                />
-                            </View>
-                        ))}
+                        {playerNames.slice(playerNames.length / 2, playerNames.length).map((playerName, index) => {
+                            const secondColumnIndex = index + playerNames.length / 2;
+                            return (
+                                <View key={secondColumnIndex} style={commonStyles.rowContainer}>
+                                    <TextInput
+                                        placeholderTextColor="black"
+                                        style={[commonStyles.textField, {height: 23}]}
+                                        value={playerName.name}
+                                        onChangeText={(text) => handlePlayerNameChange(secondColumnIndex, text)}
+                                        onFocus={() => handleFocus(secondColumnIndex)}
+                                    />
+                                </View>
+                            );
+                        })}
                     </View>
                     <View style={commonStyles.rowContainer}>
                         <TouchableOpacity style={commonStyles.button} onPress={handleSmash}>
