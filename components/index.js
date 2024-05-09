@@ -59,7 +59,7 @@ const Index = () => {
             // Start playing the music
             const newSoundObject = new Audio.Sound();
             try {
-                await newSoundObject.loadAsync(require('../assets/sounds/new_life_moire.mp3'));
+                await newSoundObject.loadAsync(require('../assets/sounds/Mango_x3.mp3'));
                 await newSoundObject.playAsync();
                 setSoundObject(newSoundObject);
             } catch (error) {
