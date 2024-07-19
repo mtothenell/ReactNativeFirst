@@ -37,7 +37,8 @@
       }
     },
     "plugins": [
-      "expo-font"
+      "expo-font",
+      "react-native-google-cast"
     ],
     "updates": {
       "url": "https://u.expo.dev/c4a401cc-71bb-446f-8606-c8674fd8d090"

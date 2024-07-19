@@ -83,6 +83,13 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     };
 
     const handleSmash = () => {
+
+        const updatedTourData = {
+            ...tournamentData,
+            medalistClickable: true,
+        };
+        setTournamentData(updatedTourData);
+
         //playSound().then(r => {})
         const shuffledPlayerNames = shuffleArray([...playerNames]);
         setPlayerNames(shuffledPlayerNames);

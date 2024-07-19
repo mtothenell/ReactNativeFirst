@@ -11,7 +11,6 @@ import {useFonts} from "expo-font";
 import * as Font from "expo-font";
 import TournamentPointModal from "./TournamentPointModal";
 import {Audio} from "expo-av";
-import {PlaybackMixin as soundObject} from "expo-av/src/AV";
 
 const Index = () => {
 
@@ -129,7 +128,7 @@ const Index = () => {
             source={bg}
             resizeMode="cover" style={commonStyles.backgroundImage}
         >
-            {!tournamentData.gameOn && showContent && (
+             {!tournamentData.gameOn && showContent && (
                 <View style={isLandscape ? commonStyles.containerLandscape : commonStyles.container}>
                     <View style={commonStyles.headerContainer}>
                         <View style={commonStyles.indexImage}>
