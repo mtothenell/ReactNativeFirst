@@ -30,16 +30,13 @@ const Tournament = () => {
         setIsLandscape(width > height);
     }, []);
 
-    // useEffect(() => {
-    //     for (const item of selectedValues) {
-    //         const sum = parseInt(item.value1) + parseInt(item.value2);
-    //         if (sum === tournamentData.points) {
-    //             setValuesEntered(false)
-    //         } else {
-    //             setValuesEntered(true)
-    //         }
-    //     }
-    // }, [selectedValues]);
+    useEffect(() => {
+        setTournamentData(prevState => ({
+            ...prevState,
+            tournamentClickable: true,
+        }));
+    },[]);
+
 
     useEffect(() => {
         let isValid = true; // Assume all pairs are valid initially

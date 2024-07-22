@@ -14,25 +14,27 @@ import Medalist from "./components/Medalist";
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
-const MainStack = () => (
+const MainStack = () => {
 
-    <Stack.Navigator screenOptions={{
-        headerTitleStyle: {
-            alignSelf: 'flex-end',
-            fontFamily: 'Josefinsans',
-            fontWeight: 'bold',
-        },
-        headerStyle: {
-            backgroundColor: "orange",
-        }
-    }}>
-        <Stack.Screen name="Home" component={Index} options={{headerShown: false}}/>
-        <Stack.Screen name="Tournament" component={Tournament} options={{headerShown: false}}/>
-        <Stack.Screen name="Topboard" component={Topboard} options={{headerShown: false}}/>
-        <Stack.Screen name="Medalist" component={Medalist} options={{headerShown: false}}/>
-        {/*<Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>*/}
-    </Stack.Navigator>
-);
+    return (
+        <Stack.Navigator screenOptions={{
+            headerTitleStyle: {
+                alignSelf: 'flex-end',
+                fontFamily: 'Josefinsans',
+                fontWeight: 'bold',
+            },
+            headerStyle: {
+                backgroundColor: "orange",
+            }
+        }}>
+            <Stack.Screen name="Home" component={Index} options={{headerShown: false}}/>
+            <Stack.Screen name="Tournament" component={Tournament} options={{headerShown: false}}/>
+            <Stack.Screen name="Topboard" component={Topboard} options={{headerShown: false}}/>
+            <Stack.Screen name="Medalist" component={Medalist} options={{headerShown: false}}/>
+            {/*<Stack.Screen name="Settings" component={Settings} options={{headerShown: false}}/>*/}
+        </Stack.Navigator>
+    )
+};
 
 export default function App() {
 
@@ -64,10 +66,9 @@ export default function App() {
 function AppContent() {
 
     const tourContext = useTournamentData();
-    const {tournamentData} = tourContext;
+    const {tournamentData,} = tourContext;
 
     return (
-        <TournamentDataProvider>
             <NavigationContainer>
                 <Tab.Navigator
                     screenOptions={{
@@ -140,7 +141,6 @@ function AppContent() {
                     {/*}*/}
                 </Tab.Navigator>
             </NavigationContainer>
-        </TournamentDataProvider>
     );
 }
 

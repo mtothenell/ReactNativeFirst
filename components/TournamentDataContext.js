@@ -15,7 +15,7 @@ export const TournamentDataProvider = ({children}) => {
         playerNames: [],
         round: 1,
         roundData: [],
-        settingsClickable: true,
+        settingsClickable: false,
         tournamentClickable: true,
         topboardClickable: true,
         medalistClickable: true,

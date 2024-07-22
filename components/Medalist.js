@@ -2,7 +2,7 @@ import React, {useEffect, useState} from "react";
 import {Dimensions, ImageBackground, View, StyleSheet, Text, Image, TouchableOpacity} from "react-native";
 import commonStyles from "../commonStyles";
 import bg from "../assets/img.png";
-import podium from "../assets/podium.png";
+import podium from "../assets/podium2.png";
 import {useTournamentData} from "./TournamentDataContext";
 
 

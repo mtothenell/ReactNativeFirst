@@ -12,6 +12,7 @@ import * as Font from "expo-font";
 import TournamentPointModal from "./TournamentPointModal";
 import {Audio} from "expo-av";
 import {PlaybackMixin as soundObject} from "expo-av/src/AV";
+import {calculatePlayerScores} from "./CalculatePlayerScores";
 
 const Index = () => {
 

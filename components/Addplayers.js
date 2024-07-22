@@ -3,7 +3,7 @@ import {View, Text, TextInput, TouchableOpacity, Dimensions} from "react-native"
 import React, {useEffect, useState} from "react";
 import {useNavigation} from "@react-navigation/native";
 import {useTournamentData} from "./TournamentDataContext";
-import { Audio } from 'expo-av';
+import {Audio} from 'expo-av';
 
 const Addplayers = ({resetIndex, isLandscape}) => {
 
@@ -83,6 +83,7 @@ const Addplayers = ({resetIndex, isLandscape}) => {
     };
 
     const handleSmash = () => {
+
         //playSound().then(r => {})
         const shuffledPlayerNames = shuffleArray([...playerNames]);
         setPlayerNames(shuffledPlayerNames);

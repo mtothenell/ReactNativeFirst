@@ -2,7 +2,7 @@ import commonStyles from "../commonStyles";
 import {View, Text, ImageBackground, TouchableOpacity, Image, Animated, StyleSheet, Dimensions} from "react-native";
 import bg from "../assets/img.png";
 import React, {useEffect, useRef, useState} from "react";
-import podium from "../assets/podium.png";
+import podium from "../assets/podium2.png";
 
 const Settings = () => {
 
