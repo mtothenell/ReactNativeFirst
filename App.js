@@ -40,6 +40,10 @@ export default function App() {
 
     const [isFontLoaded, setIsFontLoaded] = useState(false);
 
+    useEffect( () => {
+
+    },[]);
+
     useEffect(() => {
         async function loadFonts() {
             await Font.loadAsync({
@@ -48,7 +52,7 @@ export default function App() {
             });
             setIsFontLoaded(true);
         }
-        loadFonts().then(r => () => {});
+        loadFonts().then();
     }, []);
 
     // Wait for fonts to load before rendering the app
@@ -87,7 +91,7 @@ function AppContent() {
                             ),
                         }}
                     />
-                    {tournamentData.tournamentClickable &&
+                    {tournamentData.tournamentClickable && (
                         <Tab.Screen
                             name="Tournament"
                             component={Tournament}
@@ -99,7 +103,7 @@ function AppContent() {
                                 ),
                             }}
                         />
-                    }
+                    )}
                     {tournamentData.topboardClickable &&
                         <Tab.Screen
                             name="Topboard"
@@ -113,7 +117,7 @@ function AppContent() {
                             }}
                         />
                     }
-                    {tournamentData.medalistClickable &&
+                    {tournamentData.medalistClickable && (
                         <Tab.Screen
                             name="Medalist"
                             component={Medalist}
@@ -125,7 +129,7 @@ function AppContent() {
                                 ),
                             }}
                         />
-                    }
+                    )}
                     {/*{tournamentData.settingsClickable &&*/}
                     {/*    <Tab.Screen*/}
                     {/*        name="Settings"*/}

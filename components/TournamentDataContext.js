@@ -18,7 +18,7 @@ export const TournamentDataProvider = ({children}) => {
         settingsClickable: false,
         tournamentClickable: true,
         topboardClickable: true,
-        medalistClickable: true,
+        medalistClickable: false,
         gameOn: false
     };
 
@@ -27,7 +27,8 @@ export const TournamentDataProvider = ({children}) => {
     const sortPlayers = () => {
         setTournamentData(prevState => ({
             ...prevState,
-            playerNames: calculatePlayerScores(prevState)
+            playerNames: calculatePlayerScores(prevState),
+
         }));
     };
 
