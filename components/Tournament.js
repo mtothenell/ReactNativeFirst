@@ -35,8 +35,7 @@ const Tournament = () => {
             ...prevState,
             tournamentClickable: true,
         }));
-    },[]);
-
+    }, []);
 
     useEffect(() => {
         let isValid = true; // Assume all pairs are valid initially
@@ -49,7 +48,6 @@ const Tournament = () => {
         }
         setValuesEntered(isValid);
     }, [selectedValues, tournamentData.points]);
-
 
 
     const handleDropdownChange1 = (index, value) => {
@@ -78,7 +76,8 @@ const Tournament = () => {
         updateRoundData(tournamentData.round, selectedValues);
         setTournamentData(prevState => ({
             ...prevState,
-            round: prevState.round + 1
+            round: prevState.round + 1,
+            medalistClickable: true,
         }));
         setSelectedValues(Array(Math.ceil(tournamentData.playerNames.length / 4)).fill({value1: '0', value2: '0'}));
         sortPlayers();
@@ -103,7 +102,6 @@ const Tournament = () => {
             handleDropdownChange2(index, number);
         }
     };
-
 
     useEffect(() => {
 
@@ -179,7 +177,11 @@ const Tournament = () => {
                                             pointsPlaying={tournamentData.points}></TournamentPointModal>
                                     </Modal>
                                     <View><Text style={commonStyles.label}>
-                                        {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)}
+                                        {tournamentData.playerNames.length !== 0 &&
+                                            (tournamentData.type === "Americano"
+                                                ? (tournamentData.playerTest[index * 4].name + '  ' + tournamentData.playerTest[index * 4 + 2].name)
+                                                : tournamentData.playerNames[index * 4].name + '  ' + tournamentData.playerNames[index * 4 + 2].name)
+                                        }
                                     </Text>
                                     </View>
                                     {isLandscape && <Text style={commonStyles.labelVS}>VS</Text>}
@@ -205,7 +207,11 @@ const Tournament = () => {
                                                               pointsPlaying={tournamentData.points}></TournamentPointModal>
                                     </Modal>
                                     <View><Text style={commonStyles.label}>
-                                        {tournamentData.playerNames.length !== 0 && (tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)}
+                                        {tournamentData.playerNames.length !== 0 &&
+                                            (tournamentData.type === "Americano"
+                                                ? (tournamentData.playerTest[index * 4 + 1].name + '  ' + tournamentData.playerTest[index * 4 + 3].name)
+                                                : tournamentData.playerNames[index * 4 + 1].name + '  ' + tournamentData.playerNames[index * 4 + 3].name)
+                                        }
                                     </Text>
                                     </View>
                                 </View>)

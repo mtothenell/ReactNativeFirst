@@ -1,5 +1,6 @@
 import React, {createContext, useContext, useEffect, useState} from 'react';
 import {calculatePlayerScores} from "./CalculatePlayerScores";
+import {SortAmericanoPlayers} from "./sorting/SortAmericanoPlayers";
 
 const TournamentDataContext = createContext(null);
 
@@ -9,10 +10,12 @@ export const TournamentDataProvider = ({children}) => {
 
     const initialTournamentData = {
         name: 'Tournament',
-        type: 'Mexicano',
+        type: 'Americano',
         players: 4,
         points: 21,
         playerNames: [],
+        playerNamesAmericano: [],
+        playerTest: [],
         round: 1,
         roundData: [],
         settingsClickable: false,
@@ -28,6 +31,8 @@ export const TournamentDataProvider = ({children}) => {
         setTournamentData(prevState => ({
             ...prevState,
             playerNames: calculatePlayerScores(prevState),
+            playerNamesAmericano: calculatePlayerScores(prevState), // handle americano score
+            playerTest: SortAmericanoPlayers(prevState,initialTournamentData.round) // handle americano order
 
         }));
     };
@@ -44,6 +49,8 @@ export const TournamentDataProvider = ({children}) => {
                 {
                     round,
                     playerNames: prevState.playerNames,
+                    playerNamesAmericano: prevState.playerNamesAmericano,
+                    playerTest: prevState.playerTest,
                     selectedValues
                 }
             ]

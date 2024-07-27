@@ -3,7 +3,7 @@ import {Modal, View, Text, TouchableOpacity, StyleSheet, FlatList, ImageBackgrou
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
 
-const MyModal = ({onClose, onSelectNumber, pointsPlaying, playerTextfield = false}) => {
+const MyModal = ({onClose, onSelectNumber, pointsPlaying, playerTextfield = false, isAmericano = false}) => {
 
     let numbers;
     let itemHeight = 34; // Height of each item
@@ -12,7 +12,11 @@ const MyModal = ({onClose, onSelectNumber, pointsPlaying, playerTextfield = fals
     if (!playerTextfield) {
         numbers = Array.from({length: pointsPlaying}, (_, i) => i + 1);
     } else {
-        numbers = Array.from({length: 4}, (_, i) => (i + 1) * 4);
+        if (isAmericano === true) {
+            numbers = [4];
+        } else {
+            numbers = Array.from({length: 4}, (_, i) => (i + 1) * 4);
+        }
         itemHeight = 60;
         itemWidth = 20;
         numColumns = 8;

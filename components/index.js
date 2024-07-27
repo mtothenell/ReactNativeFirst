@@ -19,13 +19,16 @@ const Index = () => {
     const [isPointsModalVisible, setIsPointsModalVisible] = useState(false);
     const [isPlayersModalVisible, setIsPlayersModalVisible] = useState(false);
 
+
     const [isFontLoaded, setIsFontLoaded] = useState(false);
     const [isLandscape, setIsLandscape] = useState(false);
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
+
     const [point, setPoint] = useState(21);
-    const [players, setPlayers] = useState(8);
-    const type = ["TGIF", "Mexicano"]
+    const [players, setPlayers] = useState(4);
+    const type = ["TGIF", "Mexicano", "Americano"]
+
     const [showContent, setShowContent] = useState(true);
     const [showPlayers, setShowPlayers] = useState(false);
     const textInputRef = useRef(null);
@@ -49,6 +52,7 @@ const Index = () => {
         const {width, height} = Dimensions.get('window');
         setIsLandscape(width > height);
     }, []);
+
 
     const toggleMusic = async () => {
         if (musicPlaying) {
@@ -158,58 +162,64 @@ const Index = () => {
                                 buttonTextStyle={commonStyles.selectDropDownText}
                                 buttonStyle={commonStyles.selectDropdown}
                                 defaultButtonText={tournamentData.type}
-                                onSelect={(selectedItem, index) => tourContext.setTournamentData({
-                                    ...tournamentData,
-                                    type: selectedItem
-                                })}
+                                onSelect={(selectedItem, index) => {
+                                    tourContext.setTournamentData({
+                                        ...tournamentData,
+                                        type: selectedItem
+                                    });
+                                    if (selectedItem === "Americano") {
+                                        setPlayers(4);
+                                    }
+                                }}
 
-                                buttonTextAfterSelection={(selectedItem, index) => {
+                                    buttonTextAfterSelection={(selectedItem, index) => {
                                     return selectedItem
                                 }}
-                                rowTextForSelection={(item, index) => {
+                                    rowTextForSelection={(item, index) => {
                                     return item
                                 }}
-                            />
-                        </View>
-                        <View style={commonStyles.rowContainer}>
-                            <Text style={commonStyles.label}> Players</Text>
-                            <Text
-                                ref={textInputRef}
-                                style={commonStyles.textField}
-                                value={players.toString()}
-                                onPress={handleTextInputFocusPlayers}
-                            >
-                                {players ? players.toString() : 'Placeholder Text'}
-                            </Text>
-                            <Modal
-                                visible={isPlayersModalVisible}
-                                transparent={true}
-                                onRequestClose={handleCloseModalPlayers}
-                                animationType="fade"
-                            >
-                                <TournamentPointModal onClose={handleCloseModalPlayers}
-                                                      onSelectNumber={handleNumberSelectionPlayers}
-                                                      pointsPlaying={tournamentData.points}
-                                                      isLandscape={isLandscape}
-                                                      playerTextfield={true}></TournamentPointModal>
-                            </Modal>
-                            {/*<SelectDropdown*/}
-                            {/*    rowTextStyle={commonStyles.selectDropDownText}*/}
-                            {/*    buttonTextStyle={commonStyles.selectDropDownText}*/}
-                            {/*    data={players}*/}
-                            {/*    defaultButtonText="4"*/}
-                            {/*    buttonStyle={commonStyles.selectDropdown}*/}
-                            {/*    onSelect={(selectedItem, index) => tourContext.setTournamentData({*/}
-                            {/*        ...tourContext.tournamentData,*/}
-                            {/*        players: selectedItem*/}
-                            {/*    })}*/}
-                            {/*    buttonTextAfterSelection={(selectedItem, index) => {*/}
-                            {/*        return selectedItem*/}
-                            {/*    }}*/}
-                            {/*    rowTextForSelection={(item, index) => {*/}
-                            {/*        return item*/}
-                            {/*    }}*/}
-                            {/*/>*/}
+                                    />
+                                    </View>
+                                    <View style={commonStyles.rowContainer}>
+                                <Text style={commonStyles.label}> Players</Text>
+                                <Text
+                                    ref={textInputRef}
+                                    style={commonStyles.textField}
+                                    value={players.toString()}
+                                    onPress={handleTextInputFocusPlayers}
+                                >
+                                    {players ? players.toString() : 'Placeholder Text'}
+                                </Text>
+                                <Modal
+                                    visible={isPlayersModalVisible}
+                                    transparent={true}
+                                    onRequestClose={handleCloseModalPlayers}
+                                    animationType="fade"
+                                >
+                                    <TournamentPointModal onClose={handleCloseModalPlayers}
+                                                          onSelectNumber={handleNumberSelectionPlayers}
+                                                          pointsPlaying={tournamentData.points}
+                                                          isLandscape={isLandscape}
+                                                          playerTextfield={true}
+                                                          isAmericano={tournamentData.type === "Americano"}></TournamentPointModal>
+                                </Modal>
+                                {/*<SelectDropdown*/}
+                                {/*    rowTextStyle={commonStyles.selectDropDownText}*/}
+                                {/*    buttonTextStyle={commonStyles.selectDropDownText}*/}
+                                {/*    data={players}*/}
+                                {/*    defaultButtonText="4"*/}
+                                {/*    buttonStyle={commonStyles.selectDropdown}*/}
+                                {/*    onSelect={(selectedItem, index) => tourContext.setTournamentData({*/}
+                                {/*        ...tourContext.tournamentData,*/}
+                                {/*        players: selectedItem*/}
+                                {/*    })}*/}
+                                {/*    buttonTextAfterSelection={(selectedItem, index) => {*/}
+                                {/*        return selectedItem*/}
+                                {/*    }}*/}
+                                {/*    rowTextForSelection={(item, index) => {*/}
+                                {/*        return item*/}
+                                {/*    }}*/}
+                                {/*/>*/}
                         </View>
                         {tournamentData.type !== "TGIF" && <View style={commonStyles.rowContainer}>
                             <Text style={commonStyles.label}> Points</Text>

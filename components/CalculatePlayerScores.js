@@ -1,12 +1,13 @@
 export const calculatePlayerScores = (tournamentData) => {
     const roundData = tournamentData.roundData;
-    console.log(JSON.stringify(roundData));
     const playerScores = {};
 
     roundData.forEach((round) => {
-        round.playerNames.forEach((player, index) => {
 
-const playerName = player.name;
+        const typeOfPlayerNames = tournamentData.type === "Americano" ? round.playerTest : round.playerNames;
+        typeOfPlayerNames.forEach((player, index) => {
+
+            const playerName = player.name;
             let score = player.score || 0;
             let wins = player.wins || 0;
 
@@ -51,7 +52,7 @@ const playerName = player.name;
                 playerScores[playerName].score += score;
                 playerScores[playerName].wins = wins;
             } else {
-                playerScores[playerName] = { name: playerName, score, wins };
+                playerScores[playerName] = {name: playerName, score, wins};
             }
         });
     });

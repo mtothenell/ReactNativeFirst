@@ -3,13 +3,13 @@ import React, {useEffect, useState} from "react";
 import bg from "../assets/img.png";
 import commonStyles from "../commonStyles";
 import {useTournamentData} from "./TournamentDataContext";
-import Counter from "react-native-counters";
 import CustomCounter from "./CustomCounter";
 
 const TopboardTGIF = ({isLandscape}) => {
 
     const tourContext = useTournamentData();
     const {tournamentData} = tourContext;
+
 
     return (
         <ImageBackground
